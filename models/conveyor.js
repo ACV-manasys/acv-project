@@ -1,25 +1,17 @@
 const mongoose = require('mongoose');
 
-const SpartSchema = new mongoose.Schema(
+const ConveyorSchema = new mongoose.Schema(
   {
-    name: {
+    machineName: {
+      type: String,
+      required: true,
+    },
+    dimension: {
       type: String,
       required: true,
     },
     quantity: {
       type: Int16Array,
-      required: true,
-    },
-    partNo: {
-      type: String,
-      required: true,
-    },
-    commodity: {
-      type: String,
-      required: true,
-    },
-    specification: {
-      type: String,
       required: true,
     },
     manufacturer: {
@@ -43,4 +35,4 @@ const SpartSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('spart', SpartSchema);
+module.exports = mongoose.model('conveyor', ConveyorSchema);
