@@ -6,19 +6,9 @@ const SpartSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    arrival: [{
-      date: {
-        type: Date, // this is user's id
-        required: false,
-      }
-    }],
     quantity: {
       type: Int16Array,
       required: true,
-    },
-    note: {
-      type: String,
-      required: false,
     },
     partNo: {
       type: String,
@@ -36,6 +26,16 @@ const SpartSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    note: {
+      type: String,
+      required: false,
+    },
+    arrival: [{
+      date: {
+        type: Date,
+        required: false,
+      }
+    }],
   }
 );
 
