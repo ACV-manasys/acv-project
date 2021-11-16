@@ -5,7 +5,10 @@
 
 - [Installation](#installation)
 - [Coding style](#coding-style)
+- [Repo structure](#repo-structure)
+  - [Content of .env file](#content-of-env-file)
 - [Sources and references](#sources-and-references)
+
 
 ## Installation
 
@@ -33,6 +36,53 @@ To runs the server backend in the development mode.
 
 After run all above commands (ideally in 2 terminals, one for frontend and one for backend), it should open a new web window at `localhost:3000` and displayed some frontpage content there.
 
+
+## Coding style
+
+Indent space: 2 (for backend) and 4 (for frontend)
+
+Variable name: camelCase. Example: smallNumber, dateOfBirth.
+
+Database model name: Start with uppercase. Example: User, Contact, Event.
+
+Use `const` when require modules.
+
+
+## Repo structure
+
+```bash
+
+|__client/  ** THIS IS EVERYTHING FROM THE REACT SIDE **
+    |__ node_modules/  ** THIS BELONGS TO FRONTEND
+        |__ tons of stuff...
+    |__ public/
+        |__ index.html
+        |__ favicon.ico
+        |__ etc.
+    |__ src/
+        |__ index.js
+        |__ App.js
+        |__ etc.
+|__ node_modules/  ** THIS BELONGS TO BACKEND
+    |__ stuff...
+|__ models/
+    |__ spart.js
+    |__ conveyor.js
+    |__ etc.
+|__ config/
+    |__ config.js
+|__ routes
+    |__ spart.js
+    |__ conveyor.js
+    |__ etc.
+|__ .gitignore
+|__ .env  ** ALTHOUGH GITIGNORED, IT IS REQUIRED
+|__ package.json
+|__ server.js
+|__ etc.
+```
+
+
 ### Content of .env file
 
 This file is placed at project's root (same as `server.js`)
@@ -54,16 +104,6 @@ DB_TEST_NAME = _____
 PASSPORT_SECRET = _____
 
 ```
-
-## Coding style (for backend and frontend)
-
-Indent space: 2 (for backend) and 4 (for frontend)
-
-Variable name: camelCase. Example: smallNumber, dateOfBirth.
-
-Database model name: Start with uppercase. Example: User, Contact, Event.
-
-Use `const` when require modules.
 
 
 ## Sources and references
