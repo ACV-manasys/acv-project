@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import logo from './drawnLogo.png';
 import {
   Button,
@@ -12,10 +12,10 @@ import {
   Slide,
   Dialog,
   Tab, Tabs,
-  IconButton,
 } from '@mui/material';
 
 import TabContext from '@material-ui/lab/TabContext';
+import TabPanel from '@material-ui/lab/TabPanel';
 
 import useStyles from './styles';
 import Login from '../../components/login';
@@ -91,12 +91,10 @@ function Frontpage() {
           <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
             <AppBar sx={{ position: 'relative', boxShadow: 'none' }} position="static">
               <Toolbar>
-                <Button
-                  edge="start"
-                  color="inherit"
-                  onClick={handleClose}
-                  aria-label="close"
-                >
+                <Button color="inherit"
+                  className={classes.toolbarButton}
+                  variant="outlined"
+                  onClick={handleClose}>
                   close
                 </Button>
               </Toolbar>
@@ -125,6 +123,12 @@ function Frontpage() {
                   <Tab label="SIGN IN" value="Sign in" />
                   <Tab label="SIGN UP" value="Sign up" />
                 </Tabs>
+                <TabPanel value="Sign in">
+                  <Login tab={tab} />
+                </TabPanel>
+                <TabPanel value="Sign up">
+                  <Login tab={tab} />
+                </TabPanel>
               </TabContext>
             </Box>
           </Dialog>
