@@ -1,19 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Box,
   Typography,
-  IconButton,
-  InputAdornment,
   TextField,
   Alert,
   Button,
   Link,
-  Stack,
 } from '@mui/material';
-
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import StandardInput from './StandardInput';
 
@@ -28,12 +22,20 @@ function Login({ tab }) {
   const [alert, setAlert] = useState();
 
   // FOR REGISTER TAB *****************************
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   const [user, setUser] = useState({
     name: '',
     username: '',
     password: '',
     repassword: '',
     email: '',
+  });
+  const [errors, setErrors] = useState({
+    name: false,
+    username: false,
+    password: false,
+    repassword: false,
+    email: false,
   });
 
   const wrapperBoxStyle = {
@@ -43,6 +45,31 @@ function Login({ tab }) {
     alignItems: 'center',
     mt: '15px'
   };
+
+  useEffect(() => {
+    const inputs = document.querySelectorAll('input');
+    let length = inputs.length;
+    let validInputs = 0;
+
+    Array.from(inputs).filter((input) => {
+      if (input.validity.valid) {
+        validInputs += 1;
+      }
+    });
+
+    let isError = false;
+    for (const prop in errors) {
+      if (errors[prop] === true) {
+        isError = true;
+      }
+    }
+
+    if (validInputs === length && !isError) {
+      setSubmitDisabled(false);
+    } else {
+      setSubmitDisabled(true);
+    }
+  }, [user]);
 
   const handleClickShowPassword = () => {
     if (showpass.shown) {
@@ -80,7 +107,14 @@ function Login({ tab }) {
   };
 
   const submitRegister = (e) => {
-
+    if (user.password !== user.repassword) {
+      setAlert(
+        <Alert severity="error">Re-entered password does not match</Alert>
+      );
+    }
+    else {
+      setAlert();
+    }
   };
 
   switch (tab) {
@@ -165,6 +199,7 @@ function Login({ tab }) {
               Register
             </Typography>
           </Box>
+          <Box >{alert}</Box>
           <StandardInput
             id="name" label="Name" name="name" value={user.name}
             setValue={setUser} required={true}
@@ -173,16 +208,41 @@ function Login({ tab }) {
             id="username" label="Username" name="username" value={user.username}
             setValue={setUser} required={true}
           />
-          <StandardInput
-            id="password" label="Password" name="password" value={user.password}
-            setValue={setUser} required={true}
+          <TextField
+            required={true}
+            id="password"
+            margin="normal"
+            variant="outlined"
+            fullWidth
+            type={showpass.shown ? 'text' : 'password'}
+            size="medium"
+            label="Password"
+            value={user.password}
+            onChange={(e) => {
+              setUser((prev) => ({ ...prev, password: e.target.value }));
+            }}
           />
-          <StandardInput
-            id="repassword" label="Re-enter Password" name="repassword" value={user.repassword}
-            setValue={setUser} required={true}
+          <TextField
+            required={true}
+            id="repassword"
+            margin="normal"
+            variant="outlined"
+            fullWidth
+            type={showpass.shown ? 'text' : 'password'}
+            size="medium"
+            label="Re-enter Password"
+            value={user.repassword}
+            onChange={(e) => {
+              setUser((prev) => ({ ...prev, repassword: e.target.value }));
+            }}
           />
+          <Button
+            onClick={handleClickShowPassword}
+            onMouseDown={handleMouseDownPassword}>
+            {showpass.text}
+          </Button>
           <StandardInput
-            id="email" label="Email Address" name="email" value={user.repassword}
+            id="email" label="Email Address" name="email" value={user.email}
             setValue={setUser} required={true}
           />
           <Button
@@ -193,6 +253,7 @@ function Login({ tab }) {
             color="primary"
             fullWidth
             onClick={submitRegister}
+            disabled={submitDisabled}
           >
             Register
           </Button>

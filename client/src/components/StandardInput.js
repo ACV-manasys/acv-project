@@ -2,6 +2,8 @@ import React from 'react';
 
 import {
   TextField,
+  FormHelperText,
+  Box,
 } from '@mui/material';
 
 function StandardInput({
@@ -12,22 +14,67 @@ function StandardInput({
   required,
   width,
   sx,
+  setErrors,
 }) {
 
+  const invalidEmailErrorMessage = 'invalid email';
+  const invalidTelErrorMessage = 'Must only contain numbers';
+
+  function isError(val) {
+    switch (name) {
+      case 'email':
+        if (setErrors !== undefined) {
+          if (!/\S+@\S+\.\S+/.test(val)) {
+            setErrors((prev) => ({ ...prev, email: true }));
+          } else {
+            setErrors((prev) => ({ ...prev, email: false }));
+          }
+        }
+        return !/\S+@\S+\.\S+/.test(val);
+      case 'tel':
+        return isNaN(val);
+      default:
+    }
+  }
+
+  function generateHelperText(val) {
+    if (val !== '') {
+      switch (name) {
+        case 'email':
+          return (
+            !/\S+@\S+\.\S+/.test(val) && (
+              <FormHelperText error>{invalidEmailErrorMessage}</FormHelperText>
+            )
+          );
+        case 'tel':
+          return (
+            isNaN(val) && (
+              <FormHelperText error>{invalidTelErrorMessage}</FormHelperText>
+            )
+          );
+        default:
+      }
+    }
+  }
+
   return (
-    <TextField
-      required={required}
-      id={name}
-      margin="normal"
-      variant="outlined"
-      size="medium"
-      fullWidth
-      value={value}
-      label={label}
-      onChange={(e) => {
-        setValue((prev) => ({ ...prev, [name]: e.target.value }));
-      }}
-    />
+    <Box sx={{ width: '300px' }}>
+      <TextField
+        required={required}
+        id={name}
+        margin="normal"
+        variant="outlined"
+        size="medium"
+        fullWidth
+        value={value}
+        label={label}
+        onChange={(e) => {
+          setValue((prev) => ({ ...prev, [name]: e.target.value }));
+          isError(e.target.value);
+        }}
+      />
+      {generateHelperText(value)}
+    </Box>
   );
 }
 
