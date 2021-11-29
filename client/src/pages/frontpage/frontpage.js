@@ -75,7 +75,7 @@ function Frontpage() {
               href="https://ancoviet.com/"
               color="inherit"
               className={classes.toolbarButton}
-              variant="text"
+              variant="outlined"
             >
               official website
             </Button>

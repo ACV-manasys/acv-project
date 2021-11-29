@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema(
       required: true,
     },
     username: {
-      type: Int16Array,
+      type: String,
       required: true,
     },
     password: {
@@ -17,6 +17,10 @@ const UserSchema = new mongoose.Schema(
     },
     email: {
       type: String,
+      required: true,
+    },
+    activated: {
+      type: Boolean,
       required: true,
     }
   }

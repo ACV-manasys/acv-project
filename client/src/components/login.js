@@ -10,8 +10,9 @@ import {
 } from '@mui/material';
 
 import StandardInput from './StandardInput';
+import { login, registerUserdata } from '../api';
 
-function Login({ tab }) {
+function Login({ tab }, props) {
   // FOR LOGIN TAB ********************************
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -29,13 +30,6 @@ function Login({ tab }) {
     password: '',
     repassword: '',
     email: '',
-  });
-  const [errors, setErrors] = useState({
-    name: false,
-    username: false,
-    password: false,
-    repassword: false,
-    email: false,
   });
 
   const wrapperBoxStyle = {
@@ -58,8 +52,8 @@ function Login({ tab }) {
     });
 
     let isError = false;
-    for (const prop in errors) {
-      if (errors[prop] === true) {
+    for (const prop in user) {
+      if (user[prop] === '') {
         isError = true;
       }
     }
@@ -91,19 +85,25 @@ function Login({ tab }) {
   };
 
   const submitLogin = (e) => {
-    /*login(username, password).then(null, (reason) => {
-      if (reason === 'Unauthorized') {
+    // Call mock if exist
+    if (props.onClick) {
+      props.onClick();
+    }
+    e.preventDefault();
+
+    login(username, password).then(null, (reason) => {
+      if (reason === 400) {
         setAlert(
           <Alert severity="error">Incorrect username or password</Alert>
         );
       } else {
         setAlert(
           <Alert severity="error">
-            Authentication failed. Please retry again
+            Authentication failed. Please retry again or contact the admin for account activation - Error code: {reason}
           </Alert>
         );
       }
-    });*/
+    });
   };
 
   const submitRegister = (e) => {
@@ -113,7 +113,19 @@ function Login({ tab }) {
       );
     }
     else {
-      setAlert();
+      registerUserdata(user).then(null, (res) => {
+        if (res.status === 200) {
+          setAlert(
+            <Alert severity="success">
+              Your registration has been forwarded to our admin,
+              please wait for our confirmation :). Double check your email inbox!
+            </Alert>
+          );
+        }
+        else {
+          setAlert(<Alert severity="error">Error code: {res.status}, Content: {res.data.message}</Alert>);
+        }
+      });
     }
   };
 
