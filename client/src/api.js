@@ -1,4 +1,4 @@
-const axios = require('axios');
+const axios = require('axios').default;
 
 const instance = axios.create({
   baseURL: 'http://localhost:5000',
@@ -16,7 +16,7 @@ const config = {
 */
 
 export async function login(username, password) {
-  await axios
+  await instance
     .post('/login', {
       username: username,
       password: password,
@@ -34,7 +34,7 @@ export async function login(username, password) {
 }
 
 export async function registerUserdata(userdata) {
-  await axios
+  await instance
     .post('/register', {
       name: userdata.name,
       username: userdata.username,
