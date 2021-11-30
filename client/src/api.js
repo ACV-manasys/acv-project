@@ -7,13 +7,13 @@ const instance = axios.create({
   },
 });
 
-/*
+
 const config = {
   headers: {
     Authorization: 'Bearer ' + localStorage.getItem('token-myapp'),
   },
 };
-*/
+
 
 export async function login(username, password) {
   await instance
@@ -58,4 +58,10 @@ export function me() {
   let endpoint = '/profile';
 
   return instance.get(endpoint).then((res) => res.data);
+}
+
+export function getAllAccounts() {
+  let endpoint = '/user';
+
+  return instance.get(endpoint, config).then((res) => res.data);
 }

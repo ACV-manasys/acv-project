@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Box } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import {
+  Toolbar,
+  Drawer,
+  Divider,
+  List,
+  Button,
+} from '@mui/material';
 
-import StandardDrawer from './StandardDrawer';
+const drawerWidth = 100;
 
 function Navbar({ active, buttons }) {
   const [open, setOpen] = useState(false);
@@ -13,38 +18,31 @@ function Navbar({ active, buttons }) {
 
   return (
     <div>
-      <AppBar
-        position="static"
+      <Drawer
         sx={{
-          width: `100vw`,
-          display: { sm: 'none' },
-          background: 'white',
-          boxShadow: 'none',
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
         }}
+        variant="permanent"
+        anchor="left"
       >
-        <Toolbar>
-          <IconButton
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ display: { sm: 'none' } }}
-            size="large"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box>
-            {buttons}
-          </Box>
-        </Toolbar>
-      </AppBar>
+        <Toolbar />
+        <Divider />
+        <List>
 
-      {/*
-      <StandardDrawer
+        </List>
+      </Drawer>
+      {/* 
+        <StandardDrawer
         active={active}
         open={open}
         handleDrawerToggle={handleDrawerToggle}
-      />*/}
+      />
+      */}
     </div>
   );
 }

@@ -25,9 +25,15 @@ const App = () => {
           <Route exact path="/log-out" element={<Logout />} />
 
           {/*PROTECTED ROUTES*/}
-          <Route exact path='/home' element={<PrivateRoute />}>
+          <Route exact path="/home" element={<Home />} />
+          {/* 
+          <Route exact path='/home' element={
+            <PrivateRoute exact path="/home">
+              <Home />
+            </PrivateRoute>}>
             <Route exact path='/home' element={<Home />} />
           </Route>
+          */}
         </Routes>
       </Router>
     </ThemeProvider>

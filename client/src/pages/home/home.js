@@ -4,8 +4,17 @@ import {
   Box,
   Container,
   Typography,
+  AppBar,
+  Toolbar,
+  Button,
 } from '@mui/material';
+
 import Navbar from '../../components/Navbar';
+import AccountsDialog from '../../components/accounts';
+import useStyles from '../frontpage/styles';
+
+import GroupIcon from '@mui/icons-material/Group';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import { me } from '../../api';
 
@@ -13,6 +22,7 @@ import { me } from '../../api';
 function Home() {
 
   const [userData, setUserData] = useState([]);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     me().then((res) => {
@@ -20,17 +30,47 @@ function Home() {
     });
   }, []);
 
+  const goToLogOut = () => {
+
+  }
+
+  const classes = useStyles();
+
   return (
     <Box >
       <Navbar active="Home" />
+      <AppBar position="static">
+        <Toolbar >
+          <Box display="flex" flexGrow={1} sx={{ ml: '100px' }}>
+            <Button
+              color="inherit"
+              className={classes.toolbarButton}
+              variant="outlined"
+              onClick={() => setOpen(true)}
+            >
+              <GroupIcon />
+            </Button>
+            <AccountsDialog open={open} setOpen={setOpen} />
+          </Box>
+          <Button
+            color="inherit"
+            className={classes.toolbarButton}
+            variant="outlined"
+            onClick={goToLogOut}
+            endIcon={<LogoutIcon />}
+          >
+            log out
+          </Button>
+        </Toolbar>
+      </AppBar>
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          paddingLeft: '20vw',
-          paddingRight: '20vw',
-          mt: '8px',
+          paddingLeft: '120px',
+          paddingRight: '20px',
+          mt: '20px',
         }}
       >
         {/* Hero Unit */}
@@ -39,14 +79,22 @@ function Home() {
 
         <Container maxWidth="sm">
           <Typography
+            component="h2"
+            variant="h3"
+            align="center"
+            color="#222222"
+            style={{ fontWeight: 600 }}
+          >
+            Welcome back
+          </Typography>
+          <Typography
             component="h1"
             variant="h2"
             align="center"
-            color="black"
-            gutterBottom
+            color="#2C868F"
             style={{ fontWeight: 600 }}
           >
-            Welcome Back {userData.username}
+            🍀 {userData.name} 🍀
           </Typography>
         </Container>
       </Box>
