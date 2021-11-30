@@ -11,7 +11,7 @@ const ConveyorSchema = new mongoose.Schema(
       required: true,
     },
     quantity: {
-      type: Int16Array,
+      type: Number,
       required: true,
     },
     manufacturer: {
@@ -28,7 +28,7 @@ const ConveyorSchema = new mongoose.Schema(
         required: false,
       },
       quantity: {
-        type: Int16Array,
+        type: Number,
         required: true,
       }
     }],

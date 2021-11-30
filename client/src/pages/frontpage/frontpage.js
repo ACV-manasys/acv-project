@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import logo from './drawnLogo.png';
 import {
   Button,
@@ -8,18 +8,46 @@ import {
   AppBar,
   Toolbar,
   Grid,
-  Link,
   Stack,
+  Slide,
+  Dialog,
+  Tab, Tabs,
 } from '@mui/material';
 
+import TabContext from '@material-ui/lab/TabContext';
+import TabPanel from '@material-ui/lab/TabPanel';
+
 import useStyles from './styles';
+import Login from '../../components/login';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function Frontpage() {
-  const goToLogin = () => (window.location.href = '/login');
-  const goToRegister = () => (window.location.href = '/register');
 
   const contactRef = useRef(null);
   const classes = useStyles();
+
+  // DIALOG ******
+  const [open, setOpen] = React.useState(false);
+  const [tab, setTab] = useState('Sign in');
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const wrapperBoxStyle = {
+    display: 'flex',
+    width: '100vw',
+    flexDirection: 'column',
+    alignItems: 'center',
+    mt: '15px'
+  };
 
   // Method to style the company info
   function styleLine(title, content) {
@@ -36,45 +64,86 @@ function Frontpage() {
       </Box>
     )
   }
+
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
           <Box display="flex" flexGrow={1}>
-            <Link href="https://ancoviet.com/" color="inherit">
-              <Typography variant="h6">AN CÔ VIỆT</Typography>
-            </Link>
+            <Button
+              href="https://ancoviet.com/"
+              color="inherit"
+              className={classes.toolbarButton}
+              variant="outlined"
+            >
+              official website
+            </Button>
           </Box>
-          <Stack direction="row" spacing={3}>
-            <Button
-              color="inherit"
-              className={classes.toolbarButton}
-              variant="outlined"
-              onClick={goToLogin}
-            >
-              ĐĂNG NHẬP
-            </Button>
-            <Button
-              color="inherit"
-              className={classes.toolbarButton}
-              variant="outlined"
-              onClick={goToLogin}
-            >
-              ĐĂNG KÝ
-            </Button>
-          </Stack>
+          <Button
+            color="inherit"
+            className={classes.toolbarButton}
+            variant="outlined"
+            onClick={handleClickOpen}
+          >
+            sign in/ sign up
+          </Button>
+          <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+            <AppBar sx={{ position: 'relative', boxShadow: 'none' }} position="static">
+              <Toolbar>
+                <Button color="inherit"
+                  className={classes.toolbarButton}
+                  variant="outlined"
+                  onClick={handleClose}>
+                  close
+                </Button>
+              </Toolbar>
+            </AppBar>
+            <Box sx={wrapperBoxStyle}>
+              <TabContext value={tab}>
+                <Tabs
+                  //orientation="vertical"
+                  sx={{
+                    minHeight: '50px',
+                    background: '#F7F7F7',
+                    borderRadius: '5px',
+                  }}
+                  TabIndicatorProps={{
+                    style: {
+                      margin: '10px 0px',
+                      borderRadius: '10px',
+                      background: '#2C868F',
+                      boxShadow: '6px 6px 10px rgba(223, 120, 97, 0.25)',
+                      zIndex: 0,
+                    },
+                  }}
+                  value={tab}
+                  onChange={(e, newVal) => setTab(newVal)}
+                >
+                  <Tab label="SIGN IN" value="Sign in" />
+                  <Tab label="SIGN UP" value="Sign up" />
+                </Tabs>
+                <TabPanel value="Sign in">
+                  <Login tab={tab} />
+                </TabPanel>
+                <TabPanel value="Sign up">
+                  <Login tab={tab} />
+                </TabPanel>
+              </TabContext>
+            </Box>
+          </Dialog>
         </Toolbar>
       </AppBar>
 
       {/* Hero unit */}
       <Box className={classes.hero}>
         <Container>
-          <Box display="flex" justifyContent="center" alignItems="center" sx={{ mb: '20px' }}>
+          <Box display="flex" justifyContent="center" alignItems="center">
             <img className={classes.logoHero} src={logo} alt="Logo" />
           </Box>
           <Stack>
-            <Typography variant="button" align="center" sx={{ fontSize: '30px', fontWeight: 550 }}>HỆ THỐNG QUẢN LÝ DỮ LIỆU</Typography>
-            <Typography variant="button" align="center" sx={{ fontSize: '40px', fontWeight: 600 }}>CÔNG TY TNHH ĐIỆN TỬ AN CÔ VIỆT</Typography>
+            <Typography variant="button" align="center" sx={{ fontSize: '50px', fontWeight: 600 }}>ANCOVIET</Typography>
+            <Typography variant="button" align="center" sx={{ fontSize: '35px', fontWeight: 530 }}>MANAGEMENT SYSTEM</Typography>
           </Stack>
         </Container>
       </Box>
@@ -90,14 +159,14 @@ function Frontpage() {
           gutterBottom
           sx={{ fontWeight: 'medium' }}
         >
-          THÔNG TIN LIÊN HỆ
+          CONTACT INFORMATION
         </Typography>
         <Container>
-          {styleLine("CÔNG TY TNHH ĐIỆN TỬ AN CÔ VIỆT - 0309366264", "")}
-          {styleLine("Địa chỉ:", "Số 195/22, Đường Bình Thới, Phường 09, Quận 11, TPHCM")}
-          {styleLine("VPĐD:", "Số 01, Đường Chánh Hưng, Ấp 04, Xã Phước Lộc, Huyện Nhà Bè, TPHCM")}
+          {styleLine("ANCOVIET ELECTRONIC CO LTD - TAX NO. 0309366264", "")}
+          {styleLine("Address:", "195/22, Binh Thoi Str., Ward 09, District 11, HCMc")}
+          {styleLine("REPRESENTATIVE OFFICE:", "01, Chanh Hung Str., Hamlet 04, Phuoc Loc Village, Nha Be District, HCMc")}
           {styleLine("Hotline:", "0989 920 022 - 0903 012 950")}
-          {styleLine("Điện thoại:", "(028) 3636 6089 - (028) 3636 6189")}
+          {styleLine("Tel:", "(028) 3636 6089 - (028) 3636 6189")}
           {styleLine("Website:", "www.ancoviet.com")}
           {styleLine("Email:", "ancoviet@gmail.com - kinhdoanh@gmail.com")}
         </Container>

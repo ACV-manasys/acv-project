@@ -7,7 +7,7 @@ const SpartSchema = new mongoose.Schema(
       required: true,
     },
     quantity: {
-      type: Int16Array,
+      type: Number,
       required: true,
     },
     partNo: {
@@ -36,7 +36,7 @@ const SpartSchema = new mongoose.Schema(
         required: false,
       },
       quantity: {
-        type: Int16Array,
+        type: Number,
         required: true,
       }
     }],
