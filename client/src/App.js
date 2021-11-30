@@ -3,6 +3,8 @@ import theme from './theme';
 
 import Frontpage from './pages/frontpage/frontpage';
 import Home from './pages/home/home';
+import Unauthorized from './pages/unauthorized/unauthorized';
+import Logout from './pages/unauthorized/logout';
 import { ThemeProvider } from '@mui/material/styles';
 
 import {
@@ -17,14 +19,15 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
+          {/*NONE-PROTECTED ROUTES*/}
           <Route exact path="/" element={<Frontpage />} />
-          {/* TO DEL LATER */}
-          <Route exact path="/home" element={<Home />} />
-          {/*
-          <Route exact path="/home" element={<PrivateRoute />}>
+          <Route exact path="/unauthorized-access" element={<Unauthorized />} />
+          <Route exact path="/log-out" element={<Logout />} />
+
+          {/*PROTECTED ROUTES*/}
+          <Route exact path='/home' element={<PrivateRoute />}>
             <Route exact path='/home' element={<Home />} />
           </Route>
-          */}
         </Routes>
       </Router>
     </ThemeProvider>
@@ -34,7 +37,26 @@ const App = () => {
 function PrivateRoute({ children, ...rest }) {
   let auth = localStorage.getItem('token-myapp');
 
-  return auth ? children : <Navigate to="/" />;
+  return (
+    <Routes>
+      <Route
+        {...rest}
+        render={({ location }) =>
+          auth ? (
+            children
+          ) : (
+            <Navigate
+              to={{
+                pathname: '/unauthorized-access',
+                state: { from: location },
+              }}
+            />
+          )
+        }
+      />
+    </Routes>
+  );
+  //auth ? children : <Navigate to="/unauthorized-access" />;
 }
 
 export default App;

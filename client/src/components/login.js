@@ -92,14 +92,17 @@ function Login({ tab }, props) {
     e.preventDefault();
 
     login(username, password).then(null, (reason) => {
-      if (reason === 400) {
+      if (reason === 400 || reason === 401) {
         setAlert(
-          <Alert severity="error">Incorrect username or password</Alert>
+          <Alert severity="error">
+            Incorrect username or password or inactivated account.
+            Please retry again or contact the admin for account activation - Error code: {reason}
+          </Alert>
         );
       } else {
         setAlert(
           <Alert severity="error">
-            Authentication failed. Please retry again or contact the admin for account activation - Error code: {reason}
+            Authentication failed.
           </Alert>
         );
       }
