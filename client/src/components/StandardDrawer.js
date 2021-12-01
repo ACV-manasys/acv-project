@@ -26,7 +26,7 @@ const routes = [
     text: 'Home',
     path: '/home',
     exact: true,
-    icon: <HomeIcon sx={{ fontSize: '36px' }} />,
+    icon: <HomeIcon sx={{ fontSize: '30px' }} />,
   },
   {
     text: 'Storage',
@@ -39,19 +39,9 @@ const routes = [
     icon: <FeedIcon sx={{ fontSize: '30px' }} />,
   },
   {
-    text: 'People',
-    path: '/people',
-    icon: <PeopleIcon sx={{ fontSize: '30px' }} />,
-  },
-  {
     text: 'Settings',
     path: '/settings',
     icon: <SettingsIcon sx={{ fontSize: '30px' }} />,
-  },
-  {
-    text: 'Log out',
-    path: '/log-out',
-    icon: <ExitToAppIcon sx={{ fontSize: '36px' }} />,
   },
 ];
 
@@ -60,10 +50,9 @@ const activeDesktopButtonStyle = {
   width: '50px',
   height: '50px',
   justifyContent: 'center',
-  background: '#DF7861',
+  background: '#3B7E7E',
   color: 'white',
   borderRadius: '10px',
-  boxShadow: '4px 4px 10px rgba(223, 120, 97, 0.25)',
 };
 
 function StandardDrawer({ active, open, handleDrawerToggle }) {

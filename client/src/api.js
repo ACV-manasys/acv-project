@@ -65,3 +65,12 @@ export function getAllAccounts() {
 
   return instance.get(endpoint, config).then((res) => res.data);
 }
+
+export function updateUserAccess(id) {
+  let endpoint = '/user/changeAccessment/' + id;
+
+  return instance
+    .put(endpoint, {}, config)
+    .then((res) => res.data)
+    .catch((e) => console.log(e.response));
+}

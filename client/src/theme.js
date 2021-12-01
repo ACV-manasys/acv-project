@@ -11,6 +11,12 @@ let theme = createTheme({
     emphasis: {
       main: '#5A7D9F',
     },
+    darkin: {
+      main: '#3B7E7E'
+    },
+    greyBorder: {
+      main: '#ECEFF1'
+    }
   },
 });
 

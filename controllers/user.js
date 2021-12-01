@@ -18,6 +18,28 @@ exports.findOne = (req, res) => {
   supporter.findData(User, req, res);
 }
 
+exports.changeAccessment = (req, res) => {
+  const id = req.params.id;
+
+  User.findById({ _id: id })
+    .then(async (user) => {
+      if (user) {
+        user.activated = !user.activated;
+        await user.save().then((savedData) => {
+          res.status(200).send(savedData);
+        })
+      }
+    })
+    // Case of error
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send({
+        message: 'Error when updating Data!',
+      });
+    });
+}
+
+
 exports.changePassword = async (req, res) => {
   if (!req.user) {
     return console.error();

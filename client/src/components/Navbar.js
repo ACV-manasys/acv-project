@@ -7,7 +7,9 @@ import {
   Button,
 } from '@mui/material';
 
-const drawerWidth = 100;
+import StandardDrawer from './StandardDrawer';
+
+const drawerWidth = 125;
 
 function Navbar({ active, buttons }) {
   const [open, setOpen] = useState(false);
@@ -30,11 +32,11 @@ function Navbar({ active, buttons }) {
         variant="permanent"
         anchor="left"
       >
-        <Toolbar />
-        <Divider />
-        <List>
-
-        </List>
+        <StandardDrawer
+          active={active}
+          open={open}
+          handleDrawerToggle={handleDrawerToggle}
+        />
       </Drawer>
       {/* 
         <StandardDrawer

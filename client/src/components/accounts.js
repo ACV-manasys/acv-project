@@ -13,19 +13,22 @@ import {
   Avatar,
   ListItemText,
   ListItem,
+  Popover,
+  Typography,
 } from '@mui/material';
 
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import { getAllAccounts } from '../api';
+import { getAllAccounts, updateUserAccess } from '../api';
 
 function AccountsDialog({ open, setOpen }) {
 
-  const [accounts, setAllAccounts] = useState([]);
+  const [accounts, setAccounts] = useState([]);
 
   useEffect(() => {
     getAllAccounts().then((data) => {
-      setAllAccounts(data);
+      setAccounts(data);
     })
   }, [accounts]);
 
@@ -33,9 +36,9 @@ function AccountsDialog({ open, setOpen }) {
     setOpen(false);
   };
 
-  const fireNotiPanel = () => {
-    //Fire the noti panel to confirm the action
-  };
+  const updateAccessment = (id) => {
+    updateUserAccess(id);
+  }
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -54,7 +57,7 @@ function AccountsDialog({ open, setOpen }) {
             width: 'fit-content',
           }}
         >
-          <List>
+          <List sx={{ width: '100%', minWidth: 300 }}>
             {accounts.map((i) => (
               <ListItem>
                 <ListItemAvatar>
@@ -62,7 +65,42 @@ function AccountsDialog({ open, setOpen }) {
                     <AccountCircleIcon />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={accounts[i]} secondary={accounts[i]} />
+                <ListItemText primary={i.name} secondary={i.username} />
+                <PopupState variant="popover" popupId="demo-popup-popover">
+                  {(popupState) => (
+                    <div>
+                      <Switch
+                        edge="end"
+                        checked={i.activated}
+                        {...bindTrigger(popupState)}
+                      />
+                      <Popover
+                        {...bindPopover(popupState)}
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'center',
+                        }}
+                      >
+                        <Typography sx={{ p: 2 }}>
+                          Are you sure to {i.activated ? 'de-activate' : 'activate'} this account?
+                        </Typography>
+                        <Button
+                          onClick={() => {
+                            updateAccessment(i._id);
+                            popupState.close();
+                          }}
+                          variant='contained'
+                          sx={{ left: '15px', bottom: '10px' }}>
+                          Yes
+                        </Button>
+                      </Popover>
+                    </div>
+                  )}
+                </PopupState>
               </ListItem>
             ))}
           </List>

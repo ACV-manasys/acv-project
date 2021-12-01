@@ -39,11 +39,11 @@ function Home() {
   return (
     <Box >
       <Navbar active="Home" />
-      <AppBar position="static">
+      <AppBar position="static" color="darkin">
         <Toolbar >
-          <Box display="flex" flexGrow={1} sx={{ ml: '100px' }}>
+          <Box display="flex" flexGrow={1} sx={{ ml: '125px' }}>
             <Button
-              color="inherit"
+              color="greyBorder"
               className={classes.toolbarButton}
               variant="outlined"
               onClick={() => setOpen(true)}
@@ -53,7 +53,7 @@ function Home() {
             <AccountsDialog open={open} setOpen={setOpen} />
           </Box>
           <Button
-            color="inherit"
+            color="greyBorder"
             className={classes.toolbarButton}
             variant="outlined"
             onClick={goToLogOut}
@@ -91,7 +91,7 @@ function Home() {
             component="h1"
             variant="h2"
             align="center"
-            color="#2C868F"
+            color="#3B7E7E"
             style={{ fontWeight: 600 }}
           >
             🍀 {userData.name} 🍀

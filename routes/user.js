@@ -73,5 +73,9 @@ app
   .put(passport.authenticate('jwt', { session: false }), controller.update)
   .delete(passport.authenticate('jwt', { session: false }), controller.delete);
 
+app
+  .route('/user/changeAccessment/:id')
+  .put(passport.authenticate('jwt', { session: false }), controller.changeAccessment)
+
 module.exports = app;
 
