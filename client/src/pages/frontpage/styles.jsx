@@ -3,7 +3,7 @@ import heroImage from './bg.jpg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: ' #ECF5EC',
+    background: '#E0F2F1',
   },
   hero: {
     marginBottom: 10,
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     minHeight: 48,
-    background: '#2C868F',
+    background: '#3B7E7E', // === 'darkin' in theme.js
   },
   toolbarButton: {
     marginRight: 12,
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   footerSectionBox: {
     padding: 10,
     color: 'white',
-    background: '#2C868F',
+    background: '#3B7E7E', // === 'darkin' in theme.js
   },
   footerGridItem: {
     alignItems: 'center',

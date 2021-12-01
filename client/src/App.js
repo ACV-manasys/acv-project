@@ -3,6 +3,9 @@ import theme from './theme';
 
 import Frontpage from './pages/frontpage/frontpage';
 import Home from './pages/home/home';
+import Storage from './pages/storage/storage';
+import Contracts from './pages/contracts/contracts';
+import Settings from './pages/settings/settings';
 import Unauthorized from './pages/unauthorized/unauthorized';
 import Logout from './pages/unauthorized/logout';
 import { ThemeProvider } from '@mui/material/styles';
@@ -12,6 +15,7 @@ import {
   Routes,
   Route,
   Navigate,
+  Outlet,
 } from 'react-router-dom';
 
 const App = () => {
@@ -25,15 +29,13 @@ const App = () => {
           <Route exact path="/log-out" element={<Logout />} />
 
           {/*PROTECTED ROUTES*/}
-          <Route exact path="/home" element={<Home />} />
-          {/* 
-          <Route exact path='/home' element={
-            <PrivateRoute exact path="/home">
-              <Home />
-            </PrivateRoute>}>
-            <Route exact path='/home' element={<Home />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/storage" element={<Storage />} />
+            <Route path="/contracts" element={<Contracts />} />
+            <Route path="/settings" element={<Settings />} />
           </Route>
-          */}
+
         </Routes>
       </Router>
     </ThemeProvider>
@@ -43,25 +45,14 @@ const App = () => {
 function PrivateRoute({ children, ...rest }) {
   let auth = localStorage.getItem('token-myapp');
 
-  return (
-    <Routes>
-      <Route
-        {...rest}
-        render={({ location }) =>
-          auth ? (
-            children
-          ) : (
-            <Navigate
-              to={{
-                pathname: '/unauthorized-access',
-                state: { from: location },
-              }}
-            />
-          )
-        }
-      />
-    </Routes>
-  );
+  if (!auth) {
+    return (
+      <Navigate
+        to="/unauthorized-access" />
+    );
+  };
+
+  return <Outlet />;
   //auth ? children : <Navigate to="/unauthorized-access" />;
 }
 

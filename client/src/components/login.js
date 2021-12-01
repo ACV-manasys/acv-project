@@ -144,7 +144,7 @@ function Login({ tab }, props) {
               mb: '20px',
             }}
           >
-            <Typography sx={{ fontSize: '24px', fontWeight: 700 }} color="primary" align="center">
+            <Typography sx={{ fontSize: '24px', fontWeight: 700 }} color="darkin" align="center">
               Sign In
             </Typography>
           </Box>
@@ -190,7 +190,7 @@ function Login({ tab }, props) {
             id="submit_button"
             margin="normal"
             variant="contained"
-            color="primary"
+            color="darkin"
             fullWidth
             onClick={submitLogin}
           >
@@ -210,7 +210,7 @@ function Login({ tab }, props) {
               mb: '20px',
             }}
           >
-            <Typography sx={{ fontSize: '24px', fontWeight: 700 }} color="primary" align="center">
+            <Typography sx={{ fontSize: '24px', fontWeight: 700 }} color="darkin" align="center">
               Register
             </Typography>
           </Box>
@@ -265,7 +265,7 @@ function Login({ tab }, props) {
             id="submit"
             margin="normal"
             variant="contained"
-            color="primary"
+            color="darkin"
             fullWidth
             onClick={submitRegister}
             disabled={submitDisabled}

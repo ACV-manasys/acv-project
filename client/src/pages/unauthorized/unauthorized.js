@@ -12,11 +12,11 @@ import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: ' #fff1e1',
+    background: ' #E0F2F1',
   },
   toolbar: {
     minHeight: 48,
-    background: '#d2601a',
+    background: '#3B7E7E',
   },
 }));
 
@@ -29,9 +29,14 @@ function Unauthorized() {
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
           <Box display="flex" flexGrow={1}>
-            <Link href="/" color="inherit">
-              <Typography variant="h6">Passfinders</Typography>
-            </Link>
+            <Button
+              href="https://ancoviet.com/"
+              color="inherit"
+              className={classes.toolbarButton}
+              variant="outlined"
+            >
+              official website
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
@@ -50,7 +55,7 @@ function Unauthorized() {
         <Typography gutterBottom>
           Unauthorized Acess! Please login first!
         </Typography>
-        <Button variant="contained" color="primary" onClick={goToLogin}>
+        <Button variant="contained" color="darkin" onClick={goToLogin} >
           Back to Front page to login
         </Button>
       </Container>

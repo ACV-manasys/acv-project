@@ -89,7 +89,7 @@ function Frontpage() {
             sign in/ sign up
           </Button>
           <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-            <AppBar sx={{ position: 'relative', boxShadow: 'none' }} position="static">
+            <AppBar sx={{ position: 'relative', boxShadow: 'none' }} position="static" color="darkin">
               <Toolbar>
                 <Button color="inherit"
                   className={classes.toolbarButton}
@@ -105,14 +105,14 @@ function Frontpage() {
                   //orientation="vertical"
                   sx={{
                     minHeight: '50px',
-                    background: '#F7F7F7',
+                    background: '#E0F2F1',
                     borderRadius: '5px',
                   }}
                   TabIndicatorProps={{
                     style: {
                       margin: '10px 0px',
                       borderRadius: '10px',
-                      background: '#2C868F',
+                      background: '#3B7E7E',
                       boxShadow: '6px 6px 10px rgba(223, 120, 97, 0.25)',
                       zIndex: 0,
                     },
@@ -155,7 +155,7 @@ function Frontpage() {
         <Typography
           variant="h4"
           align="center"
-          color="#2C868F"
+          color="#3B7E7E"
           gutterBottom
           sx={{ fontWeight: 'medium' }}
         >

@@ -34,7 +34,7 @@ const routes = [
     icon: <StorageIcon sx={{ fontSize: '30px' }} />,
   },
   {
-    text: 'Contract',
+    text: 'Contracts',
     path: '/contracts',
     icon: <FeedIcon sx={{ fontSize: '30px' }} />,
   },
@@ -52,7 +52,7 @@ const activeDesktopButtonStyle = {
   justifyContent: 'center',
   background: '#3B7E7E',
   color: 'white',
-  borderRadius: '10px',
+  borderRadius: '20px',
 };
 
 function StandardDrawer({ active, open, handleDrawerToggle }) {

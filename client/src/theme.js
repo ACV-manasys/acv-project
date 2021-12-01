@@ -12,10 +12,14 @@ let theme = createTheme({
       main: '#5A7D9F',
     },
     darkin: {
-      main: '#3B7E7E'
+      main: '#3B7E7E',
+      contrastText: "#fff"
     },
     greyBorder: {
       main: '#ECEFF1'
+    },
+    lightBackground: {
+      main: '#E0F2F1'
     }
   },
 });
