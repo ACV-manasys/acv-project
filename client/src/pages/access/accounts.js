@@ -15,9 +15,8 @@ import {
 } from '@mui/material';
 
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import { getAllAccounts, updateUserAccess } from '../api';
+import { getAllAccounts, updateUserAccess } from '../../api';
 
 function AccountsDisplay() {
 
@@ -33,6 +32,15 @@ function AccountsDisplay() {
     updateUserAccess(id);
   }
 
+  function stringAvatar(name, activated) {
+    return {
+      sx: {
+        bgcolor: activated ? '#3B7E7E' : '#555555',
+      },
+      children: `${name[0]}`,
+    };
+  }
+
   return (
     <Container maxWidth="sm">
       <Typography
@@ -41,7 +49,7 @@ function AccountsDisplay() {
         align="center"
         color="#222222"
         style={{ fontWeight: 600 }}>
-        Manage accounts
+        MANAGE ACCOUNTS
       </Typography>
       <Typography
         component="h4"
@@ -66,9 +74,7 @@ function AccountsDisplay() {
           {accounts.map((i) => (
             <ListItem>
               <ListItemAvatar>
-                <Avatar>
-                  <AccountCircleIcon />
-                </Avatar>
+                <Avatar {...stringAvatar(i.name, i.activated)} />
               </ListItemAvatar>
               <ListItemText primary={i.name} secondary={i.username} />
               <PopupState variant="popover" popupId="demo-popup-popover">

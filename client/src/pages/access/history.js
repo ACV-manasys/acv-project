@@ -16,7 +16,7 @@ import {
 
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 
-import { } from '../api';
+import { } from '../../api';
 
 function HistoryLog() {
 
@@ -37,7 +37,7 @@ function HistoryLog() {
         align="center"
         color="#222222"
         style={{ fontWeight: 600 }}>
-        History Log
+        HISTORY LOG
       </Typography>
       {/* LOG CONTENT */}
       {/* 
