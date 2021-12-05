@@ -15,23 +15,19 @@ import {
 } from '@mui/material';
 
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import { getAllAccounts, updateUserAccess } from '../api';
+import { } from '../api';
 
-function AccountsDisplay() {
+function HistoryLog() {
 
-  const [accounts, setAccounts] = useState([]);
+  const [log, setLog] = useState([]);
 
+  /*
   useEffect(() => {
     getAllAccounts().then((data) => {
       setAccounts(data);
     })
-  }, [accounts]);
-
-  const updateAccessment = (id) => {
-    updateUserAccess(id);
-  }
+  }, [accounts]);*/
 
   return (
     <Container maxWidth="sm">
@@ -41,17 +37,10 @@ function AccountsDisplay() {
         align="center"
         color="#222222"
         style={{ fontWeight: 600 }}>
-        Manage accounts
+        History Log
       </Typography>
-      <Typography
-        component="h4"
-        variant="h5"
-        align="center"
-        color="#333333"
-        style={{ fontWeight: 500 }}>
-        View and manage access of people
-      </Typography>
-      {/* ACCOUNT LIST*/}
+      {/* LOG CONTENT */}
+      {/* 
       <Box
         noValidate
         component="form"
@@ -112,8 +101,9 @@ function AccountsDisplay() {
           ))}
         </List>
       </Box>
+      */}
     </Container>
   );
 }
 
-export default AccountsDisplay;
+export default HistoryLog;

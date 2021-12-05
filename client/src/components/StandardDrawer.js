@@ -16,9 +16,8 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import HomeIcon from '@mui/icons-material/Home';
 import FeedIcon from '@mui/icons-material/Feed';
-import PeopleIcon from '@mui/icons-material/People';
 import SettingsIcon from '@mui/icons-material/Settings';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import PeopleIcon from '@mui/icons-material/People';
 import StorageIcon from '@mui/icons-material/Storage';
 
 const routes = [
@@ -37,6 +36,11 @@ const routes = [
     text: 'Contracts',
     path: '/contracts',
     icon: <FeedIcon sx={{ fontSize: '30px' }} />,
+  },
+  {
+    text: 'Access',
+    path: '/access',
+    icon: <PeopleIcon sx={{ fontSize: '30px' }} />,
   },
   {
     text: 'Settings',

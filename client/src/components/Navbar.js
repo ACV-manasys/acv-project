@@ -6,20 +6,18 @@ import {
   Popover,
   Button,
   AppBar,
-  Box,
+  Grid,
 } from '@mui/material';
 
 import StandardDrawer from './StandardDrawer';
-import AccountsDialog from './accounts';
 import useStyles from '../pages/frontpage/styles';
 
-import GroupIcon from '@mui/icons-material/Group';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 const drawerWidth = 125;
 
 function Navbar({ active, buttons }) {
-  const [open, setOpen] = useState(false);
+
   const [anchorEl, setAnchorEl] = useState(null);
 
   const goToLogOut = () => {
@@ -32,26 +30,17 @@ function Navbar({ active, buttons }) {
     <div>
       <AppBar position="static" color="darkin">
         <Toolbar >
-          <Box display="flex" flexGrow={1} sx={{ ml: '125px' }}>
+          <Grid container justifyContent="flex-end">
             <Button
               color="greyBorder"
               className={classes.toolbarButton}
               variant="outlined"
-              onClick={() => setOpen(true)}
+              onClick={(e) => setAnchorEl(e.currentTarget)}
+              endIcon={<LogoutIcon />}
             >
-              <GroupIcon />
+              log out
             </Button>
-            <AccountsDialog open={open} setOpen={setOpen} />
-          </Box>
-          <Button
-            color="greyBorder"
-            className={classes.toolbarButton}
-            variant="outlined"
-            onClick={(e) => setAnchorEl(e.currentTarget)}
-            endIcon={<LogoutIcon />}
-          >
-            log out
-          </Button>
+          </Grid>
           <Popover
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
@@ -62,9 +51,11 @@ function Navbar({ active, buttons }) {
             onClose={() => setAnchorEl(null)}
           >
             <Typography sx={{ p: 2 }}>Do you want to log-out?</Typography>
-            <Button variant='contained' onClick={goToLogOut} sx={{ ml: '15px', mb: '10px' }}>
-              Yes
-            </Button>
+            <Grid container justifyContent="flex-end">
+              <Button variant='contained' onClick={goToLogOut} sx={{ mr: '15px', mb: '10px' }}>
+                Yes
+              </Button>
+            </Grid>
           </Popover>
         </Toolbar>
       </AppBar>
