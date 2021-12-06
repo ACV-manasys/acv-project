@@ -39,7 +39,7 @@ function Access() {
             //orientation="vertical"
             sx={{
               minHeight: '50px',
-              background: '#CCCCCC',
+              background: '#ECECEC',
               borderRadius: '5px',
             }}
             TabIndicatorProps={{

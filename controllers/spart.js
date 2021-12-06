@@ -7,14 +7,11 @@ const supporter = require('./supporter');
 exports.create = async (req, res) => {
 
   const spart = new Spart({
-    name: req.body.name,
-    quantity: req.body.quantity,
     partNo: req.body.partNo,
     commodity: req.body.commodity,
     specification: req.body.specification,
-    manufacturer: req.body.manufacturer,
-    note: req.body.manufacturer,
-    arrival: req.body.arrival || [],
+    vieName: req.body.vieName,
+    price: req.body.price,
   });
   // Save this spart to database
   spart
@@ -47,11 +44,5 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   supporter.findData(Spart, req, res);
 };
-
-/*
-// Searching for spart given tags
-exports.search = (req, res) => {
-  Search.spartSearch(req, res);
-};*/
 
 

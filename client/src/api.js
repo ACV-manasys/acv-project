@@ -14,6 +14,7 @@ const config = {
   },
 };
 
+// LOGIN // REGISTER =====================================================
 
 export async function login(username, password) {
   await instance
@@ -54,6 +55,8 @@ export async function registerUserdata(userdata) {
     });
 }
 
+// USERS ===========================================================
+
 export function me() {
   let endpoint = '/profile';
 
@@ -75,6 +78,8 @@ export function updateUserAccess(id) {
     .catch((e) => console.log(e.response));
 }
 
+// HISTORY LOGS ===================================================
+
 export function getallLogs() {
   let endpoint = '/log';
 
@@ -87,3 +92,28 @@ export function createLog(histLog) {
   return instance.post(endpoint, histLog, config).then((res) => res.data);
 }
 
+// SPART // STORAGE ===============================================
+
+export function getallSpart() {
+  let endpoint = '/spart';
+
+  return instance.get(endpoint, config).then((res) => res.data);
+}
+
+export function createSpart(spart) {
+  let endpoint = '/spart';
+
+  return instance.post(endpoint, spart, config).then((res) => res.data);
+}
+
+export function updateSpart(spart) {
+  let endpoint = '/spart/' + spart._id;
+
+  return instance.put(endpoint, spart, config).then((res) => res.data);
+}
+
+export function deleteSpart(id) {
+  let endpoint = '/spart/' + id;
+
+  return instance.delete(endpoint, config).then((res) => res.data);
+}

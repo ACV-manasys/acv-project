@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Toolbar,
   Drawer,
   Typography,
   Popover,
   Button,
-  AppBar,
   Grid,
   Box,
   Container,
@@ -38,11 +36,15 @@ function Navbar({ active, buttons }) {
     },
     {
       text: 'Storage',
-      content: '🍀 SPARE PART STORAGE 🍀',
+      content: '🍀 MANAGE STORAGE 🍀',
     },
     {
       text: 'Contracts',
       content: '🍀 MANAGE CONTRACTS 🍀',
+    },
+    {
+      text: 'Note',
+      content: '🍀 NOTES 🍀',
     },
     {
       text: 'Access',
@@ -62,50 +64,46 @@ function Navbar({ active, buttons }) {
 
   return (
     <div>
-      <AppBar position="static" color="darkin">
-        <Toolbar >
-          <Grid container justifyContent="flex-end">
-            <Button
-              color="greyBorder"
-              className={classes.toolbarButton}
-              variant="outlined"
-              onClick={(e) => setAnchorEl(e.currentTarget)}
-              endIcon={<LogoutIcon />}
-            >
-              log out
-            </Button>
-          </Grid>
-          <Popover
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            onClose={() => setAnchorEl(null)}
-          >
-            <Typography sx={{ p: 2 }}>Do you want to log-out?</Typography>
-            <Grid container justifyContent="flex-end">
-              <Button variant='contained' onClick={goToLogOut} sx={{ mr: '15px', mb: '10px' }}>
-                Yes
-              </Button>
-            </Grid>
-          </Popover>
-        </Toolbar>
-      </AppBar>
       {titles.map((title) => (
         active === title.text ? (
           <Box
             sx={{
               backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${heroImage})`,
-              height: '10vh',
+              height: '14vh',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               paddingLeft: '120px',
             }}
           >
-            <Container maxWidth="sm" sx={{ mt: '27px' }}>
+            <Grid container justifyContent="flex-end" sx={{ mt: '20px', mr: '50px' }}>
+              <Button
+                color="greyBorder"
+                className={classes.toolbarButton}
+                variant="outlined"
+                onClick={(e) => setAnchorEl(e.currentTarget)}
+                endIcon={<LogoutIcon />}
+              >
+                log out
+              </Button>
+            </Grid>
+            <Popover
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              onClose={() => setAnchorEl(null)}
+            >
+              <Typography sx={{ p: 2 }}>Do you want to log-out?</Typography>
+              <Grid container justifyContent="flex-end">
+                <Button variant='contained' onClick={goToLogOut} sx={{ mr: '15px', mb: '10px' }}>
+                  Yes
+                </Button>
+              </Grid>
+            </Popover>
+            <Container maxWidth="sm" sx={{ mt: '14px' }}>
               <Typography
                 component="h5"
                 variant="h4"

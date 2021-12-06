@@ -9,7 +9,7 @@ app.route('/conveyor')
   .post(controller.create)
   .get(controller.findAll);
 //.post(passport.authenticate('jwt', { session: false }), controller.create)
-//.post(passport.authenticate('jwt', { session: false }), controller.findAll)
+//.get(passport.authenticate('jwt', { session: false }), controller.findAll)
 
 app.route('/conveyor/:id')
   .put(controller.update)

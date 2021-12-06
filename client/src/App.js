@@ -3,6 +3,7 @@ import theme from './theme';
 
 import Frontpage from './pages/frontpage/frontpage';
 import Home from './pages/home/home';
+import Note from './pages/note/note';
 import Storage from './pages/storage/storage';
 import Contracts from './pages/contracts/contracts';
 import Settings from './pages/settings/settings';
@@ -37,6 +38,7 @@ const App = () => {
             <Route path="/contracts" element={<Contracts />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/access" element={<Access />} />
+            <Route path="/note" element={<Note />} />
           </Route>
 
         </Routes>

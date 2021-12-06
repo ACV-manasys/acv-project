@@ -2,14 +2,6 @@ const mongoose = require('mongoose');
 
 const SpartSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
-    quantity: {
-      type: Number,
-      required: true,
-    },
     partNo: {
       type: String,
       required: true,
@@ -22,24 +14,14 @@ const SpartSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    manufacturer: {
+    vieName: {
       type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
       required: false,
     },
-    note: {
-      type: String,
-      required: false,
-    },
-    arrival: [{
-      date: {
-        type: Date,
-        required: false,
-      },
-      quantity: {
-        type: Number,
-        required: true,
-      }
-    }],
   }
 );
 

@@ -19,6 +19,7 @@ import FeedIcon from '@mui/icons-material/Feed';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PeopleIcon from '@mui/icons-material/People';
 import StorageIcon from '@mui/icons-material/Storage';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 
 const routes = [
   {
@@ -35,6 +36,11 @@ const routes = [
   {
     text: 'Contracts',
     path: '/contracts',
+    icon: <ReceiptLongIcon sx={{ fontSize: '30px' }} />,
+  },
+  {
+    text: 'Note',
+    path: '/note',
     icon: <FeedIcon sx={{ fontSize: '30px' }} />,
   },
   {

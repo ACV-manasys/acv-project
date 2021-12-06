@@ -5,13 +5,13 @@ import {
 
 import Navbar from '../../components/Navbar';
 
-function Contracts() {
+function Note() {
 
   return (
     <Box >
-      <Navbar active="Contracts" />
+      <Navbar active="Note" />
     </Box>
   );
 }
 
-export default Contracts;
+export default Note;
