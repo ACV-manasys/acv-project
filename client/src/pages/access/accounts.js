@@ -70,7 +70,7 @@ function AccountsDisplay() {
           width: 'fit-content',
         }}
       >
-        <List sx={{ width: '100%', minWidth: 300 }}>
+        <List sx={{ width: '100%', minWidth: 350 }}>
           {accounts.map((i) => (
             <ListItem>
               <ListItemAvatar>

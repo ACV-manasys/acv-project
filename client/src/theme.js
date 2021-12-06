@@ -20,7 +20,7 @@ let theme = createTheme({
     },
     lightBackground: {
       main: '#E0F2F1'
-    }
+    },
   },
 });
 

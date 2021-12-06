@@ -74,3 +74,16 @@ export function updateUserAccess(id) {
     .then((res) => res.data)
     .catch((e) => console.log(e.response));
 }
+
+export function getallLogs() {
+  let endpoint = '/log';
+
+  return instance.get(endpoint, config).then((res) => res.data);
+}
+
+export function createLog(histLog) {
+  let endpoint = '/log';
+
+  return instance.post(endpoint, histLog, config).then((res) => res.data);
+}
+

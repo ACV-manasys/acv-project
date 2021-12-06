@@ -5,11 +5,14 @@ import {
 
 import Navbar from '../../components/Navbar';
 
+
 function Storage() {
 
   return (
     <Box >
       <Navbar active="Storage" />
+      {/* CONTENT */}
+
     </Box>
   );
 }
