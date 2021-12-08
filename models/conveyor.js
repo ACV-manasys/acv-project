@@ -6,32 +6,27 @@ const ConveyorSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    dimension: {
-      type: String,
-      required: true,
-    },
-    quantity: {
+    // DIMENSIONS
+    width: {
       type: Number,
       required: true,
     },
-    manufacturer: {
-      type: String,
+    height: {
+      type: Number,
+      required: true,
+    },
+    costIn: {
+      type: Number,
+      required: false,
+    },
+    priceOut: {
+      type: Number,
       required: false,
     },
     note: {
       type: String,
       required: false,
     },
-    arrival: [{
-      date: {
-        type: Date,
-        required: false,
-      },
-      quantity: {
-        type: Number,
-        required: true,
-      }
-    }],
   }
 );
 

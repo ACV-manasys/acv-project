@@ -12,6 +12,9 @@ import {
   InputAdornment,
   Grid,
   IconButton,
+  Stack,
+  Input,
+  FormHelperText,
 } from '@mui/material';
 
 import TabContext from '@material-ui/lab/TabContext';
@@ -24,7 +27,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import useStyles from './styles';
 import StandardInput from '../../../components/StandardInput';
 
-import { createSpart } from '../../../api';
+import { createSpart, createConveyor } from '../../../api';
 
 function New({ open, setOpen }) {
 
@@ -37,11 +40,12 @@ function New({ open, setOpen }) {
     price: 0,
   });
   const [conv, setConv] = useState({
-    partNo: '',
-    commodity: '',
-    specification: '',
-    vieName: '',
-    price: 0,
+    machineName: "",
+    width: 0,
+    height: 0,
+    costIn: 0,
+    priceOut: 0,
+    note: "",
   });
 
   const classes = useStyles();
@@ -51,9 +55,52 @@ function New({ open, setOpen }) {
   };
 
   const handleAdd = () => {
-    //TODO: ADD
+    switch (tab) {
+      case 'conveyor':
+        createConveyor(conv);
+        break;
+      default:
+        createSpart(spart);
+        break;
+    }
     setOpen(false);
   };
+
+  const moneyTextField = (required, name, value, setValue, label) => {
+    return (
+      <Box sx={{ width: '300px' }}>
+        <TextField
+          required={required} id={name} margin="normal"
+          variant="outlined" size="medium" fullWidth
+          value={value} label={label}
+          InputProps={{
+            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+          }}
+          onChange={(e) => {
+            setValue((prev) => ({ ...prev, [name]: e.target.value }));
+          }}
+        />
+      </Box>
+    );
+  }
+
+  const dimensionTextField = (required, name, value, setValue, label) => {
+    return (
+      <Box >
+        <Input
+          required={required}
+          id={name}
+          value={value}
+          label={label}
+          endAdornment={<InputAdornment position="end">m</InputAdornment>}
+          onChange={(e) => {
+            setValue((prev) => ({ ...prev, [name]: e.target.value }));
+          }}
+        />
+        <FormHelperText id={name}>{label}</FormHelperText>
+      </Box>
+    );
+  }
 
   return (
     <div>
@@ -99,6 +146,7 @@ function New({ open, setOpen }) {
               <Tab className={classes.tabStyle} icon={<LayersIcon />} value="conveyor" />
             </Tabs>
             <TabPanel value="spart">
+
               {/* NEW SPART */}
               <Typography className={classes.titleStyle} align='center' > NEW SPARE PART </Typography>
               <StandardInput
@@ -117,26 +165,35 @@ function New({ open, setOpen }) {
                 id="vieName" label="Vietnamese" name="vieName" value={spart.vieName}
                 setValue={setSpart} required={true}
               />
-              <Box sx={{ width: '300px' }}>
-                <TextField
-                  required={true} id="price" margin="normal"
-                  variant="outlined" size="medium" fullWidth
-                  value={spart.price} label="Price"
-                  InputProps={{
-                    startAdornment: <InputAdornment position="start">$</InputAdornment>,
-                  }}
-                  onChange={(e) => {
-                    setSpart((prev) => ({ ...prev, [spart.price]: e.target.value }));
-                  }}
-                />
-              </Box>
+              {moneyTextField(false, "price", spart.price, setSpart, "Price")}
             </TabPanel>
             <TabPanel value="conveyor">
+
               {/* NEW CONVEYOR BELT */}
               <Typography className={classes.titleStyle} align='center'> NEW CONVEYOR BELT </Typography>
+              <StandardInput
+                id="machineName" label="Machine Name" name="machineName" value={conv.machineName}
+                setValue={setConv} required={true}
+              />
+              {/* Width x Height */}
+              <Box sx={{ width: '300px', mb: '8px', mt: '10px' }}>
+                <Typography className={classes.textFieldTitle} align='center'> Dimension </Typography>
+                <Stack direction="row" spacing={2}>
+                  {dimensionTextField(true, "width", conv.width, setConv, "Width")}
+                  <Typography className={classes.textFieldTitle} > x </Typography>
+                  {dimensionTextField(true, "height", conv.height, setConv, "Height")}
+                </Stack>
+              </Box>
+              {/* Cost/Price */}
+              {moneyTextField(false, "costIn", conv.costIn, setConv, "Imported Cost")}
+              {moneyTextField(false, "priceOut", conv.priceOut, setConv, "Exported Price")}
+              <StandardInput
+                id="note" label="Note" name="note" value={conv.note}
+                setValue={setConv} required={false} multiline={true}
+              />
             </TabPanel>
           </TabContext>
-          <Button sx={{ mb: '20px' }} variant="contained" onClick={handleAdd}>Add</Button>
+          <Button sx={{ mb: '30px', width: '150px' }} variant="contained" onClick={handleAdd}>Add</Button>
         </Box>
       </Dialog>
     </div>

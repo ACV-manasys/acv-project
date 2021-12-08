@@ -5,6 +5,9 @@ const config = require('./config/config');
 const cors = require('cors');
 
 const userRoute = require('./routes/user');
+// INVENTORY
+const convRoute = require('./routes/conveyor');
+const spartRoute = require('./routes/spart');
 
 const app = express();
 const path = require('path');
@@ -27,6 +30,8 @@ const host = process.env.HOST || 'localhost';
 
 // Get all routes
 app.use(userRoute);
+app.use(convRoute);
+app.use(spartRoute);
 
 // Basic route
 let server = app.listen(port, function () {

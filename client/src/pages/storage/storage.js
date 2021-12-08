@@ -19,9 +19,10 @@ import Conveyor from './conveyor';
 import Sparepart from './sparepart';
 
 
+// SPARE PART PAGE AS DEFAULT
 function Storage() {
 
-  const [tab, setTab] = useState('spart');
+  const [tab, setTab] = useState('default');
 
   return (
     <Box >
@@ -57,21 +58,20 @@ function Storage() {
             value={tab}
             onChange={(e, newVal) => setTab(newVal)}
           >
+            <Tab label={<InventoryIcon />} value="default" />
             <Tab label={<HandymanIcon />} value="spart" />
             <Tab label={<LayersIcon />} value="conveyor" />
-            <Tab label={<InventoryIcon />} value="default" />
           </Tabs>
-          <TabPanel value="spart">
-            {/* SPART CURRENTLY IN STORAGE */}
-            <Sparepart />
-          </TabPanel>
-          <TabPanel value="conveyor">
-            {/* CONVEYOR BELT CURRENTLY IN STORAGE */}
-            <Conveyor />
-          </TabPanel>
           <TabPanel value="default">
             {/* DEFAULT SPART LIST */}
             <Inventory />
+          </TabPanel>
+
+          <TabPanel value="spart">
+            <Sparepart />
+          </TabPanel>
+          <TabPanel value="conveyor">
+            <Conveyor />
           </TabPanel>
         </TabContext>
       </Box>

@@ -19,6 +19,9 @@ exports.create = async (req, res) => {
   // Save this spart to Storage database
   storage
     .save()
+    .then((data) => {
+      res.status(200).send(data);
+    })
     .catch((err) => {
       console.log(err);
       res.status(500).send({

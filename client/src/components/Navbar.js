@@ -18,7 +18,7 @@ import heroImage from '../pages/frontpage/bg.jpg';
 
 const drawerWidth = 125;
 
-function Navbar({ active, buttons }) {
+function Navbar({ active }) {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [userData, setUserData] = useState([]);
@@ -40,7 +40,7 @@ function Navbar({ active, buttons }) {
     },
     {
       text: 'Contracts',
-      content: '🍀 MANAGE CONTRACTS 🍀',
+      content: '🍀 MANAGE DEBTS 🍀',
     },
     {
       text: 'Note',
@@ -66,7 +66,7 @@ function Navbar({ active, buttons }) {
     <div>
       {titles.map((title) => (
         active === title.text ? (
-          <Box
+          <Box key={active}
             sx={{
               backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${heroImage})`,
               height: '14vh',

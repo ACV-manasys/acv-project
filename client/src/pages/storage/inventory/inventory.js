@@ -20,20 +20,27 @@ import StandardTable from '../../../components/StandardTable';
 import New from './new';
 import useStyles from './styles';
 
-import { getallSpart, updateSpart, deleteSpart } from '../../../api';
+import {
+  getallSpart, deleteSpart,
+  getallConveyor, deleteConveyor
+} from '../../../api';
 
 function Inventory() {
 
   const [sparts, setSparts] = useState([]);
+  const [convs, setConvs] = useState([]);
   const [tab, setTab] = useState('spart');
   const [openAddDialog, setOpenAddDialog] = useState(false);
 
   const classes = useStyles();
 
   useEffect(() => {
-    getallSpart().then((data) => {
-      setSparts(data);
-    })
+    getallSpart().then((spartData) => {
+      setSparts(spartData);
+    });
+    getallConveyor().then((convData) => {
+      setConvs(convData);
+    });
   }, []);
 
   const spartHeadCells = [
@@ -62,10 +69,49 @@ function Inventory() {
       label: 'Vietnamese',
     },
     {
-      id: 'protein',
+      id: 'price',
       numeric: true,
       disablePadding: false,
-      label: 'Protein (g)',
+      label: 'price ($)',
+    },
+  ];
+
+  const convHeadCells = [
+    {
+      id: 'machineName',
+      numeric: false,
+      disablePadding: true,
+      label: 'Machine Name',
+    },
+    {
+      id: 'width',
+      numeric: true,
+      disablePadding: true,
+      label: 'Width',
+    },
+    {
+      id: 'height',
+      numeric: true,
+      disablePadding: true,
+      label: 'Height',
+    },
+    {
+      id: 'costIn',
+      numeric: true,
+      disablePadding: true,
+      label: 'Imported Cost (Đ)',
+    },
+    {
+      id: 'priceOut',
+      numeric: true,
+      disablePadding: true,
+      label: 'Exported Price (Đ)',
+    },
+    {
+      id: 'note',
+      numeric: false,
+      disablePadding: false,
+      label: 'Note',
     },
   ];
 
@@ -90,7 +136,7 @@ function Inventory() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          mt: '20px',
+          mt: '10px',
         }}
       >
         <TabContext value={tab}>
@@ -119,13 +165,13 @@ function Inventory() {
           </Tabs>
           <TabPanel value="spart">
             {/* SPART CURRENTLY IN STORAGE */}
-            <Typography className={classes.titleStyle}> SPARE PARTS </Typography>
-            {/*<Sparepart />*/}
+            <Typography className={classes.titleStyle} align='center'> SPARE PARTS </Typography>
+            <StandardTable headCells={spartHeadCells} data={sparts} deleteFunction={deleteSpart} />
           </TabPanel>
           <TabPanel value="conveyor">
             {/* CONVEYOR BELT CURRENTLY IN STORAGE */}
-            <Typography className={classes.titleStyle}> CONVEYOR BELTS </Typography>
-            {/*<Conveyor />*/}
+            <Typography className={classes.titleStyle} align='center'> CONVEYOR BELTS </Typography>
+            <StandardTable headCells={convHeadCells} data={convs} deleteFunction={deleteConveyor} />
           </TabPanel>
         </TabContext>
       </Box>

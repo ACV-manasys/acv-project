@@ -1,4 +1,4 @@
-// CRUD FOR SPARE PARTS
+// CRUD FOR CONVEYOR IN INVENTORY
 const Conveyor = require('../models/conveyor');
 const supporter = require('./supporter');
 //const Search = require('./search');
@@ -7,22 +7,23 @@ const supporter = require('./supporter');
 exports.create = async (req, res) => {
 
   const conveyor = new Conveyor({
-    name: req.body.name,
-    quantity: req.body.quantity,
-    partNo: req.body.partNo,
-    commodity: req.body.commodity,
-    specification: req.body.specification,
-    manufacturer: req.body.manufacturer,
-    note: req.body.manufacturer,
-    arrival: req.body.arrival || [],
+    machineName: req.body.machineName,
+    width: req.body.width,
+    height: req.body.height,
+    costIn: req.body.costIn,
+    priceOut: req.body.priceOut,
+    note: req.body.note || "",
   });
   // Save this conveyor to database
   conveyor
     .save()
+    .then((data) => {
+      res.status(200).send(data);
+    })
     .catch((err) => {
       console.log(err);
       res.status(500).send({
-        message: 'Error when creating spare part!',
+        message: 'Error when creating conveyor!',
       });
     });
 };

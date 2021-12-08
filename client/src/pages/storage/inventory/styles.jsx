@@ -6,6 +6,11 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
     fontSize: '25px',
   },
+  textFieldTitle: {
+    color: "#444444",
+    fontWeight: 500,
+    fontSize: '18px',
+  },
   tabStyle: {
     minWidth: '50px',
     maxWidth: '50px',

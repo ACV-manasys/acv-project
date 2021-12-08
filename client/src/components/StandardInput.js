@@ -15,6 +15,7 @@ function StandardInput({
   width,
   sx,
   setErrors,
+  multiline,
 }) {
 
   const invalidEmailErrorMessage = 'invalid email';
@@ -68,6 +69,7 @@ function StandardInput({
         fullWidth
         value={value}
         label={label}
+        multiline={multiline}
         onChange={(e) => {
           setValue((prev) => ({ ...prev, [name]: e.target.value }));
           isError(e.target.value);

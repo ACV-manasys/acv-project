@@ -92,7 +92,7 @@ export function createLog(histLog) {
   return instance.post(endpoint, histLog, config).then((res) => res.data);
 }
 
-// SPART // STORAGE ===============================================
+// SPART // INVENTORY ===============================================
 
 export function getallSpart() {
   let endpoint = '/spart';
@@ -114,6 +114,32 @@ export function updateSpart(spart) {
 
 export function deleteSpart(id) {
   let endpoint = '/spart/' + id;
+
+  return instance.delete(endpoint, config).then((res) => res.data);
+}
+
+// CONVEYOR // INVENTORY ===============================================
+
+export function getallConveyor() {
+  let endpoint = '/conveyor';
+
+  return instance.get(endpoint, config).then((res) => res.data);
+}
+
+export function createConveyor(conveyor) {
+  let endpoint = '/conveyor';
+
+  return instance.post(endpoint, conveyor, config).then((res) => res.data);
+}
+
+export function updateConveyor(conveyor) {
+  let endpoint = '/conveyor/' + conveyor._id;
+
+  return instance.put(endpoint, conveyor, config).then((res) => res.data);
+}
+
+export function deleteConveyor(id) {
+  let endpoint = '/conveyor/' + id;
 
   return instance.delete(endpoint, config).then((res) => res.data);
 }
