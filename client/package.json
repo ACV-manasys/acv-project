@@ -19,6 +19,7 @@
     "material-ui-popup-state": "^2.0.0",
     "react-dom": "^17.0.2",
     "react-native": "^0.66.3",
+    "react-refresh-webpack-plugin": "^0.1.0",
     "react-router-dom": "^6.0.2",
     "react-scripts": "^4.0.3",
     "web-vitals": "^1.1.2"
@@ -46,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-dev-utils": "^11.0.4"
   }
 }

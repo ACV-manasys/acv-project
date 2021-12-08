@@ -48,6 +48,7 @@ function StandardTable({ headCells, data, style, deleteFunction }) {
   const handleDel = () => {
     deleteFunction(selectedRow._id);
     setOpen(false);
+    window.location.reload();
   }
 
   const formatData = (col, dataElemment) => {

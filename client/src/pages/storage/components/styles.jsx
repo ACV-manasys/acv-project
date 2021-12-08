@@ -1,6 +1,6 @@
 import makeStyles from '@mui/styles/makeStyles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   titleStyle: {
     color: "#555555",
     fontWeight: 600,
@@ -21,6 +21,6 @@ const useStyles = makeStyles((theme) => ({
       zIndex: 1,
     },
   },
-}));
+});
 
 export default useStyles;

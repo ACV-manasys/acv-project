@@ -3,30 +3,67 @@ import {
   Box,
   Tabs,
   Tab,
+  Button,
+  Grid,
+  Typography,
+  Container,
 } from '@mui/material';
 
 import TabContext from '@material-ui/lab/TabContext';
 import TabPanel from '@material-ui/lab/TabPanel';
 
-import Navbar from '../../components/Navbar';
-
 import HandymanIcon from '@mui/icons-material/Handyman';
 import LayersIcon from '@mui/icons-material/Layers';
-import InventoryIcon from '@mui/icons-material/Inventory';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
-import Inventory from './inventory/inventory';
-import Conveyor from './conveyor';
-import Sparepart from './sparepart';
+import StandardTable from '../../components/StandardTable';
+import New from './components/new';
+import CustomTabs from './components/CustomTabs';
+import useStyles from './components/styles';
 
+import {
+  getallSpart, deleteSpart,
+  getallConveyor, deleteConveyor
+} from '../../api';
+
+const spartHeadCells = [
+  { id: 'partNo', label: 'Part No', },
+  { id: 'commodity', label: 'Commodity', },
+  { id: 'specification', label: 'Specification', },
+  { id: 'vieName', label: 'Vietnamese', },
+  { id: 'price', label: 'price ($)', },
+];
+
+const convHeadCells = [
+  { id: 'machineName', label: 'Machine Name', },
+  { id: 'width', label: 'Width', },
+  { id: 'height', label: 'Height', },
+  { id: 'costIn', label: 'Imported Cost (Đ)', },
+  { id: 'priceOut', label: 'Exported Price (Đ)', },
+  { id: 'note', label: 'Note', },
+];
 
 // SPARE PART PAGE AS DEFAULT
 function Storage() {
+  const [sparts, setSparts] = useState([]);
+  const [convs, setConvs] = useState([]);
+  const [tab, setTab] = useState('spart');
+  const [openAddDialog, setOpenAddDialog] = useState(false);
 
-  const [tab, setTab] = useState('default');
+  const classes = useStyles();
+
+  useEffect(() => {
+    getallSpart().then((spartData) => {
+      setSparts(spartData);
+    });
+    getallConveyor().then((convData) => {
+      setConvs(convData);
+    });
+  }, []);
 
   return (
     <Box >
-      <Navbar active="Storage" />
+      <CustomTabs tab="default" />
       {/* CONTENT */}
       <Box
         sx={{
@@ -38,42 +75,66 @@ function Storage() {
           mt: '20px',
         }}
       >
-        <TabContext value={tab}>
-          <Tabs
-            //orientation="vertical"
-            sx={{
-              minHeight: '50px',
-              background: '#ECECEC',
-              borderRadius: '10px',
-            }}
-            TabIndicatorProps={{
-              style: {
-                margin: '10px 0px',
-                borderRadius: '10px',
-                background: '#3B7E7E',
-                boxShadow: '6px 6px 10px rgba(223, 120, 97, 0.25)',
-                zIndex: 0,
-              },
-            }}
-            value={tab}
-            onChange={(e, newVal) => setTab(newVal)}
-          >
-            <Tab label={<InventoryIcon />} value="default" />
-            <Tab label={<HandymanIcon />} value="spart" />
-            <Tab label={<LayersIcon />} value="conveyor" />
-          </Tabs>
-          <TabPanel value="default">
-            {/* DEFAULT SPART LIST */}
-            <Inventory />
-          </TabPanel>
+        <Container maxWidth="sm">
+          <Typography
+            align="center"
+            color="#222222"
+            style={{ fontWeight: 600, fontSize: '30px' }}>
+            INVENTORY
+          </Typography>
+          <Grid container justifyContent="center" sx={{ mt: '10px' }}>
+            <Button variant="contained" endIcon={<AddBoxIcon />} onClick={() => setOpenAddDialog(true)}>
+              add
+            </Button>
+            <New open={openAddDialog} setOpen={setOpenAddDialog} />
+          </Grid>
 
-          <TabPanel value="spart">
-            <Sparepart />
-          </TabPanel>
-          <TabPanel value="conveyor">
-            <Conveyor />
-          </TabPanel>
-        </TabContext>
+          {/* INVENTORY CONTENT */}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              mt: '10px',
+            }}
+          >
+            <TabContext value={tab}>
+              <Tabs
+                //orientation="vertical"
+                sx={{
+                  minHeight: '50px',
+                  background: '#ECECEC',
+                  borderRadius: '10px',
+                }}
+                TabIndicatorProps={{
+                  style: {
+                    width: '50px',
+                    height: '50px',
+                    margin: '10px 0px',
+                    borderRadius: '10px',
+                    background: '#3B7E7E',
+                    zIndex: 0,
+                  },
+                }}
+                value={tab}
+                onChange={(e, newVal) => setTab(newVal)}
+              >
+                <Tab className={classes.tabStyle} icon={<HandymanIcon />} value="spart" />
+                <Tab className={classes.tabStyle} icon={<LayersIcon />} value="conveyor" />
+              </Tabs>
+              <TabPanel value="spart">
+                {/* SPART CURRENTLY IN STORAGE */}
+                <Typography className={classes.titleStyle} align='center'> SPARE PARTS </Typography>
+                <StandardTable headCells={spartHeadCells} data={sparts} deleteFunction={deleteSpart} />
+              </TabPanel>
+              <TabPanel value="conveyor">
+                {/* CONVEYOR BELT CURRENTLY IN STORAGE */}
+                <Typography className={classes.titleStyle} align='center'> CONVEYOR BELTS </Typography>
+                <StandardTable headCells={convHeadCells} data={convs} deleteFunction={deleteConveyor} />
+              </TabPanel>
+            </TabContext>
+          </Box>
+        </Container>
       </Box>
     </Box>
   );

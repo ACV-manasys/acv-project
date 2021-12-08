@@ -35,8 +35,8 @@ const App = () => {
           <Route element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/storage" element={<Storage />} />
-            <Route path="/storage/conv" element={<Storage />} />
-            <Route path="/storage/inventory" element={<Storage />} />
+            <Route path="/storage/spart" element={<Storage />} />
+            <Route path="/storage/conveyor" element={<Storage />} />
             <Route path="/contracts" element={<Contracts />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/access" element={<Access />} />
