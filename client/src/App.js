@@ -5,6 +5,8 @@ import Frontpage from './pages/frontpage/frontpage';
 import Home from './pages/home/home';
 import Note from './pages/note/note';
 import Storage from './pages/storage/storage';
+import Sparepart from './pages/storage/sparepart';
+import Conveyor from './pages/storage/conveyor';
 import Contracts from './pages/contracts/contracts';
 import Settings from './pages/settings/settings';
 import Access from './pages/access/access';
@@ -35,8 +37,8 @@ const App = () => {
           <Route element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/storage" element={<Storage />} />
-            <Route path="/storage/spart" element={<Storage />} />
-            <Route path="/storage/conveyor" element={<Storage />} />
+            <Route path="/storage/spart" element={<Sparepart />} />
+            <Route path="/storage/conveyor" element={<Conveyor />} />
             <Route path="/contracts" element={<Contracts />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/access" element={<Access />} />

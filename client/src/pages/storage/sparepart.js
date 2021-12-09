@@ -3,13 +3,23 @@ import {
   Box,
   Typography,
   Container,
+  Grid,
+  Button
 } from '@mui/material';
+
+//import StandardTable from '../../components/StandardTable';
+import New from './components/new';
+import CustomTabs from './components/CustomTabs';
+//import useStyles from './components/styles';
+
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 
 import { } from '../../api';
 
 function Sparepart() {
 
+  const [openAddDialog, setOpenAddDialog] = useState(false);
   /*
   useEffect(() => {
     getAllAccounts().then((data) => {
@@ -18,28 +28,35 @@ function Sparepart() {
   }, [accounts]);*/
 
   return (
-    <Container maxWidth="sm">
-      <Typography
-        align="center"
-        color="#222222"
-        style={{ fontWeight: 600, fontSize: '30px' }}>
-        SPARE PARTS
-      </Typography>
-
-      {/* INVENTORY CONTENT */}
+    <Box >
+      <CustomTabs tab="spart" />
+      {/* CONTENT */}
       <Box
-        noValidate
-        component="form"
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          m: 'auto',
-          width: 'fit-content',
+          alignItems: 'center',
+          paddingLeft: '110px',
+          paddingRight: '10px',
+          mt: '20px',
         }}
       >
-
+        <Container maxWidth="sm">
+          <Typography
+            align="center"
+            color="#222222"
+            style={{ fontWeight: 600, fontSize: '30px' }}>
+            SPARE PART
+          </Typography>
+          <Grid container justifyContent="center" sx={{ mt: '10px' }}>
+            <Button variant="contained" endIcon={<AddBoxIcon />} onClick={() => setOpenAddDialog(true)}>
+              add
+            </Button>
+            <New open={openAddDialog} setOpen={setOpenAddDialog} />
+          </Grid>
+        </Container>
       </Box>
-    </Container>
+    </Box>
   );
 }
 

@@ -104,14 +104,14 @@ function Storage() {
                 sx={{
                   minHeight: '50px',
                   background: '#ECECEC',
-                  borderRadius: '10px',
+                  borderRadius: '30px',
                 }}
                 TabIndicatorProps={{
                   style: {
                     width: '50px',
                     height: '50px',
                     margin: '10px 0px',
-                    borderRadius: '10px',
+                    borderRadius: '30px',
                     background: '#3B7E7E',
                     zIndex: 0,
                   },

@@ -102,18 +102,16 @@ function Frontpage() {
             <Box sx={wrapperBoxStyle}>
               <TabContext value={tab}>
                 <Tabs
-                  //orientation="vertical"
                   sx={{
                     minHeight: '50px',
-                    background: '#E0F2F1',
-                    borderRadius: '5px',
+                    background: '#ECECEC',
+                    borderRadius: '10px',
                   }}
                   TabIndicatorProps={{
                     style: {
-                      margin: '10px 0px',
+                      margin: '0px 0px',
                       borderRadius: '10px',
                       background: '#3B7E7E',
-                      boxShadow: '6px 6px 10px rgba(223, 120, 97, 0.25)',
                       zIndex: 0,
                     },
                   }}
