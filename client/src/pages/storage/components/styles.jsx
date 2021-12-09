@@ -1,7 +1,7 @@
 import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles({
-  titleStyle: {
+  chileTitleStyle: {
     color: "#555555",
     fontWeight: 600,
     fontSize: '25px',

@@ -2,18 +2,12 @@
 import React, { useState } from 'react';
 
 import {
-  Box,
-  Typography,
-  Dialog,
-  TextField,
-  Tabs,
-  Tab,
-  Button,
-  InputAdornment,
-  Grid,
-  IconButton,
-  Stack,
-  Input,
+  Box, Typography,
+  Dialog, TextField,
+  Tabs, Tab,
+  Button, InputAdornment,
+  Grid, IconButton,
+  Stack, Input,
   FormHelperText,
 } from '@mui/material';
 
@@ -24,10 +18,33 @@ import HandymanIcon from '@mui/icons-material/Handyman';
 import LayersIcon from '@mui/icons-material/Layers';
 import CloseIcon from '@mui/icons-material/Close';
 
-import useStyles from './styles';
 import StandardInput from '../../../components/StandardInput';
 
 import { createSpart, createConveyor } from '../../../api';
+
+// STYLING =====
+const tabStyle = {
+  minWidth: '50px',
+  maxWidth: '50px',
+  height: '50px',
+  margin: '10px 10px',
+  '&.Mui-selected': {
+    color: 'white',
+    zIndex: 1,
+  },
+};
+
+const childTitleStyle = {
+  color: "#555555",
+  fontWeight: 600,
+  fontSize: '25px',
+};
+
+const textFieldTitle = {
+  color: "#444444",
+  fontWeight: 500,
+  fontSize: '18px',
+};
 
 function New({ open, setOpen }) {
 
@@ -48,8 +65,6 @@ function New({ open, setOpen }) {
     note: "",
   });
 
-  const classes = useStyles();
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -64,6 +79,7 @@ function New({ open, setOpen }) {
         break;
     }
     setOpen(false);
+    window.location.reload();
   };
 
   const moneyTextField = (required, name, value, setValue, label) => {
@@ -142,13 +158,13 @@ function New({ open, setOpen }) {
               value={tab}
               onChange={(e, newVal) => setTab(newVal)}
             >
-              <Tab className={classes.tabStyle} icon={<HandymanIcon />} value="spart" />
-              <Tab className={classes.tabStyle} icon={<LayersIcon />} value="conveyor" />
+              <Tab sx={tabStyle} icon={<HandymanIcon />} value="spart" />
+              <Tab sx={tabStyle} icon={<LayersIcon />} value="conveyor" />
             </Tabs>
             <TabPanel value="spart">
 
               {/* NEW SPART */}
-              <Typography className={classes.titleStyle} align='center' > NEW SPARE PART </Typography>
+              <Typography sx={childTitleStyle} align='center' > NEW SPARE PART </Typography>
               <StandardInput
                 id="partNo" label="Part No" name="partNo" value={spart.partNo}
                 setValue={setSpart} required={true}
@@ -170,17 +186,17 @@ function New({ open, setOpen }) {
             <TabPanel value="conveyor">
 
               {/* NEW CONVEYOR BELT */}
-              <Typography className={classes.titleStyle} align='center'> NEW CONVEYOR BELT </Typography>
+              <Typography sx={childTitleStyle} align='center'> NEW CONVEYOR BELT </Typography>
               <StandardInput
                 id="machineName" label="Machine Name" name="machineName" value={conv.machineName}
                 setValue={setConv} required={true}
               />
               {/* Width x Height */}
               <Box sx={{ width: '300px', mb: '8px', mt: '10px' }}>
-                <Typography className={classes.textFieldTitle} align='center'> Dimension </Typography>
+                <Typography sx={textFieldTitle} align='center'> Dimension </Typography>
                 <Stack direction="row" spacing={2}>
                   {dimensionTextField(true, "width", conv.width, setConv, "Width")}
-                  <Typography className={classes.textFieldTitle} > x </Typography>
+                  <Typography sx={textFieldTitle} > x </Typography>
                   {dimensionTextField(true, "height", conv.height, setConv, "Height")}
                 </Stack>
               </Box>

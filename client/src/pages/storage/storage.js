@@ -3,10 +3,9 @@ import {
   Box,
   Tabs,
   Tab,
-  Button,
-  Grid,
   Typography,
-  Container,
+  Grid,
+  Button,
 } from '@mui/material';
 
 import TabContext from '@material-ui/lab/TabContext';
@@ -19,13 +18,13 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import StandardTable from '../../components/StandardTable';
 import New from './components/new';
 import CustomTabs from './components/CustomTabs';
-import useStyles from './components/styles';
 
 import {
   getallSpart, deleteSpart,
   getallConveyor, deleteConveyor
 } from '../../api';
 
+//TABLE HEADS =====
 const spartHeadCells = [
   { id: 'partNo', label: 'Part No', },
   { id: 'commodity', label: 'Commodity', },
@@ -43,14 +42,30 @@ const convHeadCells = [
   { id: 'note', label: 'Note', },
 ];
 
+// STYLING =====
+const tabStyle = {
+  minWidth: '50px',
+  maxWidth: '50px',
+  height: '50px',
+  margin: '10px 10px',
+  '&.Mui-selected': {
+    color: 'white',
+    zIndex: 1,
+  },
+};
+
+const childTitleStyle = {
+  color: "#555555",
+  fontWeight: 600,
+  fontSize: '25px',
+};
+
 // SPARE PART PAGE AS DEFAULT
 function Storage() {
   const [sparts, setSparts] = useState([]);
   const [convs, setConvs] = useState([]);
   const [tab, setTab] = useState('spart');
   const [openAddDialog, setOpenAddDialog] = useState(false);
-
-  const classes = useStyles();
 
   useEffect(() => {
     getallSpart().then((spartData) => {
@@ -64,7 +79,7 @@ function Storage() {
   return (
     <Box >
       <CustomTabs tab="default" />
-      {/* CONTENT */}
+      {/* SITE CONTENT */}
       <Box
         sx={{
           display: 'flex',
@@ -72,69 +87,49 @@ function Storage() {
           alignItems: 'center',
           paddingLeft: '110px',
           paddingRight: '10px',
-          mt: '20px',
         }}
       >
-        <Container maxWidth="sm">
-          <Typography
-            align="center"
-            color="#222222"
-            style={{ fontWeight: 600, fontSize: '30px' }}>
-            INVENTORY
-          </Typography>
-          <Grid container justifyContent="center" sx={{ mt: '10px' }}>
-            <Button variant="contained" endIcon={<AddBoxIcon />} onClick={() => setOpenAddDialog(true)}>
-              add
-            </Button>
-            <New open={openAddDialog} setOpen={setOpenAddDialog} />
-          </Grid>
-
-          {/* INVENTORY CONTENT */}
-          <Box
+        <Grid container justifyContent="center" sx={{ mt: '10px', mb: '15px' }}>
+          <Button variant="contained" endIcon={<AddBoxIcon />} onClick={() => setOpenAddDialog(true)}>
+            add
+          </Button>
+          <New open={openAddDialog} setOpen={setOpenAddDialog} />
+        </Grid>
+        <TabContext value={tab}>
+          <Tabs
+            //orientation="vertical"
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              mt: '10px',
+              minHeight: '50px',
+              background: '#ECECEC',
+              borderRadius: '30px',
             }}
+            TabIndicatorProps={{
+              style: {
+                width: '50px',
+                height: '50px',
+                margin: '10px 0px',
+                borderRadius: '30px',
+                background: '#3B7E7E',
+                zIndex: 0,
+              },
+            }}
+            value={tab}
+            onChange={(e, newVal) => setTab(newVal)}
           >
-            <TabContext value={tab}>
-              <Tabs
-                //orientation="vertical"
-                sx={{
-                  minHeight: '50px',
-                  background: '#ECECEC',
-                  borderRadius: '30px',
-                }}
-                TabIndicatorProps={{
-                  style: {
-                    width: '50px',
-                    height: '50px',
-                    margin: '10px 0px',
-                    borderRadius: '30px',
-                    background: '#3B7E7E',
-                    zIndex: 0,
-                  },
-                }}
-                value={tab}
-                onChange={(e, newVal) => setTab(newVal)}
-              >
-                <Tab className={classes.tabStyle} icon={<HandymanIcon />} value="spart" />
-                <Tab className={classes.tabStyle} icon={<LayersIcon />} value="conveyor" />
-              </Tabs>
-              <TabPanel value="spart">
-                {/* SPART CURRENTLY IN STORAGE */}
-                <Typography className={classes.titleStyle} align='center'> SPARE PARTS </Typography>
-                <StandardTable headCells={spartHeadCells} data={sparts} deleteFunction={deleteSpart} />
-              </TabPanel>
-              <TabPanel value="conveyor">
-                {/* CONVEYOR BELT CURRENTLY IN STORAGE */}
-                <Typography className={classes.titleStyle} align='center'> CONVEYOR BELTS </Typography>
-                <StandardTable headCells={convHeadCells} data={convs} deleteFunction={deleteConveyor} />
-              </TabPanel>
-            </TabContext>
-          </Box>
-        </Container>
+            <Tab sx={tabStyle} icon={<HandymanIcon />} value="spart" />
+            <Tab sx={tabStyle} icon={<LayersIcon />} value="conveyor" />
+          </Tabs>
+          <TabPanel value="spart">
+            {/* SPART CURRENTLY IN STORAGE */}
+            <Typography sx={childTitleStyle} align='center'> SPARE PARTS </Typography>
+            <StandardTable headCells={spartHeadCells} data={sparts} deleteFunction={deleteSpart} />
+          </TabPanel>
+          <TabPanel value="conveyor">
+            {/* CONVEYOR BELT CURRENTLY IN STORAGE */}
+            <Typography sx={childTitleStyle} align='center'> CONVEYOR BELTS </Typography>
+            <StandardTable headCells={convHeadCells} data={convs} deleteFunction={deleteConveyor} />
+          </TabPanel>
+        </TabContext>
       </Box>
     </Box>
   );
