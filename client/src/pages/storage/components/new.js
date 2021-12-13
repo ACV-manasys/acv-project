@@ -3,12 +3,11 @@ import React, { useState } from 'react';
 
 import {
   Box, Typography,
-  Dialog, TextField,
+  Dialog,
   Tabs, Tab,
-  Button, InputAdornment,
+  Button,
   Grid, IconButton,
-  Stack, Input,
-  FormHelperText,
+  Stack,
 } from '@mui/material';
 
 import TabContext from '@material-ui/lab/TabContext';
@@ -20,7 +19,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import StandardInput from '../../../components/StandardInput';
 
-import { createSpart, createConveyor } from '../../../api';
+import { createSpart, createConveyor, createLog, } from '../../../api';
 
 // STYLING =====
 const tabStyle = {
@@ -70,53 +69,31 @@ function New({ open, setOpen }) {
   };
 
   const handleAdd = () => {
+    var recordLog = {};
     switch (tab) {
       case 'conveyor':
         createConveyor(conv);
+        recordLog = {
+          activity: 'Added new conveyor to inventory',
+          code: 0,
+        };
         break;
       default:
         createSpart(spart);
+        recordLog = {
+          activity: 'Added new spare part to inventory',
+          code: 0,
+        };
         break;
     }
+
+    // Update Log
+    createLog(recordLog);
+
+    // Others
     setOpen(false);
     window.location.reload();
   };
-
-  const moneyTextField = (required, name, value, setValue, label) => {
-    return (
-      <Box sx={{ width: '300px' }}>
-        <TextField
-          required={required} id={name} margin="normal"
-          variant="outlined" size="medium" fullWidth
-          value={value} label={label}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">$</InputAdornment>,
-          }}
-          onChange={(e) => {
-            setValue((prev) => ({ ...prev, [name]: e.target.value }));
-          }}
-        />
-      </Box>
-    );
-  }
-
-  const dimensionTextField = (required, name, value, setValue, label) => {
-    return (
-      <Box >
-        <Input
-          required={required}
-          id={name}
-          value={value}
-          label={label}
-          endAdornment={<InputAdornment position="end">m</InputAdornment>}
-          onChange={(e) => {
-            setValue((prev) => ({ ...prev, [name]: e.target.value }));
-          }}
-        />
-        <FormHelperText id={name}>{label}</FormHelperText>
-      </Box>
-    );
-  }
 
   return (
     <div>
@@ -181,7 +158,10 @@ function New({ open, setOpen }) {
                 id="vieName" label="Vietnamese" name="vieName" value={spart.vieName}
                 setValue={setSpart} required={true}
               />
-              {moneyTextField(false, "price", spart.price, setSpart, "Price")}
+              <StandardInput
+                id="price" label="Price" name="price" value={spart.price}
+                setValue={setSpart} required={false} type='money' moneySign='$'
+              />
             </TabPanel>
             <TabPanel value="conveyor">
 
@@ -195,14 +175,26 @@ function New({ open, setOpen }) {
               <Box sx={{ width: '300px', mb: '8px', mt: '10px' }}>
                 <Typography sx={textFieldTitle} align='center'> Dimension </Typography>
                 <Stack direction="row" spacing={2}>
-                  {dimensionTextField(true, "width", conv.width, setConv, "Width")}
+                  <StandardInput
+                    id="width" label="Width" name="width" value={conv.width}
+                    setValue={setConv} required={false} type='dimension'
+                  />
                   <Typography sx={textFieldTitle} > x </Typography>
-                  {dimensionTextField(true, "height", conv.height, setConv, "Height")}
+                  <StandardInput
+                    id="height" label="Height" name="height" value={conv.height}
+                    setValue={setConv} required={false} type='dimension'
+                  />
                 </Stack>
               </Box>
               {/* Cost/Price */}
-              {moneyTextField(false, "costIn", conv.costIn, setConv, "Imported Cost")}
-              {moneyTextField(false, "priceOut", conv.priceOut, setConv, "Exported Price")}
+              <StandardInput
+                id="costIn" label="Imported Cost" name="costIn" value={conv.costIn}
+                setValue={setConv} required={false} type='money' moneySign='VNĐ'
+              />
+              <StandardInput
+                id="priceOut" label="Exported Price" name="priceOut" value={conv.priceOut}
+                setValue={setConv} required={false} type='money' moneySign='VNĐ'
+              />
               <StandardInput
                 id="note" label="Note" name="note" value={conv.note}
                 setValue={setConv} required={false} multiline={true}

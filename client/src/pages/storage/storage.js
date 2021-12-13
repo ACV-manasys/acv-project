@@ -20,8 +20,8 @@ import New from './components/new';
 import CustomTabs from './components/CustomTabs';
 
 import {
-  getallSpart, deleteSpart,
-  getallConveyor, deleteConveyor
+  getallSpart, deleteSpart, updateSpart,
+  getallConveyor, deleteConveyor, updateConveyor,
 } from '../../api';
 
 //TABLE HEADS =====
@@ -122,12 +122,12 @@ function Storage() {
           <TabPanel value="spart">
             {/* SPART CURRENTLY IN STORAGE */}
             <Typography sx={childTitleStyle} align='center'> SPARE PARTS </Typography>
-            <StandardTable headCells={spartHeadCells} data={sparts} deleteFunction={deleteSpart} />
+            <StandardTable headCells={spartHeadCells} data={sparts} deleteFunction={deleteSpart} updateFunction={updateSpart} type='spart' />
           </TabPanel>
           <TabPanel value="conveyor">
             {/* CONVEYOR BELT CURRENTLY IN STORAGE */}
             <Typography sx={childTitleStyle} align='center'> CONVEYOR BELTS </Typography>
-            <StandardTable headCells={convHeadCells} data={convs} deleteFunction={deleteConveyor} />
+            <StandardTable headCells={convHeadCells} data={convs} deleteFunction={deleteConveyor} updateFunction={updateConveyor} type='conv' />
           </TabPanel>
         </TabContext>
       </Box>

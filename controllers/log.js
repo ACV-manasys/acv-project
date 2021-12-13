@@ -7,8 +7,9 @@ const Search = require('./search');
 exports.create = async (req, res) => {
 
   const log = new Log({
-    user: req.body.user,
+    user: req.user.name,
     activity: req.body.activity,
+    code: req.body.code,
   });
   // Save this log to database
   log
@@ -32,7 +33,7 @@ exports.delete = (req, res) => {
 // Retrieve and return all logs from the database =================================
 exports.findAll = (req, res) => {
   // SORT THE DATA TO DISPLAY THE LATEST LOGS ON TOP
-  Log.findAll().sort({ createdAt: -1 }).then((data) => {
+  Log.find().sort({ createdAt: -1 }).then((data) => {
     if (data) {
       return res.status(200).send(data);
     }

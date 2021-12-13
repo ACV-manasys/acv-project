@@ -7,7 +7,7 @@ import Note from './pages/note/note';
 import Storage from './pages/storage/storage';
 import Sparepart from './pages/storage/sparepart';
 import Conveyor from './pages/storage/conveyor';
-import Contracts from './pages/contracts/contracts';
+import Contracts from './pages/depts/contracts';
 import Settings from './pages/settings/settings';
 import Access from './pages/access/access';
 import Unauthorized from './pages/unauthorized/unauthorized';

@@ -14,10 +14,12 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
+import Edit from '../pages/storage/components/edit';
 
-function StandardTable({ headCells, data, style, deleteFunction }) {
+function StandardTable({ headCells, data, style, deleteFunction, updateFunction, type }) {
 
   const [open, setOpen] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
   const [selectedRow, setSelectedRow] = useState({});
 
   const getDataOnRow = (col, dataElemment) => {
@@ -39,6 +41,11 @@ function StandardTable({ headCells, data, style, deleteFunction }) {
   const handleOpen = (row) => {
     setSelectedRow(row);
     setOpen(true);
+  }
+
+  const handleOpenEditTab = (row) => {
+    setSelectedRow(row);
+    setOpenEdit(true);
   }
 
   const handleClose = () => {
@@ -143,8 +150,8 @@ function StandardTable({ headCells, data, style, deleteFunction }) {
                     {Object.keys(row).map((element) => (
                       getDataOnRow(element, row[element],)
                     ))}
-                    <TableCell key="edit" align="center">
-                      <IconButton >
+                    <TableCell key="edit" align="center" >
+                      <IconButton onClick={() => handleOpenEditTab(row)}>
                         <EditIcon />
                       </IconButton>
                     </TableCell>
@@ -155,6 +162,7 @@ function StandardTable({ headCells, data, style, deleteFunction }) {
                     </TableCell>
                   </TableRow>
                 ))}
+                <Edit open={openEdit} setOpen={setOpenEdit} updateFunction={updateFunction} rawData={selectedRow} type={type} />
                 {showDeleteDataRow()}
               </TableBody>
             </Table>

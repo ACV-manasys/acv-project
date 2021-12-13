@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import * as dayjs from 'dayjs';
 import {
-  Box,
+  Box, Stack,
   List, ListItemAvatar,
   Avatar,
   ListItemText, ListItem,
@@ -14,27 +15,36 @@ import {
   MenuItem,
 } from '@mui/material';
 
-import FileUploadIcon from '@mui/icons-material/FileUpload'; //EXPORT
-import FileDownloadIcon from '@mui/icons-material/FileDownload'; //IMPORT
-import EditIcon from '@mui/icons-material/Edit'; //EDIT DOC
-import DescriptionIcon from '@mui/icons-material/Description'; //BILL/DOC
-import FilterListIcon from '@mui/icons-material/FilterList'; //FILTER BUTTON
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import EditIcon from '@mui/icons-material/Edit';
+import DescriptionIcon from '@mui/icons-material/Description';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import ToggleOnIcon from '@mui/icons-material/ToggleOn';
+import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 
+import { getallLogs } from '../../api';
 
-import { } from '../../api';
+const dateTimeStyle = {
+  color: "#222222",
+  fontSize: '17px',
+  fontWeight: 480,
+};
 
 function HistoryLog() {
 
-  const [log, setLog] = useState(testLogs);
+  const [log, setLog] = useState([]);
   const [open, setOpen] = useState(false); // DIALOG CONTROL FOR FILTER
   const [field, setField] = useState(false);
 
-  /*
+
   useEffect(() => {
-    getAllAccounts().then((data) => {
-      setAccounts(data);
+    getallLogs().then((data) => {
+      setLog(data);
     })
-  }, [accounts]);*/
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -57,17 +67,30 @@ function HistoryLog() {
     setOpen(false);
   };
 
-  function setIcon(activity) {
-    switch (activity) {
-      case 'export sparts':
-        return (<FileUploadIcon />);
-      case 'update contract no.58':
-        return (<EditIcon />);
-      case 'import sparts':
-        return (<FileDownloadIcon />);
+  function setIcon(activityCode) {
+    switch (activityCode) {
+      // INVENTORY ACTIVITIES
+      case 0:
+        return (<AddCircleIcon />); //ADD NEW SPART/CONV IN INVENTORY
+      case 1:
+        return (<RemoveCircleIcon />); //DELETE SPART/CONV IN INVENTORY
+
+      // // SPART/CONV STORAGE ACTIVITIES
+      case 2:
+        return (<FileDownloadIcon />); //IMPORT SPART/CONV IN STORAGE
+      case 3:
+        return (<FileUploadIcon />); //EXPORT SPART/CONV IN STORAGE
+      case 4:
+        return (<EditIcon />); //EDIT
+
+      // ACCESS PAGE 
+      case 5:
+        return (<ToggleOnIcon />); //ACTIVATE AN ACCOUNT
+      case 6:
+        return (<ToggleOffIcon />); //DEACTIVATE AN ACCOUNT
 
       default:
-        return (<DescriptionIcon />);
+        return (<DescriptionIcon />); //IMPORT CONVEYOR IN STORAGE
     }
   }
 
@@ -117,9 +140,9 @@ function HistoryLog() {
                     id: 'max-width',
                   }}
                 >
-                  <MenuItem value={false}>false</MenuItem>
+                  <MenuItem key="Defaults" value={false}>Defaults</MenuItem>
                   {logFields.map((i) => (
-                    <MenuItem value={i}>{i}</MenuItem>
+                    <MenuItem key={i} value={i}>{i}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -142,16 +165,23 @@ function HistoryLog() {
           width: 'fit-content',
         }}
       >
-        <List sx={{ width: '100%', minWidth: 400 }}>
+        <List sx={{ width: '100%', minWidth: 430 }}>
           {log.map((i) => (
             <ListItem>
               <ListItemAvatar>
                 <Avatar>
-                  {setIcon(i.activity)}
+                  {setIcon(i.code)}
                 </Avatar>
               </ListItemAvatar>
               <ListItemText primary={i.user} secondary={i.activity} />
-              <Typography color="#222222" style={{ fontSize: '17px', fontWeight: 480 }}>{i.createdAt}</Typography>
+              <Stack sx={{ alignItems: 'center' }}>
+                <Typography sx={dateTimeStyle}>
+                  {dayjs(i.createdAt).format('DD-MM-YYYY')}
+                </Typography>
+                <Typography sx={dateTimeStyle}>
+                  {dayjs(i.createdAt).format('HH:mm')}
+                </Typography>
+              </Stack>
             </ListItem>
           ))}
         </List>
@@ -160,16 +190,12 @@ function HistoryLog() {
   );
 }
 
-// THIS LOG LIST IS FOR DISPLAY TESTING
-const testLogs = [
-  { user: 'Hai Ha', activity: 'export sparts', createdAt: '20-10-2021' },
-  { user: 'nsask', activity: 'export sparts', createdAt: '19-10-2021' },
-  { user: 'sdfsdf', activity: 'export bill', createdAt: '18-10-2021' },
-  { user: 'nsask', activity: 'import sparts', createdAt: '18-10-2021' },
-  { user: 'nsask', activity: 'update contract no.58', createdAt: '17-10-2021' },
-  { user: 'sdfsdf', activity: 'export bill', createdAt: '16-10-2021' },
-  { user: 'nsask', activity: 'export sparts', createdAt: '16-10-2021' },
+const logFields = [
+  'Add/Remove in inventory',
+  'Import',
+  'Export',
+  'Edit',
+  'Access Management',
 ];
 
-const logFields = ['import sparts', 'export sparts', 'update contract no.58', 'export bill'];
 export default HistoryLog;

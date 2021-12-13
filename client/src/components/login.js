@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 
 import StandardInput from './StandardInput';
+import { CustomBackdrop } from './backdrop';
 import { login, registerUserdata } from '../api';
 
 function Login({ tab }, props) {
@@ -21,6 +22,8 @@ function Login({ tab }, props) {
     shown: false,
   });
   const [alert, setAlert] = useState();
+  // BACKDROP LOADING
+  const [open, setOpen] = useState(false);
 
   // FOR REGISTER TAB *****************************
   const [submitDisabled, setSubmitDisabled] = useState(true);
@@ -90,6 +93,9 @@ function Login({ tab }, props) {
       props.onClick();
     }
     e.preventDefault();
+
+    // LOADING BACKDROP
+    setOpen(true);
 
     login(username, password).then(null, (reason) => {
       if (reason === 400 || reason === 401) {
@@ -196,6 +202,7 @@ function Login({ tab }, props) {
           >
             Login
           </Button>
+          <CustomBackdrop open={open} />
         </Box>
       );
 

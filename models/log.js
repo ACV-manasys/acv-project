@@ -8,9 +8,13 @@ const LogSchema = new mongoose.Schema(
       required: true,
     },
     activity: {
-      type: String, // CODE OF ACTIVITY
+      type: String, // NAME OF ACTIVITY
       required: true,
     },
+    code: {
+      type: Number, // CODE OF ACTIVITY
+      required: true,
+    }
   }, {
   timestamps: true // TIME OF CREATING LOG
 });

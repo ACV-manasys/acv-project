@@ -8,6 +8,7 @@ const userRoute = require('./routes/user');
 // INVENTORY
 const convRoute = require('./routes/conveyor');
 const spartRoute = require('./routes/spart');
+const logRoute = require('./routes/log');
 
 const app = express();
 const path = require('path');
@@ -32,6 +33,7 @@ const host = process.env.HOST || 'localhost';
 app.use(userRoute);
 app.use(convRoute);
 app.use(spartRoute);
+app.use(logRoute);
 
 // Basic route
 let server = app.listen(port, function () {

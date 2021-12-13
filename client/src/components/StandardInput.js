@@ -4,6 +4,8 @@ import {
   TextField,
   FormHelperText,
   Box,
+  InputAdornment,
+  Input,
 } from '@mui/material';
 
 function StandardInput({
@@ -16,6 +18,9 @@ function StandardInput({
   sx,
   setErrors,
   multiline,
+  type,
+  moneySign,
+  dimensionSign,
 }) {
 
   const invalidEmailErrorMessage = 'invalid email';
@@ -58,26 +63,63 @@ function StandardInput({
     }
   }
 
-  return (
-    <Box sx={{ width: '300px' }}>
-      <TextField
-        required={required}
-        id={name}
-        margin="normal"
-        variant="outlined"
-        size="medium"
-        fullWidth
-        value={value}
-        label={label}
-        multiline={multiline}
-        onChange={(e) => {
-          setValue((prev) => ({ ...prev, [name]: e.target.value }));
-          isError(e.target.value);
-        }}
-      />
-      {generateHelperText(value)}
-    </Box>
-  );
+  switch (type) {
+    case 'money':
+      return (
+        <Box sx={{ width: '300px' }}>
+          <TextField
+            required={required} id={name} margin="normal"
+            variant="outlined" size="medium" fullWidth
+            value={value} label={label}
+            InputProps={{
+              startAdornment: <InputAdornment position="start">{moneySign ? moneySign : '$'}</InputAdornment>,
+            }}
+            onChange={(e) => {
+              setValue((prev) => ({ ...prev, [name]: e.target.value }));
+            }}
+          />
+        </Box>
+      );
+
+    case 'dimension':
+      return (
+        <Box >
+          <Input
+            required={required}
+            id={name}
+            value={value}
+            label={label}
+            endAdornment={<InputAdornment position="end">{dimensionSign ? dimensionSign : 'm'}</InputAdornment>}
+            onChange={(e) => {
+              setValue((prev) => ({ ...prev, [name]: e.target.value }));
+            }}
+          />
+          <FormHelperText id={name}>{label}</FormHelperText>
+        </Box>
+      );
+
+    default:
+      return (
+        <Box sx={{ width: '300px' }}>
+          <TextField
+            required={required}
+            id={name}
+            margin="normal"
+            variant="outlined"
+            size="medium"
+            fullWidth
+            value={value}
+            label={label}
+            multiline={multiline}
+            onChange={(e) => {
+              setValue((prev) => ({ ...prev, [name]: e.target.value }));
+              isError(e.target.value);
+            }}
+          />
+          {generateHelperText(value)}
+        </Box>
+      );
+  }
 }
 
 export default StandardInput;
