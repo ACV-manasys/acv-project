@@ -4,6 +4,7 @@ import theme from './theme';
 import Frontpage from './pages/frontpage/frontpage';
 import Home from './pages/home/home';
 import Note from './pages/note/note';
+import Shared from './pages/note/shared';
 import Storage from './pages/storage/storage';
 import Sparepart from './pages/storage/sparepart';
 import Conveyor from './pages/storage/conveyor';
@@ -43,6 +44,7 @@ const App = () => {
             <Route path="/settings" element={<Settings />} />
             <Route path="/access" element={<Access />} />
             <Route path="/note" element={<Note />} />
+            <Route path="/note/shared" element={<Shared />} />
           </Route>
 
         </Routes>

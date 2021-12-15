@@ -18,6 +18,26 @@ exports.findOne = (req, res) => {
   supporter.findData(User, req, res);
 }
 
+exports.findAllExcSelf = (req, res) => {
+  User
+    .find()
+    .then((data) => {
+      var toReturn = [];
+      for (let index = 0; index < data.length; index++) {
+        const element = data[index];
+        if (element.username != req.user.username) {
+          toReturn.push(element);
+        }
+      }
+      res.send(toReturn);
+    })
+    // Catching error when accessing the database
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send({ message: 'Error when accessing the database!' });
+    });
+}
+
 exports.changeAccessment = (req, res) => {
   const id = req.params.id;
 
@@ -38,7 +58,6 @@ exports.changeAccessment = (req, res) => {
       });
     });
 }
-
 
 exports.changePassword = async (req, res) => {
   if (!req.user) {

@@ -6,15 +6,16 @@ import noteRoutes from './components/routes';
 import Layout from './components/layout';
 import View from './components/view';
 import { Loading } from '../../components/backdrop';
-import { getPrivateNote, } from '../../api';
+import { getSharedNote } from '../../api';
 
-function Note({ type }) {
+function Shared() {
 
   const [notes, setNotes] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    getPrivateNote().then((data) => {
+
+    getSharedNote().then((data) => {
       setNotes(data);
       setLoading(false);
     });
@@ -22,14 +23,14 @@ function Note({ type }) {
 
   return (
     <Box >
-      <CustomTabs tab="default" title='MY NOTES' routes={noteRoutes} active='Note' tabWidth='160px' />
+      <CustomTabs tab="shared" title='SHARED NOTES' routes={noteRoutes} active='Note' tabWidth='160px' />
       {/* SITE CONTENT */}
       <View type='new' />
       {
-        isLoading ? (<Loading paddingLeft='120px' />) : (<Layout type='private' noteList={notes} />)
+        isLoading ? (<Loading paddingLeft='120px' />) : (<Layout type='shared' noteList={notes} />)
       }
     </Box>
   );
 }
 
-export default Note;
+export default Shared;

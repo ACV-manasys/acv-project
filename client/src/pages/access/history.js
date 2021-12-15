@@ -26,10 +26,11 @@ import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 
 import { getallLogs } from '../../api';
+import { Loading } from '../../components/backdrop';
 
 const dateTimeStyle = {
   color: "#222222",
-  fontSize: '17px',
+  fontSize: '16px',
   fontWeight: 480,
 };
 
@@ -38,11 +39,13 @@ function HistoryLog() {
   const [log, setLog] = useState([]);
   const [open, setOpen] = useState(false); // DIALOG CONTROL FOR FILTER
   const [field, setField] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
 
   useEffect(() => {
     getallLogs().then((data) => {
       setLog(data);
+      setLoading(false);
     })
   }, []);
 
@@ -73,13 +76,13 @@ function HistoryLog() {
       case 0:
         return (<AddCircleIcon />); //ADD NEW SPART/CONV IN INVENTORY
       case 1:
-        return (<RemoveCircleIcon />); //DELETE SPART/CONV IN INVENTORY
+        return (<RemoveCircleIcon />); //DELETE SPART/CONV FROM INVENTORY
 
       // // SPART/CONV STORAGE ACTIVITIES
       case 2:
-        return (<FileDownloadIcon />); //IMPORT SPART/CONV IN STORAGE
+        return (<FileDownloadIcon />); //IMPORT SPART/CONV INTO STORAGE
       case 3:
-        return (<FileUploadIcon />); //EXPORT SPART/CONV IN STORAGE
+        return (<FileUploadIcon />); //EXPORT SPART/CONV FROM STORAGE
       case 4:
         return (<EditIcon />); //EDIT
 
@@ -165,7 +168,8 @@ function HistoryLog() {
           width: 'fit-content',
         }}
       >
-        <List sx={{ width: '100%', minWidth: 430 }}>
+        <List sx={{ width: '100%', minWidth: 450 }}>
+          {isLoading ? (<Loading />) : null}
           {log.map((i) => (
             <ListItem>
               <ListItemAvatar>
@@ -173,8 +177,8 @@ function HistoryLog() {
                   {setIcon(i.code)}
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={i.user} secondary={i.activity} />
-              <Stack sx={{ alignItems: 'center' }}>
+              <ListItemText sx={{ maxWidth: '350px' }} primary={i.user} secondary={i.activity} />
+              <Stack sx={{ alignItems: 'center', ml: '20px' }}>
                 <Typography sx={dateTimeStyle}>
                   {dayjs(i.createdAt).format('DD-MM-YYYY')}
                 </Typography>

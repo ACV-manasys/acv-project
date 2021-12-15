@@ -69,6 +69,12 @@ export function getAllAccounts() {
   return instance.get(endpoint, config).then((res) => res.data);
 }
 
+export function getAllOtherAccounts() {
+  let endpoint = '/user/findAllExcSelf';
+
+  return instance.get(endpoint, config).then((res) => res.data);
+}
+
 export function updateUserAccess(id) {
   let endpoint = '/user/changeAccessment/' + id;
 
@@ -76,6 +82,12 @@ export function updateUserAccess(id) {
     .put(endpoint, {}, config)
     .then((res) => res.data)
     .catch((e) => console.log(e.response));
+}
+
+export function getNames(idList) {
+  let endpoint = '/user/getNames';
+
+  return instance.post(endpoint, idList, config).then((res) => res.data);
 }
 
 // HISTORY LOGS ===================================================
@@ -142,4 +154,45 @@ export function deleteConveyor(id) {
   let endpoint = '/conveyor/' + id;
 
   return instance.delete(endpoint, config).then((res) => res.data);
+}
+
+// NOTES ===============================================================
+
+export function createNote(note) {
+  let endpoint = '/note';
+
+  return instance.post(endpoint, note, config).then((res) => res.data);
+}
+
+export function getPrivateNote() {
+  let endpoint = '/note/private';
+
+  return instance.get(endpoint, config).then((res) => res.data);
+}
+
+export function getSharedNote() {
+  let endpoint = '/note/shared';
+
+  return instance.get(endpoint, config).then((res) => res.data);
+}
+
+export function deleteNote(id) {
+  let endpoint = '/note/' + id;
+
+  return instance.delete(endpoint, config).then((res) => res.data);
+}
+
+export function updateNote(note) {
+  let endpoint = '/note/' + note._id;
+
+  return instance.put(endpoint, note, config).then((res) => res.data);
+}
+
+export function updateNoteImportance(id) {
+  let endpoint = '/note/changeImportance/' + id;
+
+  return instance
+    .put(endpoint, {}, config)
+    .then((res) => res.data)
+    .catch((e) => console.log(e.response));
 }

@@ -17,7 +17,8 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 
 import StandardTable from '../../components/StandardTable';
 import New from './components/new';
-import CustomTabs from './components/CustomTabs';
+import CustomTabs from '../../components/CustomTabs';
+import storageRoutes from './components/routes';
 
 import {
   getallSpart, deleteSpart, updateSpart,
@@ -78,7 +79,7 @@ function Storage() {
 
   return (
     <Box >
-      <CustomTabs tab="default" />
+      <CustomTabs active='Storage' tab="default" title='INVENTORY' routes={storageRoutes} />
       {/* SITE CONTENT */}
       <Box
         sx={{

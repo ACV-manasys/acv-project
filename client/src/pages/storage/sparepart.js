@@ -4,8 +4,8 @@ import {
 } from '@mui/material';
 
 //import StandardTable from '../../components/StandardTable';
-import CustomTabs from './components/CustomTabs';
-//import useStyles from './components/styles';
+import CustomTabs from '../../components/CustomTabs';
+import storageRoutes from './components/routes';
 
 //import AddBoxIcon from '@mui/icons-material/AddBox';
 
@@ -23,7 +23,7 @@ function Sparepart() {
 
   return (
     <Box >
-      <CustomTabs tab="spart" />
+      <CustomTabs active='Storage' tab="spart" title='SPARE PARTS' routes={storageRoutes} />
       {/* SITE CONTENT */}
       <Box
         sx={{

@@ -40,7 +40,7 @@ function Access() {
             sx={{
               minHeight: '50px',
               background: '#ECECEC',
-              borderRadius: '5px',
+              borderRadius: '15px',
             }}
             TabIndicatorProps={{
               style: {

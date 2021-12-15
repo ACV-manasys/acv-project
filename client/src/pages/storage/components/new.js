@@ -74,14 +74,14 @@ function New({ open, setOpen }) {
       case 'conveyor':
         createConveyor(conv);
         recordLog = {
-          activity: 'Added new conveyor to inventory',
+          activity: 'Added conveyor for machine: ' + conv.machineName + ' to inventory',
           code: 0,
         };
         break;
       default:
         createSpart(spart);
         recordLog = {
-          activity: 'Added new spare part to inventory',
+          activity: 'Added spare part commodity: ' + spart.commodity + ' to inventory',
           code: 0,
         };
         break;

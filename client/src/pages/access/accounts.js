@@ -16,20 +16,40 @@ import {
 
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 
-import { getAllAccounts, updateUserAccess } from '../../api';
+import { getAllAccounts, updateUserAccess, createLog } from '../../api';
+import { Loading } from '../../components/backdrop';
 
 function AccountsDisplay() {
 
   const [accounts, setAccounts] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     getAllAccounts().then((data) => {
       setAccounts(data);
+      setLoading(false);
     })
   }, [accounts]);
 
-  const updateAccessment = (id) => {
+  const updateAccessment = (id, activated, username) => {
+    var recordLog = {};
+    switch (activated) {
+      case false:
+        recordLog = {
+          activity: 'Activated account username: ' + username,
+          code: 5,
+        }
+        break;
+
+      default:
+        recordLog = {
+          activity: 'De-activated account username: ' + username,
+          code: 6,
+        }
+        break;
+    }
     updateUserAccess(id);
+    createLog(recordLog);
   }
 
   function stringAvatar(name, activated) {
@@ -70,6 +90,7 @@ function AccountsDisplay() {
           width: 'fit-content',
         }}
       >
+        {isLoading ? (<Loading />) : null}
         <List sx={{ width: '100%', minWidth: 350 }}>
           {accounts.map((i) => (
             <ListItem>
@@ -102,7 +123,7 @@ function AccountsDisplay() {
                       <Grid container justifyContent="flex-end">
                         <Button
                           onClick={() => {
-                            updateAccessment(i._id);
+                            updateAccessment(i._id, i.activated, i.username);
                             popupState.close();
                           }}
                           variant='contained'

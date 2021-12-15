@@ -4,8 +4,8 @@ import {
 } from '@mui/material';
 
 //import StandardTable from '../../components/StandardTable';
-import CustomTabs from './components/CustomTabs';
-//import useStyles from './components/styles';
+import CustomTabs from '../../components/CustomTabs';
+import storageRoutes from './components/routes';
 
 import { } from '../../api';
 
@@ -19,7 +19,7 @@ function Conveyor() {
 
   return (
     <Box >
-      <CustomTabs tab="conveyor" />
+      <CustomTabs active='Storage' tab="conveyor" title='CONVEYOR BELTS' routes={storageRoutes} />
       {/* SITE CONTENT */}
       <Box
         sx={{

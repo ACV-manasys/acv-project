@@ -4,6 +4,7 @@ let theme = createTheme({
   palette: {
     primary: {
       main: '#3B7E7E',
+      contrastText: "#fff",
     },
     contained: {
       main: '#4AA49B',
@@ -21,6 +22,13 @@ let theme = createTheme({
     lightBackground: {
       main: '#E0F2F1'
     },
+    alertStyle: {
+      main: '#B90E0A',
+      contrastText: "#fff",
+    },
+    lightText: {
+      main: '#EEEEEE'
+    }
   },
 });
 

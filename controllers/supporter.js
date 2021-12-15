@@ -1,4 +1,4 @@
-
+const User = require('../models/user');
 
 // Update a data identified by the data's Id =====================================
 function updateData(controller, req, res) {
@@ -73,9 +73,42 @@ function findData(controller, req, res) {
     });
 }
 
+// Get names from list of ids
+async function getNames(idList) {
+  var names = [];
+  for (var i = 0; i < idList.length; i++) {
+    const id = idList[i];
+    await User.findOne({ _id: id })
+      .then((found) => {
+        if (found) {
+          names.push(found.name);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        // do nothing --> checks for length of participant list will give error for us
+      });
+  }
+  return names;
+}
+
+async function displayNote(note) {
+  return {
+    _id: note._id,
+    visible: note.visible,
+    title: note.title,
+    content: note.content,
+    color: note.color,
+    tags: note.tags,
+    important: note.important,
+    names: await getNames(note.visible),
+  };
+}
+
 module.exports = {
   updateData,
   deleteData,
   findAllData,
-  findData
+  findData,
+  displayNote,
 };

@@ -13,6 +13,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 
 import StandardInput from '../../../components/StandardInput';
+import { createLog } from '../../../api';
 
 const childTitleStyle = {
   color: "#555555",
@@ -39,7 +40,26 @@ function EditTab({ open, setOpen, updateFunction, rawData, type }) {
   };
 
   const handleUpdate = () => {
-    updateFunction(data)
+    var recordLog = {};
+    switch (type) {
+      case 'spart':
+        recordLog = {
+          activity: 'Edited spare part commodity: ' + data.commodity + ' in inventory',
+          code: 4,
+        };
+        break;
+
+      default:
+        recordLog = {
+          activity: 'Edited conveyor for machine: ' + data.machineName + ' in inventory',
+          code: 4,
+        };
+        break;
+    }
+
+    updateFunction(data);
+    // Update Log
+    createLog(recordLog);
     setOpen(false);
     window.location.reload();
   };

@@ -16,6 +16,8 @@ import EditIcon from '@mui/icons-material/Edit';
 
 import Edit from '../pages/storage/components/edit';
 
+import { createLog } from '../api';
+
 function StandardTable({ headCells, data, style, deleteFunction, updateFunction, type }) {
 
   const [open, setOpen] = useState(false);
@@ -53,7 +55,26 @@ function StandardTable({ headCells, data, style, deleteFunction, updateFunction,
   }
 
   const handleDel = () => {
+    var recordLog = {};
+    switch (type) {
+      case 'spart':
+        recordLog = {
+          activity: 'Removed spare part commodity: ' + selectedRow.commodity + ' from inventory',
+          code: 1,
+        };
+        break;
+
+      default:
+        recordLog = {
+          activity: 'Removed conveyor for machine: ' + selectedRow.machineName + ' from inventory',
+          code: 1,
+        };
+        break;
+    }
+
     deleteFunction(selectedRow._id);
+    // Update Log
+    createLog(recordLog);
     setOpen(false);
     window.location.reload();
   }

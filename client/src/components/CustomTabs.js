@@ -4,11 +4,7 @@ import {
   Box, Stack, ButtonBase, Typography,
 } from '@mui/material';
 
-import HandymanIcon from '@mui/icons-material/Handyman';
-import LayersIcon from '@mui/icons-material/Layers';
-import InventoryIcon from '@mui/icons-material/Inventory';
-
-import Navbar from '../../../components/Navbar';
+import Navbar from './Navbar';
 
 const activeDesktopButtonStyle = {
   display: 'flex',
@@ -20,41 +16,11 @@ const activeDesktopButtonStyle = {
   borderRadius: '20px',
 };
 
-const storageRoutes = [
-  {
-    text: 'default',
-    path: '/storage',
-    exact: true,
-    icon: <InventoryIcon sx={{ fontSize: '30px' }} />,
-  },
-  {
-    text: 'spart',
-    path: '/storage/spart',
-    icon: <HandymanIcon sx={{ fontSize: '30px' }} />,
-  },
-  {
-    text: 'conveyor',
-    path: '/storage/conveyor',
-    icon: <LayersIcon sx={{ fontSize: '30px' }} />,
-  },
-];
-
-function CustomTabs({ tab }) {
-
-  const getTitle = () => {
-    switch (tab) {
-      case 'spart':
-        return 'SPARE PARTS';
-      case 'conveyor':
-        return 'CONVEYOR BELTS';
-      default:
-        return 'INVENTORY';
-    }
-  };
+function CustomTabs({ tab, title, routes, tabWidth, active }) {
 
   return (
     <Box >
-      <Navbar active="Storage" />
+      <Navbar active={active} />
       <Box
         sx={{
           display: 'flex',
@@ -71,14 +37,14 @@ function CustomTabs({ tab }) {
           alignItems="center"
           spacing={4}
           sx={{
-            minWidth: '240px',
+            minWidth: tabWidth ? (tabWidth) : '240px',
             minHeight: '70px',
             borderRadius: '20px',
             backgroundColor: '#ECECEC',
             mb: '10px'
           }}
         >
-          {storageRoutes.map((route) => (
+          {routes.map((route) => (
             <Link key={route.text} to={route.path}>
               {tab === route.text ? (
                 <ButtonBase
@@ -110,7 +76,7 @@ function CustomTabs({ tab }) {
           align="center"
           color="#222222"
           style={{ fontWeight: 600, fontSize: '30px' }}>
-          {getTitle()}
+          {title}
         </Typography>
       </Box>
     </Box>
