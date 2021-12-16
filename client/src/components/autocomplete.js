@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-import { getAllOtherAccounts } from '../api';
+import { getAllOtherAccounts, getNames } from '../api';
 import colorBoard from '../pages/note/components/colorBoard';
 
 const useStyles = makeStyles(theme => ({
@@ -54,15 +54,23 @@ export default function MakeAutoComplete({ label, name, value, setValue, type, p
   }, [type]);
 
   const handleChange = (newVal) => {
-    let idList = [];
-    // eslint-disable-next-line array-callback-return
-    menu.map((option) => {
-      if (newVal.includes(option.name, 0)) {
-        idList.push(option._id);
-      }
-    });
-    //console.log(idList);
-    setValue((prev) => ({ ...prev, [name]: idList }));
+    switch (type) {
+      case 'visible':
+        let idList = [];
+        // eslint-disable-next-line array-callback-return
+        menu.map((option) => {
+          if (newVal.includes(option.name, 0)) {
+            idList.push(option._id);
+          }
+        });
+        console.log(idList);
+        setValue((prev) => ({ ...prev, [name]: idList }));
+        break;
+
+      default:
+        setValue((prev) => ({ ...prev, [name]: newVal }));
+        break;
+    }
   };
 
   return (
@@ -82,7 +90,7 @@ export default function MakeAutoComplete({ label, name, value, setValue, type, p
               <Chip
                 sx={{ bgcolor: colorBoard.textCol, fontWeight: 550 }}
                 label={option}
-                {...getTagProps({ index })}
+                {...getTagProps({ index })} // FIX HERE PLEASEEEEEEE!!!
                 onDelete={() => {
                   setValue((prev) => ({
                     ...prev,

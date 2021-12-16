@@ -15,6 +15,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import EditIcon from '@mui/icons-material/Edit';
 
 import { createNote, updateNote } from '../../../api';
 import colorBoard from './colorBoard';
@@ -107,118 +108,117 @@ function View({ type, rawNote }) {
     }
   }, [rawNote, type]);
 
-  switch (type) {
-    case 'new':
-      return (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            paddingLeft: '120px',
-            paddingRight: '10px',
-            mt: '10px',
-          }}
-        >
-          <Button variant="contained" startIcon={<AddIcon />} onClick={handleClickOpen}>
-            New Note
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingLeft: '120px',
+        paddingRight: '10px',
+      }}
+    >
+      {type === 'new' ? (
+        <Button variant="contained" startIcon={<AddIcon />} onClick={handleClickOpen}>
+          New Note
+        </Button>
+      ) : (
+        <IconButton aria-label="edit" onClick={handleClickOpen}>
+          <EditIcon sx={{ color: colorBoard.textCol }} />
+        </IconButton>
+      )}
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle sx={{ fontSize: '25px', fontWeight: 600, alignSelf: 'center', color: colorBoard.darkGrey }}>
+          {title}
+        </DialogTitle>
+        <DialogContent>
+          <Card sx={{ minWidth: 550 }}>
+            <CardHeader
+              style={{ backgroundColor: color ? color : colorBoard.themeColor }}
+              title={<TextField p={2}
+                id="title"
+                variant="standard"
+                color="lightText"
+                defaultValue={note.title}
+                sx={{ width: '275px' }}
+                InputProps={{ className: classes.titleInput, }}
+                onChange={(e) => {
+                  setNote((prev) => ({ ...prev, title: e.target.value }));
+                }}
+              />}
+              action={
+                <Stack direction='row'
+                  sx={{
+                    bgcolor: colorBoard.palletebg,
+                    borderRadius: '20px',
+                    border: 6, gap: 0.5,
+                    borderColor: colorBoard.palletebg,
+                    mr: '5px'
+                  }}>
+                  {colorBoard.selectionBoard.map((col) => (
+                    col === color ?
+                      (<IconButton key={col} id={col} sx={{ bgcolor: col }} size='small'>
+                        <CheckIcon color='greyBorder' />
+                      </IconButton>) :
+                      (<IconButton key={col} id={col} style={{ width: 34, height: 34 }} sx={{ bgcolor: col }} onClick={() => handleChangeColor(col)} />)
+                  ))}
+                </Stack>
+              }
+            />
+
+            <CardContent sx={{ minHeight: '100px', bgcolor: colorBoard.darkGrey }}>
+              <TextField
+                id="content"
+                color="lightText"
+                multiline
+                rows={4}
+                fullWidth
+                defaultValue={note.content}
+                InputProps={{
+                  className: classes.contentInput,
+                }}
+                onChange={(e) => {
+                  setNote((prev) => ({ ...prev, content: e.target.value }));
+                }}
+              />
+              {/*AUTO-COMPLETE*/}
+              <MakeAutoComplete
+                label='Tags' name='tags'
+                value={note.tags} setValue={setNote}
+                type='tags' placeholder='Tag this note ...'
+                freeSolo={true}
+              />
+              <MakeAutoComplete
+                label='Share to' name='visible'
+                value={note.visible} setValue={setNote}
+                type='visible' placeholder='Share this note with ...'
+              />
+              <Stack direction='row' sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                <Typography className={classes.titleInput}>
+                  • Mark as important
+                </Typography>
+                <IconButton size='large' onClick={updateImportance}>
+                  {currImpt ? <StarIcon sx={{ color: colorBoard.gold }} /> : <StarBorderIcon sx={{ color: colorBoard.textCol }} />}
+                </IconButton>
+              </Stack>
+            </CardContent>
+          </Card>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleSubmit}
+            variant='outlined'
+            sx={{
+              mr: '15px', mb: '10px',
+              bgcolor: colorBoard.darkGrey,
+              color: colorBoard.palletebg,
+            }}>
+            Done
           </Button>
-          <Dialog open={open} onClose={handleClose}>
-            <DialogTitle sx={{ fontSize: '25px', fontWeight: 600, alignSelf: 'center', color: colorBoard.darkGrey }}>
-              {title}
-            </DialogTitle>
-            <DialogContent>
-              <Card sx={{ minWidth: 550 }}>
-                <CardHeader
-                  style={{ backgroundColor: color ? color : colorBoard.themeColor }}
-                  title={<TextField p={2}
-                    id="title"
-                    variant="standard"
-                    color="lightText"
-                    defaultValue={note.title}
-                    sx={{ width: '275px' }}
-                    InputProps={{ className: classes.titleInput, }}
-                    onChange={(e) => {
-                      setNote((prev) => ({ ...prev, title: e.target.value }));
-                    }}
-                  />}
-                  action={
-                    <Stack direction='row'
-                      sx={{
-                        bgcolor: colorBoard.palletebg,
-                        borderRadius: '20px',
-                        border: 6, gap: 0.5,
-                        borderColor: colorBoard.palletebg,
-                        mr: '5px'
-                      }}>
-                      {colorBoard.selectionBoard.map((col) => (
-                        col === color ?
-                          (<IconButton key={col} id={col} sx={{ bgcolor: col }} size='small'>
-                            <CheckIcon color='greyBorder' />
-                          </IconButton>) :
-                          (<IconButton key={col} id={col} style={{ width: 34, height: 34 }} sx={{ bgcolor: col }} onClick={() => handleChangeColor(col)} />)
-                      ))}
-                    </Stack>
-                  }
-                />
-
-                <CardContent sx={{ minHeight: '100px', bgcolor: colorBoard.darkGrey }}>
-                  <TextField
-                    id="content"
-                    color="lightText"
-                    multiline
-                    rows={4}
-                    fullWidth
-                    defaultValue={note.content}
-                    InputProps={{
-                      className: classes.contentInput,
-                    }}
-                    onChange={(e) => {
-                      setNote((prev) => ({ ...prev, content: e.target.value }));
-                    }}
-                  />
-                  {/*AUTO-COMPLETE*/}
-                  <MakeAutoComplete
-                    label='Tags' name='tags'
-                    value={note.tags} setValue={setNote}
-                    type='tags' placeholder='Tag this note ...'
-                    freeSolo={true}
-                  />
-                  <MakeAutoComplete
-                    label='Share to' name='visible'
-                    value={note.visible} setValue={setNote}
-                    type='visible' placeholder='Share this note with ...'
-                  />
-                  <Stack direction='row' sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Typography className={classes.titleInput}>
-                      • Mark as important
-                    </Typography>
-                    <IconButton size='large' onClick={updateImportance}>
-                      {currImpt ? <StarIcon sx={{ color: colorBoard.gold }} /> : <StarBorderIcon sx={{ color: colorBoard.textCol }} />}
-                    </IconButton>
-                  </Stack>
-                </CardContent>
-              </Card>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                onClick={handleSubmit}
-                variant='outlined'
-                sx={{
-                  mr: '15px', mb: '10px',
-                  bgcolor: colorBoard.darkGrey,
-                  color: colorBoard.palletebg,
-                }}>
-                Done
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </Box>
-      );
-
-    default:
-      return;
-  }
+        </DialogActions>
+      </Dialog>
+    </Box>
+  );
 }
 
 export default View;

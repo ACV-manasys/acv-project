@@ -19,16 +19,14 @@ import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 import ShareIcon from '@mui/icons-material/Share';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { deleteNote, updateNoteImportance } from '../../../api';
 import colorBoard from './colorBoard';
+import View from './view';
 
 function Layout({ type, noteList }) {
   const [notes, setNotes] = useState([]);
-  const [selected, setSelected] = useState({});
-  const [openEditView, setOpenEditView] = useState(false);
 
   useEffect(() => {
     setNotes(noteList);
@@ -46,14 +44,6 @@ function Layout({ type, noteList }) {
   const handleDelete = (id) => {
     deleteNote(id);
     window.location.reload();
-  }
-
-  const handleOpen = () => {
-    setOpenEditView(true);
-  }
-
-  const handleClose = () => {
-    setOpenEditView(false);
   }
 
   const showVisible = (names) => {
@@ -114,11 +104,7 @@ function Layout({ type, noteList }) {
               fontSize: '20px',
             }}
             title={note.title}
-            action={
-              <IconButton aria-label="edit">
-                <EditIcon sx={{ color: colorBoard.textCol }} />
-              </IconButton>
-            }
+            action={<View type='edit' rawNote={note} />}
           />
           <CardContent sx={{ bgcolor: colorBoard.darkGrey }}>
             <Typography variant="body" color="text.primary" sx={{ color: colorBoard.textCol }}>
