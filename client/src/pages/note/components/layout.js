@@ -27,7 +27,8 @@ import colorBoard from './colorBoard';
 
 function Layout({ type, noteList }) {
   const [notes, setNotes] = useState([]);
-  //const [selected, setSelected] = useState({});
+  const [selected, setSelected] = useState({});
+  const [openEditView, setOpenEditView] = useState(false);
 
   useEffect(() => {
     setNotes(noteList);
@@ -45,6 +46,14 @@ function Layout({ type, noteList }) {
   const handleDelete = (id) => {
     deleteNote(id);
     window.location.reload();
+  }
+
+  const handleOpen = () => {
+    setOpenEditView(true);
+  }
+
+  const handleClose = () => {
+    setOpenEditView(false);
   }
 
   const showVisible = (names) => {
@@ -90,13 +99,13 @@ function Layout({ type, noteList }) {
         flexWrap: 'wrap',
         justifyContent: 'center',
         alignContent: 'flex-start',
-        paddingLeft: '180px',
+        paddingLeft: '150px',
         paddingRight: '10px',
         mt: '20px',
       }}
     >
       {notes.map((note, index) => (
-        <Card key={index} sx={{ minWidth: 300, mr: '30px', mb: '30px' }}>
+        <Card key={index} sx={{ height: '100%', minWidth: 300, mr: '30px', mb: '30px' }}>
           <CardHeader
             sx={{ bgcolor: note.color }}
             titleTypographyProps={{
@@ -111,7 +120,7 @@ function Layout({ type, noteList }) {
               </IconButton>
             }
           />
-          <CardContent sx={{ maxHeight: '100%', bgcolor: colorBoard.darkGrey }}>
+          <CardContent sx={{ bgcolor: colorBoard.darkGrey }}>
             <Typography variant="body" color="text.primary" sx={{ color: colorBoard.textCol }}>
               {note.content}
             </Typography>

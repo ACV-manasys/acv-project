@@ -18,7 +18,8 @@ const useStyles = makeStyles(theme => ({
     "& input::placeholder": {
       color: colorBoard.textCol,
       fontStyle: 'italic'
-    }
+    },
+    width: '518px',
   },
 }));
 
@@ -98,7 +99,7 @@ export default function MakeAutoComplete({ label, name, value, setValue, type, p
               placeholder={placeholder}
               color="lightText"
               classes={{ root: classes.placeHolder }}
-              sx={{ width: '518px' }} />}
+              sx={{ input: { color: colorBoard.textCol } }} />}
           onChange={(e, newVal) => {
             setData(newVal);
             handleChange(newVal);
