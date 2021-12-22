@@ -15,7 +15,12 @@ const colorBoard = {
   peachy: '#DC7D6F',
 
   // FOR CHOOSING
-  selectionBoard: ['#3B7E7E', '#111111', '#3A5874', '#6667AB', '#C49102', '#DC7D6F']
+  selectionBoard: [
+    '#006E51', '#008080',
+    '#0065A9', '#3A5874', '#6667AB',
+    '#C49102', '#DC7D6F', '#E15D44',
+    '#965251', '#7A1712', '#111111', '#6C6C6A',
+  ]
 };
 
 export default colorBoard;

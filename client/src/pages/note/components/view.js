@@ -132,6 +132,25 @@ function View({ type, rawNote }) {
           {title}
         </DialogTitle>
         <DialogContent>
+          <Box sx={{ justifyContent: 'center', width: '100%' }}>
+            <Stack direction='row'
+              sx={{
+                justifyContent: 'center',
+                bgcolor: colorBoard.palletebg,
+                borderRadius: '20px',
+                border: 6, gap: 1,
+                borderColor: colorBoard.palletebg,
+                mb: '5px',
+              }}>
+              {colorBoard.selectionBoard.map((col) => (
+                col === color ?
+                  (<IconButton key={col} id={col} sx={{ bgcolor: col }} size='small'>
+                    <CheckIcon color='greyBorder' />
+                  </IconButton>) :
+                  (<IconButton key={col} id={col} style={{ width: 34, height: 34 }} sx={{ bgcolor: col }} onClick={() => handleChangeColor(col)} />)
+              ))}
+            </Stack>
+          </Box>
           <Card sx={{ minWidth: 550 }}>
             <CardHeader
               style={{ backgroundColor: color ? color : colorBoard.themeColor }}
@@ -140,30 +159,12 @@ function View({ type, rawNote }) {
                 variant="standard"
                 color="lightText"
                 defaultValue={note.title}
-                sx={{ width: '275px' }}
+                sx={{ width: '100%' }}
                 InputProps={{ className: classes.titleInput, }}
                 onChange={(e) => {
                   setNote((prev) => ({ ...prev, title: e.target.value }));
                 }}
               />}
-              action={
-                <Stack direction='row'
-                  sx={{
-                    bgcolor: colorBoard.palletebg,
-                    borderRadius: '20px',
-                    border: 6, gap: 0.5,
-                    borderColor: colorBoard.palletebg,
-                    mr: '5px'
-                  }}>
-                  {colorBoard.selectionBoard.map((col) => (
-                    col === color ?
-                      (<IconButton key={col} id={col} sx={{ bgcolor: col }} size='small'>
-                        <CheckIcon color='greyBorder' />
-                      </IconButton>) :
-                      (<IconButton key={col} id={col} style={{ width: 34, height: 34 }} sx={{ bgcolor: col }} onClick={() => handleChangeColor(col)} />)
-                  ))}
-                </Stack>
-              }
             />
 
             <CardContent sx={{ minHeight: '100px', bgcolor: colorBoard.darkGrey }}>

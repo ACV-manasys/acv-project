@@ -131,7 +131,7 @@ function StandardTable({ headCells, data, style, deleteFunction, updateFunction,
           </Box>
         </DialogContent>
         <DialogActions >
-          <Button onClick={handleDel} variant="contained">Delete</Button>
+          <Button onClick={handleDel} color='alertStyle' variant="contained">Delete</Button>
         </DialogActions>
       </Dialog>
     );
