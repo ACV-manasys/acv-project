@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FormControl, Typography, Stack, TextField, Autocomplete, Chip
 } from '@mui/material';
@@ -34,25 +34,19 @@ const menuGrid = {
 }
 
 export default function MakeAutoComplete({ label, name, value, setValue, type, placeholder, freeSolo }) {
-  const [data, setData] = React.useState([]);
-  const [menu, setMenu] = React.useState([]);
+  const [data, setData] = useState([]);
+  const [menu, setMenu] = useState([]);
 
   const classes = useStyles();
 
-  React.useEffect(() => {
+  useEffect(() => {
     switch (type) {
       case 'visible':
         getAllOtherAccounts().then((data) => {
           setMenu(data);
+
+          // SET DATA LIST TO SHOW:
         });
-        // SET DATA LIST TO SHOW:
-        var dataList = [];
-        menu.map((each) => {
-          if (value.includes(each._id)) {
-            dataList.push(each);
-          }
-        });
-        setData(dataList);
         break;
       // NOTE TAGS
       default:
