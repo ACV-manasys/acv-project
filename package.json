@@ -2,7 +2,8 @@
   "name": "package",
   "version": "1.0.0",
   "engines": {
-    "node": "14.x"
+    "node": "14.17.5",
+    "npm": "8.1.4"
   },
   "description": "AVC project to track spare parts",
   "main": "server.js",
