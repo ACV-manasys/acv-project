@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-import { getAllOtherAccounts, getNames } from '../api';
+import { getAllOtherAccounts } from '../api';
 import colorBoard from '../pages/note/components/colorBoard';
 
 const useStyles = makeStyles(theme => ({
@@ -45,13 +45,22 @@ export default function MakeAutoComplete({ label, name, value, setValue, type, p
         getAllOtherAccounts().then((data) => {
           setMenu(data);
         });
+        // SET DATA LIST TO SHOW:
+        var dataList = [];
+        menu.map((each) => {
+          if (value.includes(each._id)) {
+            dataList.push(each);
+          }
+        });
+        setData(dataList);
         break;
       // NOTE TAGS
       default:
         setMenu(menuGrid.noteTags);
+        setData(value);
         break;
     }
-  }, [type]);
+  }, [type, value]);
 
   const handleChange = (newVal) => {
     switch (type) {

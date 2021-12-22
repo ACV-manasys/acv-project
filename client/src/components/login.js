@@ -113,6 +113,8 @@ function Login({ tab }, props) {
           </Alert>
         );
       }
+      // REMOVE BACKDROP
+      setOpen(false);
     });
   };
 
