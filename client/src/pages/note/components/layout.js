@@ -21,16 +21,23 @@ import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { deleteNote, updateNoteImportance } from '../../../api';
+import { deleteNote, updateNoteImportance, me } from '../../../api';
 import colorBoard from './colorBoard';
 import View from './view';
 
 function Layout({ type, noteList }) {
   const [notes, setNotes] = useState([]);
+  const [userData, setUserData] = useState([]);
 
   useEffect(() => {
     setNotes(noteList);
   }, [noteList]);
+
+  useEffect(() => {
+    me().then((res) => {
+      setUserData(res);
+    });
+  }, []);
 
   const handleMarkImportant = (id, index) => {
     updateNoteImportance(id);
@@ -137,21 +144,26 @@ function Layout({ type, noteList }) {
                       horizontal: 'center',
                     }}
                   >
-                    <Typography sx={{ p: 2, width: '300px' }}>
-                      This note will be permanently removed in other shared accounts as well (if any)!
-                      Are you sure to delete this note?
-                    </Typography>
-                    <Grid container justifyContent="flex-end">
-                      <Button
-                        onClick={() => {
-                          handleDelete(note._id);
-                          popupState.close();
-                        }}
-                        variant='contained' color='alertStyle'
-                        sx={{ right: '15px', bottom: '10px' }} >
-                        Yes
-                      </Button>
-                    </Grid>
+                    {userData._id === note.belongsTo ? (
+                      <><Typography sx={{ p: 2, width: '300px' }}>
+                        This note will be permanently removed in other shared accounts as well (if any)!
+                        Are you sure to delete this note?
+                      </Typography><Grid container justifyContent="flex-end">
+                          <Button
+                            onClick={() => {
+                              handleDelete(note._id);
+                              popupState.close();
+                            }}
+                            variant='contained' color='alertStyle'
+                            sx={{ right: '15px', bottom: '10px' }}>
+                            Yes
+                          </Button>
+                        </Grid></>
+                    ) : (
+                      <Typography sx={{ p: 2, width: '300px', textAlign: 'center' }}>
+                        Only owner can delete this note!
+                      </Typography>
+                    )}
                   </Popover>
                 </div>
               )}

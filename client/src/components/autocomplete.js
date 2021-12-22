@@ -23,17 +23,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const menuGrid = {
-  noteTags: [
-    { name: 'Import', _id: 'Import', },
-    { name: 'Export', _id: 'Export', },
-    { name: 'Conveyor belts', _id: 'Conveyor belts', },
-    { name: 'Spare parts', _id: 'Spare parts', },
-    { name: 'Dept', _id: 'Dept', },
-  ]
+const chipStyle = {
+  bgcolor: colorBoard.textCol,
+  fontWeight: 550,
 }
 
-export default function MakeAutoComplete({ label, name, value, setValue, type, placeholder, freeSolo }) {
+const textFieldStyle = {
+  input: { color: colorBoard.textCol },
+}
+
+const menuGrid = {
+  noteTags: ['Import', 'Export', 'Conveyor belts', 'Spare parts', 'Dept'],
+}
+
+export default function MakeAutoComplete({ label, name, value, setValue, type, placeholder }) {
   const [data, setData] = useState([]);
   const [menu, setMenu] = useState([]);
 
@@ -46,6 +49,15 @@ export default function MakeAutoComplete({ label, name, value, setValue, type, p
           setMenu(data);
 
           // SET DATA LIST TO SHOW:
+          let dataList = [];
+          // eslint-disable-next-line array-callback-return
+          data.map((elem) => {
+            if (value.includes(elem._id)) {
+              dataList.push(elem);
+            }
+          });
+          setData(dataList);
+          //console.log(dataList);
         });
         break;
       // NOTE TAGS
@@ -57,21 +69,25 @@ export default function MakeAutoComplete({ label, name, value, setValue, type, p
   }, [type, value]);
 
   const handleChange = (newVal) => {
+
     switch (type) {
       case 'visible':
         let idList = [];
+        let newData = [];
         // eslint-disable-next-line array-callback-return
         menu.map((option) => {
-          if (newVal.includes(option.name, 0)) {
+          if (newVal.includes(option, 0)) {
             idList.push(option._id);
+            newData.push(option);
           }
         });
-        console.log(idList);
+        setData(newData);
         setValue((prev) => ({ ...prev, [name]: idList }));
         break;
 
       default:
         setValue((prev) => ({ ...prev, [name]: newVal }));
+        setData(newVal);
         break;
     }
   };
@@ -82,40 +98,60 @@ export default function MakeAutoComplete({ label, name, value, setValue, type, p
         • {label}
       </Typography>
       <Stack spacing={3} sx={{ width: 300 }}>
-        <Autocomplete
-          multiple
-          id={name}
-          value={data}
-          options={menu.map((option) => option.name)}
-          freeSolo={freeSolo}
-          renderTags={(value, getTagProps) =>
-            value.map((option, index) => (
-              <Chip
-                sx={{ bgcolor: colorBoard.textCol, fontWeight: 550 }}
-                label={option}
-                {...getTagProps({ index })} // FIX HERE PLEASEEEEEEE!!!
-                onDelete={() => {
-                  setValue((prev) => ({
-                    ...prev,
-                    [name]: data.filter((elem) => elem !== option),
-                  }));
-                  setData(data.filter((elem) => elem !== option));
-                }}
-              />
-            ))
-          }
-          renderInput={(params) =>
-            <TextField
-              {...params}
-              placeholder={placeholder}
-              color="lightText"
-              classes={{ root: classes.placeHolder }}
-              sx={{ input: { color: colorBoard.textCol } }} />}
-          onChange={(e, newVal) => {
-            setData(newVal);
-            handleChange(newVal);
-          }}
-        />
+        {
+          type === 'visible' ? (
+            <Autocomplete
+              multiple
+              id={name}
+              value={data}
+              options={menu}
+              getOptionLabel={(option) => option.name}
+              isOptionEqualToValue={(option, value) => option.name === value.name}
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip
+                    sx={chipStyle}
+                    label={option.name}
+                    {...getTagProps({ index })}
+                  />
+                ))
+              }
+              renderInput={(params) =>
+                <TextField
+                  {...params}
+                  placeholder={placeholder}
+                  color="lightText"
+                  classes={{ root: classes.placeHolder }}
+                  sx={textFieldStyle} />}
+              onChange={(e, newVal) => handleChange(newVal)}
+            />
+          ) : (
+            <Autocomplete
+              multiple
+              id={name}
+              value={data}
+              options={menu}
+              isOptionEqualToValue={(option, value) => option === value}
+              freeSolo
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip
+                    sx={chipStyle}
+                    label={option}
+                    {...getTagProps({ index })}
+                  />
+                ))
+              }
+              renderInput={(params) =>
+                <TextField
+                  {...params}
+                  placeholder={placeholder}
+                  color="lightText"
+                  classes={{ root: classes.placeHolder }}
+                  sx={textFieldStyle} />}
+              onChange={(e, newVal) => handleChange(newVal)}
+            />
+          )}
       </Stack>
     </FormControl>
   );

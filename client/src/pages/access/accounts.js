@@ -93,7 +93,7 @@ function AccountsDisplay() {
         {isLoading ? (<Loading />) : null}
         <List sx={{ width: '100%', minWidth: 350 }}>
           {accounts.map((i) => (
-            <ListItem>
+            <ListItem key={i._id}>
               <ListItemAvatar>
                 <Avatar {...stringAvatar(i.name, i.activated)} />
               </ListItemAvatar>

@@ -95,6 +95,7 @@ async function getNames(idList) {
 async function displayNote(note) {
   return {
     _id: note._id,
+    belongsTo: note.belongsTo,
     visible: note.visible,
     title: note.title,
     content: note.content,

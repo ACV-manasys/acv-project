@@ -171,7 +171,7 @@ function HistoryLog() {
         <List sx={{ width: '100%', minWidth: 450 }}>
           {isLoading ? (<Loading />) : null}
           {log.map((i) => (
-            <ListItem>
+            <ListItem key={i._id}>
               <ListItemAvatar>
                 <Avatar>
                   {setIcon(i.code)}

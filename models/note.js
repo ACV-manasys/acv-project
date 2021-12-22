@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const NoteSchema = new mongoose.Schema(
   {
-    visible: {
-      type: [String], // people who can see the note
+    belongsTo: {
+      type: String, // owner of the note
       required: true,
     },
     title: {
@@ -12,6 +12,10 @@ const NoteSchema = new mongoose.Schema(
     },
     content: {
       type: String,
+      required: false,
+    },
+    visible: {
+      type: [String], // people who also see the note
       required: false,
     },
     color: {

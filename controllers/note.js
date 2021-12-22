@@ -7,13 +7,11 @@ const themeColor = '#3B7E7E';
 // Create a new note ===================================================
 exports.create = async (req, res) => {
 
-  var visibleList = req.body.visible;
-  visibleList.push(req.user._id);
-
   const note = new Note({
-    visible: visibleList,
+    belongsTo: req.user._id,
+    visible: req.body.visible || [],
     title: req.body.title,
-    content: req.body.content,
+    content: req.body.content || '',
     color: req.body.color || themeColor,
     tags: req.body.tags || [],
     important: req.body.important || false,
@@ -35,7 +33,7 @@ exports.create = async (req, res) => {
 // Get all private notes
 exports.getPrivate = async (req, res) => {
   // Get all notes that visible list's length is 1
-  Note.find({ visible: [req.user._id] }).then((data) => {
+  Note.find({ belongsTo: req.user._id, visible: [] }).then((data) => {
     res.status(200).send(data);
   })
     // Catch error
@@ -51,7 +49,11 @@ exports.getPrivate = async (req, res) => {
 exports.getShared = async (req, res) => {
   // Get all notes that visible list's greater is greater than 1
   // And the user is accessible to these notes
-  Note.find({ visible: req.user._id, "visible.1": { "$exists": true } }).then(async (data) => {
+  Note.find({
+    $or:
+      [{ belongsTo: req.user._id, "visible.0": { "$exists": true } },
+      { visible: req.user._id }]
+  }).then(async (data) => {
     var noteMap = [];
     for (let i = 0; i < data.length; i++) {
       noteMap.push(await supporter.displayNote(data[i]));
@@ -91,12 +93,44 @@ exports.changeImportance = (req, res) => {
 
 // Update a note identified by the note's Id ==============================
 exports.update = (req, res) => {
-  supporter.updateData(Note, req, res);
+  // Get the id
+  const id = req.params.id;
+
+  // Case of updated sucessfully
+  Note
+    .findByIdAndUpdate(id, { $set: req.body }, { new: true })
+    .then((updatedData) => {
+      res.status(200).send(updatedData);
+    })
+    // Case of error
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send({
+        message: 'Error when updating Data!',
+      });
+    });
 };
 
 // Delete a note with the specified note's Id ==============================
 exports.delete = (req, res) => {
-  supporter.deleteData(Note, req, res);
+  const id = req.params.id;
+  Note
+    .findByIdAndDelete(id)
+    .then((data) => {
+      if (!data || data.belongsTo != req.user._id) {
+        // If no id found -> return error message
+        return res
+          .status(404)
+          .send({ message: 'No data found or no permission granted to delete this note!' });
+      }
+      // Else, the data should be deleted successfully
+      res.status(200).send({ message: 'Data is deleted successfully!' });
+    })
+    // Catching error when accessing the database
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send({ message: 'Error accessing the database!' });
+    });
 };
 
 // Retrieve and return all notes from the database =================================

@@ -186,7 +186,6 @@ function View({ type, rawNote }) {
                 label='Tags' name='tags'
                 value={note.tags} setValue={setNote}
                 type='tags' placeholder='Tag this note ...'
-                freeSolo={true}
               />
               <MakeAutoComplete
                 label='Share to' name='visible'

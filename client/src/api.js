@@ -185,7 +185,10 @@ export function deleteNote(id) {
 export function updateNote(note) {
   let endpoint = '/note/' + note._id;
 
-  return instance.put(endpoint, note, config).then((res) => res.data);
+  let setReqBody = note;
+  delete setReqBody._id;
+  console.log(setReqBody);
+  return instance.put(endpoint, setReqBody, config).then((res) => res.data);
 }
 
 export function updateNoteImportance(id) {
