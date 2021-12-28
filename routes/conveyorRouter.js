@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const passport = require('../config/passport');
 
-const controller = require('../controllers/conveyor');
+const controller = require('../controllers/conveyorCon');
 
 // findAll = all spare parts in DB
 app.route('/conveyor')

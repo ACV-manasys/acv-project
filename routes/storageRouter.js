@@ -2,16 +2,16 @@ const express = require('express');
 const app = express();
 const passport = require('../config/passport');
 
-const controller = require('../controllers/spart');
+const controller = require('../controllers/storageCon');
 
 // findAll = all spare parts in DB
-app.route('/spart')
+app.route('/storage')
   //.post(controller.create)
   //.get(controller.findAll);
   .post(passport.authenticate('jwt', { session: false }), controller.create)
   .get(passport.authenticate('jwt', { session: false }), controller.findAll)
 
-app.route('/spart/:id')
+app.route('/storage/:id')
   //.put(controller.update)
   //.delete(controller.delete)
   //.get(controller.findOne);
@@ -21,7 +21,7 @@ app.route('/spart/:id')
 
 /*
 app
-  .route('/spart/search')
+  .route('/storage/search')
   .post(passport.authenticate('jwt', { session: false }), controller.search);
 */
 

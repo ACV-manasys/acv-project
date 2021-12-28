@@ -4,16 +4,16 @@ const mongoose = require('mongoose');
 const config = require('./config/config');
 const cors = require('cors');
 
-const userRoute = require('./routes/user');
+const userRoute = require('./routes/userRouter');
 // INVENTORY
-const convRoute = require('./routes/conveyor');
-const spartRoute = require('./routes/spart');
+const convRoute = require('./routes/conveyorRouter');
+const spartRoute = require('./routes/spartRouter');
 // HISTORY LOGS
-const logRoute = require('./routes/log');
+const logRoute = require('./routes/logRouter');
 // NOTES
-const noteRoute = require('./routes/note');
+const noteRoute = require('./routes/noteRouter');
 // ENGRS
-const engrRoute = require('./routes/engr');
+const engrRoute = require('./routes/engrRouter');
 
 const app = express();
 const path = require('path');

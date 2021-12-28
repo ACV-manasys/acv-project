@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const passport = require('../config/passport');
 
-const controller = require('../controllers/log');
+const controller = require('../controllers/logCon');
 
 // findAll = all spare parts in DB
 app.route('/log')
