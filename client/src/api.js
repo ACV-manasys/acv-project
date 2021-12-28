@@ -199,3 +199,29 @@ export function updateNoteImportance(id) {
     .then((res) => res.data)
     .catch((e) => console.log(e.response));
 }
+
+// ENGINEERS ===============================================
+
+export function getallEngr() {
+  let endpoint = '/engr';
+
+  return instance.get(endpoint, config).then((res) => res.data);
+}
+
+export function createEngr(engr) {
+  let endpoint = '/engr';
+
+  return instance.post(endpoint, engr, config).then((res) => res.data);
+}
+
+export function updateEngr(engr) {
+  let endpoint = '/engr/' + engr._id;
+
+  return instance.put(endpoint, engr, config).then((res) => res.data);
+}
+
+export function deleteEngr(id) {
+  let endpoint = '/engr/' + id;
+
+  return instance.delete(endpoint, config).then((res) => res.data);
+}

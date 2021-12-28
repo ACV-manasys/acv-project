@@ -28,6 +28,9 @@ let theme = createTheme({
     },
     lightText: {
       main: '#EEEEEE'
+    },
+    darkgrey: {
+      main: '#222222',
     }
   },
 });

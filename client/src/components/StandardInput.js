@@ -70,7 +70,7 @@ function StandardInput({
           <TextField
             required={required} id={name} margin="normal"
             variant="outlined" size="medium" fullWidth
-            value={value} label={label}
+            defaultValue={value} label={label}
             InputProps={{
               startAdornment: <InputAdornment position="start">{moneySign ? moneySign : '$'}</InputAdornment>,
             }}
@@ -87,7 +87,7 @@ function StandardInput({
           <Input
             required={required}
             id={name}
-            value={value}
+            defaultValue={value}
             label={label}
             endAdornment={<InputAdornment position="end">{dimensionSign ? dimensionSign : 'm'}</InputAdornment>}
             onChange={(e) => {
@@ -108,7 +108,7 @@ function StandardInput({
             variant="outlined"
             size="medium"
             fullWidth
-            value={value}
+            defaultValue={value}
             label={label}
             multiline={multiline}
             onChange={(e) => {

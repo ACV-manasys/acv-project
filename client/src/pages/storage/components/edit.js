@@ -72,23 +72,23 @@ function EditTab({ open, setOpen, updateFunction, rawData, type }) {
             {/* NEW SPART */}
             <Typography sx={childTitleStyle} align='center' > EDIT SPARE PART </Typography>
             <StandardInput
-              id="partNo" label="Part No" name="partNo" value={data.partNo}
+              label="Part No" name="partNo" value={data.partNo}
               setValue={setData} required={true}
             />
             <StandardInput
-              id="commodity" label="Commodity" name="commodity" value={data.commodity}
+              label="Commodity" name="commodity" value={data.commodity}
               setValue={setData} required={true}
             />
             <StandardInput
-              id="specification" label="Specification" name="specification" value={data.specification}
+              label="Specification" name="specification" value={data.specification}
               setValue={setData} required={true}
             />
             <StandardInput
-              id="vieName" label="Vietnamese" name="vieName" value={data.vieName}
+              label="Vietnamese" name="vieName" value={data.vieName}
               setValue={setData} required={true}
             />
             <StandardInput
-              id="price" label="Price" name="price" value={data.price}
+              label="Price" name="price" value={data.price}
               setValue={setData} required={false} type='money' moneySign='$'
             />
           </Box>
@@ -100,7 +100,7 @@ function EditTab({ open, setOpen, updateFunction, rawData, type }) {
             {/* NEW CONVEYOR BELT */}
             <Typography sx={childTitleStyle} align='center'> EDIT CONVEYOR BELT </Typography>
             <StandardInput
-              id="machineName" label="Machine Name" name="machineName" value={data.machineName}
+              label="Machine Name" name="machineName" value={data.machineName}
               setValue={setData} required={true}
             />
             {/* Width x Height */}
@@ -108,27 +108,27 @@ function EditTab({ open, setOpen, updateFunction, rawData, type }) {
               <Typography sx={textFieldTitle} align='center'> Dimension </Typography>
               <Stack direction="row" spacing={2}>
                 <StandardInput
-                  id="width" label="Width" name="width" value={data.width}
+                  label="Width" name="width" value={data.width}
                   setValue={setData} required={false} type='dimension'
                 />
                 <Typography sx={textFieldTitle} > x </Typography>
                 <StandardInput
-                  id="height" label="Height" name="height" value={data.height}
+                  label="Height" name="height" value={data.height}
                   setValue={setData} required={false} type='dimension'
                 />
               </Stack>
             </Box>
             {/* Cost/Price */}
             <StandardInput
-              id="costIn" label="Imported Cost" name="costIn" value={data.costIn}
+              label="Imported Cost" name="costIn" value={data.costIn}
               setValue={setData} required={false} type='money' moneySign='VNĐ'
             />
             <StandardInput
-              id="priceOut" label="Exported Price" name="priceOut" value={data.priceOut}
+              label="Exported Price" name="priceOut" value={data.priceOut}
               setValue={setData} required={false} type='money' moneySign='VNĐ'
             />
             <StandardInput
-              id="note" label="Note" name="note" value={data.note}
+              label="Note" name="note" value={data.note}
               setValue={setData} required={false} multiline={true}
             />
           </Box>

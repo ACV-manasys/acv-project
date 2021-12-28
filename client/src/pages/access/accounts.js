@@ -10,7 +10,6 @@ import {
   ListItem,
   Popover,
   Typography,
-  Container,
   Grid,
 } from '@mui/material';
 
@@ -18,6 +17,8 @@ import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 
 import { getAllAccounts, updateUserAccess, createLog } from '../../api';
 import { Loading } from '../../components/backdrop';
+import accessRoutes from './components/routes';
+import CustomTabs from '../../components/CustomTabs';
 
 function AccountsDisplay() {
 
@@ -62,16 +63,10 @@ function AccountsDisplay() {
   }
 
   return (
-    <Container maxWidth="sm">
+    <Box>
+      <CustomTabs tab="accounts" title='MANAGE ACCOUNTS' routes={accessRoutes} active='Access' />
       <Typography
-        component="h4"
-        variant="h4"
-        align="center"
-        color="#222222"
-        style={{ fontWeight: 600 }}>
-        MANAGE ACCOUNTS
-      </Typography>
-      <Typography
+        sx={{ paddingLeft: '100px', }}
         component="h4"
         variant="h5"
         align="center"
@@ -88,6 +83,7 @@ function AccountsDisplay() {
           flexDirection: 'column',
           m: 'auto',
           width: 'fit-content',
+          paddingLeft: '100px',
         }}
       >
         {isLoading ? (<Loading />) : null}
@@ -139,7 +135,7 @@ function AccountsDisplay() {
           ))}
         </List>
       </Box>
-    </Container>
+    </Box>
   );
 }
 

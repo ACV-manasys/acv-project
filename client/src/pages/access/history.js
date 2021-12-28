@@ -6,7 +6,6 @@ import {
   Avatar,
   ListItemText, ListItem,
   Typography,
-  Container,
   Grid,
   Button,
   Dialog, DialogTitle, DialogContent,
@@ -27,6 +26,8 @@ import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 
 import { getallLogs } from '../../api';
 import { Loading } from '../../components/backdrop';
+import accessRoutes from './components/routes';
+import CustomTabs from '../../components/CustomTabs';
 
 const dateTimeStyle = {
   color: "#222222",
@@ -98,16 +99,9 @@ function HistoryLog() {
   }
 
   return (
-    <Container maxWidth="sm">
-      <Typography
-        component="h4"
-        variant="h4"
-        align="center"
-        color="#222222"
-        style={{ fontWeight: 600 }}>
-        HISTORY LOG
-      </Typography>
-      <Grid container justifyContent="flex-end" sx={{ mt: '15px' }}>
+    <Box>
+      <CustomTabs tab="default" title='HISTORY LOGS' routes={accessRoutes} active='Access' />
+      <Grid container justifyContent="center" sx={{ mt: '15px' }} paddingLeft='100px'>
         <Button
           color="darkin"
           variant="contained"
@@ -166,6 +160,7 @@ function HistoryLog() {
           flexDirection: 'column',
           m: 'auto',
           width: 'fit-content',
+          paddingLeft: '100px',
         }}
       >
         <List sx={{ width: '100%', minWidth: 450 }}>
@@ -190,7 +185,7 @@ function HistoryLog() {
           ))}
         </List>
       </Box>
-    </Container>
+    </Box>
   );
 }
 

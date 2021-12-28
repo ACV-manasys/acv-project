@@ -10,7 +10,9 @@ import Sparepart from './pages/storage/sparepart';
 import Conveyor from './pages/storage/conveyor';
 import Contracts from './pages/depts/contracts';
 import Settings from './pages/settings/settings';
-import Access from './pages/access/access';
+import HistoryLog from './pages/access/history';
+import AccountsDisplay from './pages/access/accounts';
+import EngineerList from './pages/access/engineers';
 import Unauthorized from './pages/unauthorized/unauthorized';
 import Logout from './pages/unauthorized/logout';
 import { ThemeProvider } from '@mui/material/styles';
@@ -42,7 +44,9 @@ const App = () => {
             <Route path="/storage/conveyor" element={<Conveyor />} />
             <Route path="/contracts" element={<Contracts />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/access" element={<Access />} />
+            <Route path="/access" element={<HistoryLog />} />
+            <Route path="/access/accounts" element={<AccountsDisplay />} />
+            <Route path="/access/engr" element={<EngineerList />} />
             <Route path="/note" element={<Note />} />
             <Route path="/note/shared" element={<Shared />} />
           </Route>

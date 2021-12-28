@@ -12,6 +12,8 @@ const spartRoute = require('./routes/spart');
 const logRoute = require('./routes/log');
 // NOTES
 const noteRoute = require('./routes/note');
+// ENGRS
+const engrRoute = require('./routes/engr');
 
 const app = express();
 const path = require('path');
@@ -38,6 +40,7 @@ app.use(convRoute);
 app.use(spartRoute);
 app.use(logRoute);
 app.use(noteRoute);
+app.use(engrRoute);
 
 // Basic route
 let server = app.listen(port, function () {

@@ -143,23 +143,23 @@ function New({ open, setOpen }) {
               {/* NEW SPART */}
               <Typography sx={childTitleStyle} align='center' > NEW SPARE PART </Typography>
               <StandardInput
-                id="partNo" label="Part No" name="partNo" value={spart.partNo}
+                label="Part No" name="partNo" value={spart.partNo}
                 setValue={setSpart} required={true}
               />
               <StandardInput
-                id="commodity" label="Commodity" name="commodity" value={spart.commodity}
+                label="Commodity" name="commodity" value={spart.commodity}
                 setValue={setSpart} required={true}
               />
               <StandardInput
-                id="specification" label="Specification" name="specification" value={spart.specification}
+                label="Specification" name="specification" value={spart.specification}
                 setValue={setSpart} required={true}
               />
               <StandardInput
-                id="vieName" label="Vietnamese" name="vieName" value={spart.vieName}
+                label="Vietnamese" name="vieName" value={spart.vieName}
                 setValue={setSpart} required={true}
               />
               <StandardInput
-                id="price" label="Price" name="price" value={spart.price}
+                label="Price" name="price" value={spart.price}
                 setValue={setSpart} required={false} type='money' moneySign='$'
               />
             </TabPanel>
@@ -168,7 +168,7 @@ function New({ open, setOpen }) {
               {/* NEW CONVEYOR BELT */}
               <Typography sx={childTitleStyle} align='center'> NEW CONVEYOR BELT </Typography>
               <StandardInput
-                id="machineName" label="Machine Name" name="machineName" value={conv.machineName}
+                label="Machine Name" name="machineName" value={conv.machineName}
                 setValue={setConv} required={true}
               />
               {/* Width x Height */}
@@ -176,27 +176,27 @@ function New({ open, setOpen }) {
                 <Typography sx={textFieldTitle} align='center'> Dimension </Typography>
                 <Stack direction="row" spacing={2}>
                   <StandardInput
-                    id="width" label="Width" name="width" value={conv.width}
+                    label="Width" name="width" value={conv.width}
                     setValue={setConv} required={false} type='dimension'
                   />
                   <Typography sx={textFieldTitle} > x </Typography>
                   <StandardInput
-                    id="height" label="Height" name="height" value={conv.height}
+                    label="Height" name="height" value={conv.height}
                     setValue={setConv} required={false} type='dimension'
                   />
                 </Stack>
               </Box>
               {/* Cost/Price */}
               <StandardInput
-                id="costIn" label="Imported Cost" name="costIn" value={conv.costIn}
+                label="Imported Cost" name="costIn" value={conv.costIn}
                 setValue={setConv} required={false} type='money' moneySign='VNĐ'
               />
               <StandardInput
-                id="priceOut" label="Exported Price" name="priceOut" value={conv.priceOut}
+                label="Exported Price" name="priceOut" value={conv.priceOut}
                 setValue={setConv} required={false} type='money' moneySign='VNĐ'
               />
               <StandardInput
-                id="note" label="Note" name="note" value={conv.note}
+                label="Note" name="note" value={conv.note}
                 setValue={setConv} required={false} multiline={true}
               />
             </TabPanel>
