@@ -6,7 +6,6 @@ import {
   Table, TableBody,
   TableRow, TableCell,
   IconButton, Button,
-  DialogContentText,
   Dialog, DialogTitle,
   DialogContent, DialogActions,
 } from '@mui/material';
@@ -98,11 +97,8 @@ function StandardTable({ headCells, data, style, deleteFunction, updateFunction,
         open={open}
         onClose={handleClose}
       >
-        <DialogTitle>Confirm to delete?</DialogTitle>
+        <DialogTitle>Please confirm the data row before deleting:</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Please confirm the data row before deleting:
-          </DialogContentText>
           <Box
             sx={{
               minWidth: '300px',

@@ -125,19 +125,17 @@ function Login({ tab }, props) {
       );
     }
     else {
-      registerUserdata(user).then(null, (res) => {
-        if (res.status === 400) {
-          setAlert(<Alert severity="error">Error code: {res.status}, Content: {res.data.message}</Alert>);
-        }
-        else {
-          setAlert(
-            <Alert severity="success">
-              Your registration has been forwarded to our admin,
-              please wait for our confirmation :). Double check your email inbox!
-            </Alert>
-          );
-        }
-      });
+      registerUserdata(user).then((res) => {
+        setAlert(
+          <Alert severity="success">
+            Your registration has been forwarded to our admin,
+            please wait for our confirmation :). Double check your email inbox!
+          </Alert>
+        );
+      })
+        .catch((err) => {
+          setAlert(<Alert severity="error">{err}</Alert>);
+        });
     }
   };
 

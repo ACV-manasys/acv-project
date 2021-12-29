@@ -91,7 +91,7 @@ function Storage() {
         }}
       >
         <Grid container justifyContent="center" sx={{ mt: '10px', mb: '15px' }}>
-          <Button variant="contained" endIcon={<AddBoxIcon />} onClick={() => setOpenAddDialog(true)}>
+          <Button variant="contained" startIcon={<AddBoxIcon />} onClick={() => setOpenAddDialog(true)}>
             add
           </Button>
           <New open={openAddDialog} setOpen={setOpenAddDialog} />

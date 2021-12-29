@@ -10,9 +10,7 @@ import Navbar from '../../components/Navbar';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import PasswordIcon from '@mui/icons-material/Password';
 import ProfileEdit from './components/Profile-Edit';
-import SettingTab from './components/settingTab';
 import PasswordChange from './components/PasswordChange';
-import SettingsIcon from '@mui/icons-material/Settings';
 
 const titleStyle = {
   fontWeight: 600,
@@ -27,7 +25,6 @@ function Settings() {
   const list = [
     { label: 'Edit Profile', icon: <AccountBoxIcon />, fragment: <ProfileEdit setCurrent={setCurrent} /> },
     { label: 'Change Password', icon: <PasswordIcon />, fragment: <PasswordChange setCurrent={setCurrent} /> },
-    { label: 'Settings', icon: <SettingsIcon />, fragment: <SettingTab setCurrent={setCurrent} /> }
   ]
 
   useEffect(() => {
@@ -52,7 +49,7 @@ function Settings() {
           {
             list.map((element) => (
               current !== undefined && current.label === element.label ?
-                <ListItem sx={{ background: '#3B7E7E', color: 'white', fontWeight: 500, borderRadius: '10px', boxShadow: '4px 4px 8px rgba(59, 126, 126, 0.3)' }} onClick={e => setCurrent(element)}>
+                <ListItem key={element.label} sx={{ background: '#3B7E7E', color: 'white', fontWeight: 500, borderRadius: '10px', boxShadow: '4px 4px 8px rgba(59, 126, 126, 0.3)' }} onClick={e => setCurrent(element)}>
                   <ListItemIcon sx={{ color: 'white' }}>
                     {element.icon}
                   </ListItemIcon>
@@ -61,7 +58,7 @@ function Settings() {
                   </ListItemText>
                 </ListItem>
                 :
-                <ListItem sx={{ fontWeight: 500, }} onClick={e => setCurrent(element)}>
+                <ListItem key={element.label} sx={{ fontWeight: 500, }} onClick={e => setCurrent(element)}>
                   <ListItemIcon>
                     {element.icon}
                   </ListItemIcon>

@@ -73,7 +73,7 @@ exports.changePassword = async (req, res) => {
 
     await user.save();
 
-    res.send(user);
+    res.status(200).send(user);
   } else {
     // return new Error("Wrong password")
     return res.status(401).send("Wrong password");

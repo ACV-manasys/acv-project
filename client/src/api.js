@@ -46,12 +46,18 @@ export async function registerUserdata(userdata) {
       //localStorage.setItem('token-myapp', response.data.token);
       //instance.headers = { Authorization: `bearer ${response.data.token}` };
       //window.location.href = '/home';
-      return Promise.resolve(response);
+      return Promise.resolve('Success');
     })
     .catch(function (error) {
       console.log(error.response.status);
-      //return Promise.reject(error.response.data.message);
-      return Promise.reject(error.response);
+
+      switch (error.response.status) {
+        case 401:
+        case 400:
+          return Promise.reject('This username has been taken!');
+        default:
+          return Promise.reject('Authentication failed');
+      }
     });
 }
 
@@ -88,6 +94,27 @@ export function getNames(idList) {
   let endpoint = '/user/getNames';
 
   return instance.post(endpoint, idList, config).then((res) => res.data);
+}
+
+export function updateUserPassword(body) {
+  let endpoint = '/user/change-password';
+
+  return instance
+    .post(endpoint, body)
+    .then(function (response) {
+      return Promise.resolve('Success');
+    })
+    .catch(function (error) {
+      console.log(error.response.status);
+
+      switch (error.response.status) {
+        case 401:
+        case 400:
+          return Promise.reject('Wrong password');
+        default:
+          return Promise.reject('Authentication failed');
+      }
+    });
 }
 
 // HISTORY LOGS ===================================================
