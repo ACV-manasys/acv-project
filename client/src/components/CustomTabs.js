@@ -16,7 +16,7 @@ const activeDesktopButtonStyle = {
   borderRadius: '20px',
 };
 
-function CustomTabs({ tab, title, routes, tabWidth, active }) {
+function CustomTabs({ tab, title, routes, tabWidth, active, titleCol }) {
 
   return (
     <Box >
@@ -37,9 +37,9 @@ function CustomTabs({ tab, title, routes, tabWidth, active }) {
           alignItems="center"
           spacing={4}
           sx={{
-            minWidth: tabWidth ? (tabWidth) : '240px',
+            minWidth: tabWidth ? (tabWidth) : '240px', //3 tabs
             minHeight: '70px',
-            borderRadius: '20px',
+            borderRadius: '25px',
             backgroundColor: '#ECECEC',
             mb: '10px'
           }}
@@ -74,7 +74,7 @@ function CustomTabs({ tab, title, routes, tabWidth, active }) {
         </Stack>
         <Typography
           align="center"
-          color="#222222"
+          color={titleCol ? titleCol : "#222222"}
           style={{ fontWeight: 600, fontSize: '30px' }}>
           {title}
         </Typography>

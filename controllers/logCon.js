@@ -46,6 +46,25 @@ exports.findAll = (req, res) => {
     })
 };
 
+
+exports.deleteAll = (req, res) => {
+  Log.deleteMany().then((data) => {
+    if (!data) {
+      // If no id found -> return error message
+      return res
+        .status(404)
+        .send({ message: 'Collection is empty' });
+    }
+    // Else, the data should be deleted successfully
+    res.status(200).send({ message: 'Data is deleted successfully!' });
+  }).catch((err) => {
+    console.log(err);
+    return res.status(500).send({
+      message: 'Error when accessing the DB!',
+    });
+  });
+};
+
 // Find a single log with the log's id ====================================
 // that returns one that belongs to the current logged-in user only
 exports.findOne = (req, res) => {

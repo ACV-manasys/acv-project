@@ -5,7 +5,7 @@ import Frontpage from './pages/frontpage/frontpage';
 import Home from './pages/home/home';
 import Note from './pages/note/note';
 import Shared from './pages/note/shared';
-import Storage from './pages/storage/storage';
+import Inventory from './pages/storage/inventory';
 import Sparepart from './pages/storage/sparepart';
 import Conveyor from './pages/storage/conveyor';
 import Contracts from './pages/depts/contracts';
@@ -39,7 +39,7 @@ const App = () => {
           {/* FROM DRAWER */}
           <Route element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
-            <Route path="/storage" element={<Storage />} />
+            <Route path="/storage" element={<Inventory />} />
             <Route path="/storage/spart" element={<Sparepart />} />
             <Route path="/storage/conveyor" element={<Conveyor />} />
             <Route path="/contracts" element={<Contracts />} />

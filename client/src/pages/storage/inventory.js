@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Box,
-  Tabs,
-  Tab,
-  Typography,
-  Grid,
-  Button,
+  Box, Tabs, Tab, Typography,
 } from '@mui/material';
 
 import TabContext from '@material-ui/lab/TabContext';
@@ -13,34 +8,33 @@ import TabPanel from '@material-ui/lab/TabPanel';
 
 import HandymanIcon from '@mui/icons-material/Handyman';
 import LayersIcon from '@mui/icons-material/Layers';
-import AddBoxIcon from '@mui/icons-material/AddBox';
 
 import StandardTable from '../../components/StandardTable';
-import New from './components/new';
+import New from './components/newItem';
 import CustomTabs from '../../components/CustomTabs';
 import storageRoutes from './components/routes';
 
 import {
-  getallSpart, deleteSpart, updateSpart,
-  getallConveyor, deleteConveyor, updateConveyor,
+  getallSpart, deleteSpart, updateSpart, createSpart,
+  getallConveyor, deleteConveyor, updateConveyor, createConveyor,
 } from '../../api';
 
 //TABLE HEADS =====
 const spartHeadCells = [
-  { id: 'partNo', label: 'Part No', },
-  { id: 'commodity', label: 'Commodity', },
-  { id: 'specification', label: 'Specification', },
-  { id: 'vieName', label: 'Vietnamese', },
-  { id: 'price', label: 'price ($)', },
+  { id: 'partNo', label: 'Part No', required: true, type: 'text' },
+  { id: 'commodity', label: 'Commodity', required: true, type: 'text' },
+  { id: 'specification', label: 'Specification', required: true, type: 'text' },
+  { id: 'vieName', label: 'Vietnamese', required: false, type: 'text' },
+  { id: 'price', label: 'price ($)', required: false, type: 'money', moneySign: '$' },
 ];
 
 const convHeadCells = [
-  { id: 'machineName', label: 'Machine Name', },
-  { id: 'width', label: 'Width', },
-  { id: 'height', label: 'Height', },
-  { id: 'costIn', label: 'Imported Cost (Đ)', },
-  { id: 'priceOut', label: 'Exported Price (Đ)', },
-  { id: 'note', label: 'Note', },
+  { id: 'machineName', label: 'Machine Name', required: true, type: 'text' },
+  { id: 'width', label: 'Width', required: true, type: 'dimension' },
+  { id: 'height', label: 'Height', required: true, type: 'dimension' },
+  { id: 'costIn', label: 'Imported Cost (Đ)', required: false, type: 'money', moneySign: 'VNĐ' },
+  { id: 'priceOut', label: 'Exported Price (Đ)', required: false, type: 'money', moneySign: 'VNĐ' },
+  { id: 'note', label: 'Note', required: false, type: 'text' },
 ];
 
 // STYLING =====
@@ -62,11 +56,10 @@ const childTitleStyle = {
 };
 
 // SPARE PART PAGE AS DEFAULT
-function Storage() {
+function Inventory() {
   const [sparts, setSparts] = useState([]);
   const [convs, setConvs] = useState([]);
   const [tab, setTab] = useState('spart');
-  const [openAddDialog, setOpenAddDialog] = useState(false);
 
   useEffect(() => {
     getallSpart().then((spartData) => {
@@ -90,12 +83,6 @@ function Storage() {
           paddingRight: '10px',
         }}
       >
-        <Grid container justifyContent="center" sx={{ mt: '10px', mb: '15px' }}>
-          <Button variant="contained" startIcon={<AddBoxIcon />} onClick={() => setOpenAddDialog(true)}>
-            add
-          </Button>
-          <New open={openAddDialog} setOpen={setOpenAddDialog} />
-        </Grid>
         <TabContext value={tab}>
           <Tabs
             //orientation="vertical"
@@ -123,12 +110,16 @@ function Storage() {
           <TabPanel value="spart">
             {/* SPART CURRENTLY IN STORAGE */}
             <Typography sx={childTitleStyle} align='center'> SPARE PARTS </Typography>
-            <StandardTable headCells={spartHeadCells} data={sparts} deleteFunction={deleteSpart} updateFunction={updateSpart} type='spart' />
+            <New tableHeaders={spartHeadCells} createFunc={createSpart}
+              itemType='spart' storageType='inventory' />
+            <StandardTable headCells={spartHeadCells} data={sparts} deleteFunction={deleteSpart} updateFunction={updateSpart} type='spart' storageType='inventory' />
           </TabPanel>
           <TabPanel value="conveyor">
             {/* CONVEYOR BELT CURRENTLY IN STORAGE */}
             <Typography sx={childTitleStyle} align='center'> CONVEYOR BELTS </Typography>
-            <StandardTable headCells={convHeadCells} data={convs} deleteFunction={deleteConveyor} updateFunction={updateConveyor} type='conv' />
+            <New tableHeaders={convHeadCells} createFunc={createConveyor}
+              itemType='conveyor' storageType='inventory' />
+            <StandardTable headCells={convHeadCells} data={convs} deleteFunction={deleteConveyor} updateFunction={updateConveyor} type='conveyor' storageType='inventory' />
           </TabPanel>
         </TabContext>
       </Box>
@@ -136,4 +127,4 @@ function Storage() {
   );
 }
 
-export default Storage;
+export default Inventory;

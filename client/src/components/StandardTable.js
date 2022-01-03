@@ -13,11 +13,11 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-import Edit from '../pages/storage/components/edit';
+import Edit from '../pages/storage/components/editItem';
 
 import { createLog } from '../api';
 
-function StandardTable({ headCells, data, style, deleteFunction, updateFunction, type }) {
+function StandardTable({ headCells, data, style, deleteFunction, updateFunction, type, storageType }) {
 
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
@@ -179,7 +179,9 @@ function StandardTable({ headCells, data, style, deleteFunction, updateFunction,
                     </TableCell>
                   </TableRow>
                 ))}
-                <Edit open={openEdit} setOpen={setOpenEdit} updateFunction={updateFunction} rawData={selectedRow} type={type} />
+                <Edit open={openEdit} setOpen={setOpenEdit}
+                  tableHeaders={headCells} updateFunction={updateFunction}
+                  rawitem={selectedRow} itemType={type} storageType={storageType} />
                 {showDeleteDataRow()}
               </TableBody>
             </Table>

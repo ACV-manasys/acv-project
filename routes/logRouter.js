@@ -12,6 +12,7 @@ app.route('/log')
   //.get(controller.findAll);
   .post(passport.authenticate('jwt', { session: false }), controller.create)
   .get(passport.authenticate('jwt', { session: false }), controller.findAll)
+  .delete(passport.authenticate('jwt', { session: false }), controller.deleteAll);
 
 app.route('/log/:id')
   //.put(controller.update)
