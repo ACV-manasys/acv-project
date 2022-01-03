@@ -37,7 +37,7 @@ function ConstructEmail(type, userEmail) {
   }
 
   mailContent.text += '\n' + 'Go to the log in page or follow this link: ';
-  mailContent.text += '<p>https://acv-manage-system.herokuapp.com/</p>';
+  mailContent.text += 'https://acv-manage-system.herokuapp.com/';
 
   return mailContent;
 }

@@ -65,7 +65,8 @@ app.post(
 
 app
   .route('/user')
-  .get(passport.authenticate('jwt', { session: false }), controller.findAll);
+  .get(passport.authenticate('jwt', { session: false }), controller.findAll)
+  .put(passport.authenticate('jwt', { session: false }), controller.update);
 
 app
   .route('/user/findAllExcSelf')
@@ -74,7 +75,6 @@ app
 app
   .route('/user/:id')
   .get(passport.authenticate('jwt', { session: false }), controller.findOne)
-  .put(passport.authenticate('jwt', { session: false }), controller.update)
   .delete(passport.authenticate('jwt', { session: false }), controller.delete);
 
 app

@@ -7,7 +7,22 @@ exports.findAll = (req, res) => {
 }
 
 exports.update = (req, res) => {
-  supporter.updateData(User, req, res);
+  // Get the id
+  const id = req.user._id;
+
+  // Case of updated sucessfully
+  User
+    .findByIdAndUpdate(id, { $set: req.body }, { new: true })
+    .then((updatedData) => {
+      res.status(200).send(updatedData);
+    })
+    // Case of error
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send({
+        message: 'Error when updating Data!',
+      });
+    });
 }
 
 exports.delete = (req, res) => {

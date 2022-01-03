@@ -117,6 +117,15 @@ export function updateUserPassword(body) {
     });
 }
 
+export function updateUserData(user) {
+  let endpoint = '/user';
+
+  return instance
+    .put(endpoint, user)
+    .then((res) => res.data)
+    .catch((e) => console.log(e.response));
+}
+
 // HISTORY LOGS ===================================================
 
 export function getallLogs() {
