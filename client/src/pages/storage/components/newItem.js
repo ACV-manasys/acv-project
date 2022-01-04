@@ -76,7 +76,7 @@ function New({ tableHeaders, createFunc, itemType, storageType }) {
         return (
           <StandardInput key={element.id}
             label={element.label} name={element.id} value={item[element.id]}
-            setValue={setItem} required={element.required}
+            setValue={setItem} required={element.required} type={element.type}
           />
         );
     }
@@ -85,7 +85,7 @@ function New({ tableHeaders, createFunc, itemType, storageType }) {
   return (
     <div>
       <Grid container justifyContent="center" sx={{ mt: '10px', mb: '15px' }}>
-        <Button variant="contained" startIcon={<AddBoxIcon />} onClick={() => setOpen(true)}>
+        <Button sx={{ borderRadius: '20px' }} variant="contained" startIcon={<AddBoxIcon />} onClick={() => setOpen(true)}>
           add
         </Button>
       </Grid>
@@ -119,7 +119,7 @@ function New({ tableHeaders, createFunc, itemType, storageType }) {
               setTabContent(element)
             ))
           }
-          <Button sx={{ mb: '20px', mt: '10px', width: '150px' }} variant="contained" onClick={handleAdd}>Add</Button>
+          <Button sx={{ mb: '20px', mt: '20px', width: '150px' }} variant="contained" onClick={handleAdd}>Add</Button>
         </Box>
       </Dialog>
     </div>

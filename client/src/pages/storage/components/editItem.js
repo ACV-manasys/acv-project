@@ -72,7 +72,7 @@ function EditTab({ open, setOpen, tableHeaders, updateFunction, rawitem, itemTyp
         return (
           <StandardInput key={element.id}
             label={element.label} name={element.id} value={item[element.id]}
-            setValue={setItem} required={element.required}
+            setValue={setItem} required={element.required} type={element.type}
           />
         );
     }

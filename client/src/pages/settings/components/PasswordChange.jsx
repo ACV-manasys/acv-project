@@ -98,10 +98,10 @@ function PasswordChange({ setCurrent }) {
         </Button>
       </Box>
       <Box sx={{ display: 'flex', width: '100%', justifyContent: { xs: 'center', md: 'end' }, mt: '20px' }}>
-        <Button sx={{ width: '150px', height: '40px', background: 'gray', mr: '10px' }} variant="contained" onClick={e => setCurrent()}>
+        <Button sx={{ width: '150px', height: '40px', background: 'gray', mr: '10px', borderRadius: '20px' }} variant="contained" onClick={e => setCurrent()}>
           Cancel
         </Button>
-        <Button sx={{ width: '150px', height: '40px', }} variant="contained" disabled={disableSumbit} onClick={changePassword}>
+        <Button sx={{ width: '150px', height: '40px', borderRadius: '20px' }} variant="contained" disabled={disableSumbit} onClick={changePassword}>
           Confirm
         </Button>
       </Box>

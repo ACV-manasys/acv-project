@@ -119,7 +119,7 @@ function View({ type, rawNote }) {
       }}
     >
       {type === 'new' ? (
-        <Button variant="contained" startIcon={<AddIcon />} onClick={handleClickOpen}>
+        <Button sx={{ borderRadius: '20px' }} variant="contained" startIcon={<AddIcon />} onClick={handleClickOpen}>
           New Note
         </Button>
       ) : (

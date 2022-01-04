@@ -23,9 +23,9 @@ const ConveyorSchema = new mongoose.Schema(
       type: Number,
       required: false,
     },
-    note: {
-      type: String,
-      required: false,
+    quantity: {
+      type: Number,
+      required: true,
     },
   }
 );

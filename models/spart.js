@@ -22,6 +22,10 @@ const SpartSchema = new mongoose.Schema(
       type: Number,
       required: false,
     },
+    quantity: {
+      type: Number,
+      required: true,
+    }
   }
 );
 

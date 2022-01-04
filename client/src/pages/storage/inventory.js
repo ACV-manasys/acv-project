@@ -26,6 +26,7 @@ const spartHeadCells = [
   { id: 'specification', label: 'Specification', required: true, type: 'text' },
   { id: 'vieName', label: 'Vietnamese', required: false, type: 'text' },
   { id: 'price', label: 'price ($)', required: false, type: 'money', moneySign: '$' },
+  { id: 'quantity', label: 'Quantity', required: true, type: 'number' },
 ];
 
 const convHeadCells = [
@@ -34,7 +35,7 @@ const convHeadCells = [
   { id: 'height', label: 'Height', required: true, type: 'dimension' },
   { id: 'costIn', label: 'Imported Cost (Đ)', required: false, type: 'money', moneySign: 'VNĐ' },
   { id: 'priceOut', label: 'Exported Price (Đ)', required: false, type: 'money', moneySign: 'VNĐ' },
-  { id: 'note', label: 'Note', required: false, type: 'text' },
+  { id: 'quantity', label: 'Quantity', required: true, type: 'number' },
 ];
 
 // STYLING =====

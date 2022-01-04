@@ -98,6 +98,25 @@ function StandardInput({
         </Box>
       );
 
+    case 'number':
+      return (
+        <Box sx={{ mt: '15px' }}>
+          <TextField
+            required={required}
+            id={name}
+            defaultValue={value ? value : 0}
+            label={label}
+            type='number'
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={(e) => {
+              setValue((prev) => ({ ...prev, [name]: e.target.value }));
+            }}
+          />
+        </Box>
+      );
+
     default:
       return (
         <Box sx={{ width: '300px' }}>

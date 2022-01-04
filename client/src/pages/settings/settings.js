@@ -49,7 +49,12 @@ function Settings() {
           {
             list.map((element) => (
               current !== undefined && current.label === element.label ?
-                <ListItem key={element.label} sx={{ background: '#3B7E7E', color: 'white', fontWeight: 500, borderRadius: '10px', boxShadow: '4px 4px 8px rgba(59, 126, 126, 0.3)' }} onClick={e => setCurrent(element)}>
+                <ListItem key={element.label}
+                  sx={{
+                    background: '#3B7E7E', color: 'white', fontWeight: 500,
+                    borderRadius: '25px', boxShadow: '4px 4px 8px rgba(59, 126, 126, 0.3)',
+                  }}
+                  onClick={e => setCurrent(element)}>
                   <ListItemIcon sx={{ color: 'white' }}>
                     {element.icon}
                   </ListItemIcon>

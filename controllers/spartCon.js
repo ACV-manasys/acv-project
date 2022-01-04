@@ -12,6 +12,7 @@ exports.create = async (req, res) => {
     specification: req.body.specification,
     vieName: req.body.vieName,
     price: req.body.price,
+    quantity: req.body.quantity || 0,
   });
   // Save this spart to database
   spart

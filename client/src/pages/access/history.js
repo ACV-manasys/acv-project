@@ -103,6 +103,7 @@ function HistoryLog() {
       <CustomTabs tab="default" title='HISTORY LOGS' routes={accessRoutes} active='Access' />
       <Grid container justifyContent="center" sx={{ mt: '15px' }} paddingLeft='100px'>
         <Button
+          sx={{ borderRadius: '20px' }}
           color="darkin"
           variant="contained"
           startIcon={<FilterListIcon />}

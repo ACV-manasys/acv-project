@@ -12,7 +12,7 @@ exports.create = async (req, res) => {
     height: req.body.height,
     costIn: req.body.costIn,
     priceOut: req.body.priceOut,
-    note: req.body.note || "",
+    quantity: req.body.quantity || 0,
   });
   // Save this conveyor to database
   conveyor

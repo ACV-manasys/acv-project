@@ -56,10 +56,10 @@ function ProfileEdit({ setCurrent }) {
       <StandardInput sx={input} label="Name" value={user.name} setValue={setUser} name='name' />
       <StandardInput sx={input} label="Email" value={user.email} setValue={setUser} name='email' />
       <Stack direction='row' spacing={2} sx={{ mt: '20px' }}>
-        <Button sx={{ width: '150px', height: '40px', background: 'gray' }} variant="contained" onClick={e => setCurrent()}>
+        <Button sx={{ width: '150px', height: '40px', background: 'gray', borderRadius: '20px' }} variant="contained" onClick={e => setCurrent()}>
           Cancel
         </Button>
-        <Button sx={{ width: '150px', height: '40px' }} variant="contained" onClick={doUpdate}>
+        <Button sx={{ width: '150px', height: '40px', borderRadius: '20px' }} variant="contained" onClick={doUpdate}>
           Save
         </Button>
       </Stack>

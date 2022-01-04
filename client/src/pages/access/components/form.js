@@ -90,6 +90,7 @@ function Form({ type, rawData, iconCol }) {
     >
       {type === 'Add' ? (
         <Button
+          sx={{ borderRadius: '20px', mt: '15px' }}
           color="darkin"
           variant="contained"
           startIcon={<AddIcon />}
