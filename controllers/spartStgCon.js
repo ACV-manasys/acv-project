@@ -22,8 +22,7 @@ exports.create = async (req, res) => {
     expQuantity: req.body.expQuantity || 0,
     periodicalExistence: req.body.periodicalExistence || 0,
     finalExistence: req.body.finalExistence || 0,
-    month: req.body.month,
-    year: req.body.year,
+    actionDate: req.body.actionDate,
   });
   // Save this SpartStg to database
   spart
@@ -49,12 +48,26 @@ exports.create = async (req, res) => {
 };
 
 // Retrieve and return all sparts from the database by month =================================
-exports.findAllByMonth = (req, res) => {
+exports.findAllByDate = (req, res) => {
+  if (!req.body.date) {
+    return res.status(400).send({ message: 'Missing date details!' });
+  }
+  // GET START AND END DATE 
+  const date = new Date(req.body.date);
+  var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+  var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
   // Return all data using find()
   SpartStg
-    .find({ month: req.body.month })
+    .find({
+      actionDate: {
+        $gte: firstDay,
+        $lt: lastDay,
+      }
+    })
     .then((data) => {
-      res.send(data);
+      if (data) {
+        res.send(data);
+      }
     })
     // Catching error when accessing the database
     .catch((err) => {

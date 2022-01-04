@@ -12,8 +12,8 @@ app.route('/spartStg')
   .get(passport.authenticate('jwt', { session: false }), controller.findAll);
 
 // findAll = all spare parts in DB
-app.route('/spartStg/findByMonth')
-  .get(passport.authenticate('jwt', { session: false }), controller.findAllByMonth);
+app.route('/spartStg/findByDate')
+  .post(passport.authenticate('jwt', { session: false }), controller.findAllByDate);
 
 app.route('/spartStg/:id')
   //.put(controller.update)

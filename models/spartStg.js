@@ -30,14 +30,10 @@ const SpartStgSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    month: {
-      type: Number,
+    actionDate: {
+      type: Date,
       required: true,
     },
-    year: {
-      type: Number,
-      required: true,
-    }
   }
 );
 

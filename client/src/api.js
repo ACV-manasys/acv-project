@@ -192,6 +192,32 @@ export function deleteConveyor(id) {
   return instance.delete(endpoint, config).then((res) => res.data);
 }
 
+// SPART // STORAGE ===============================================
+
+export function getallSpartStgByDate(date) {
+  let endpoint = '/spartStg/findByDate';
+
+  return instance.post(endpoint, date, config).then((res) => res.data);
+}
+
+export function createSpartStg(spartStg) {
+  let endpoint = '/spartStg';
+
+  return instance.post(endpoint, spartStg, config).then((res) => res.data);
+}
+
+export function updateSpartStg(spartStg) {
+  let endpoint = '/spartStg/' + spartStg._id;
+
+  return instance.put(endpoint, spartStg, config).then((res) => res.data);
+}
+
+export function deleteSpartStg(id) {
+  let endpoint = '/spartStg/' + id;
+
+  return instance.delete(endpoint, config).then((res) => res.data);
+}
+
 // NOTES ===============================================================
 
 export function createNote(note) {
