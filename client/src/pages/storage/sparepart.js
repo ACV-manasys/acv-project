@@ -9,7 +9,6 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 
-//import StandardTable from '../../components/StandardTable';
 import CustomTabs from '../../components/CustomTabs';
 import storageRoutes from './components/routes';
 import StandardTable from '../../components/StandardTable';
@@ -22,7 +21,7 @@ import * as dayjs from 'dayjs';
 const headerCellsForm = [
   { id: 'vieName', label: 'Name', required: true, type: 'text', default: true, },
   { id: 'specification', label: 'Spec', required: true, type: 'text', default: true, },
-  { id: 'quantity', label: 'Periodical Quantity', required: true, default: true, },
+  { id: 'quantity', label: 'Periodical Quantity', required: true, type: 'number', default: true, },
   { id: 'impQuantity', label: 'Import Quantity', required: true, type: 'number' },
   { id: 'expQuantity', label: 'Export Quantity', required: true, type: 'number' },
 ];
@@ -30,7 +29,7 @@ const headerCellsForm = [
 const headerCells = [
   { id: 'vieName', label: 'Name', type: 'text' },
   { id: 'specification', label: 'Spec', type: 'text' },
-  { id: 'quantity', label: 'Periodical Quantity', },
+  { id: 'quantity', label: 'Periodical Quantity', type: 'number' },
   { id: 'impQuantity', label: 'Import Quantity', type: 'number' },
   { id: 'expQuantity', label: 'Export Quantity', type: 'number' },
   { id: 'finalExistence', label: 'Final Quantity', type: 'number' },

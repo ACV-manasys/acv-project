@@ -49,31 +49,7 @@ exports.create = async (req, res) => {
 
 // Retrieve and return all sparts from the database by month =================================
 exports.findAllByDate = (req, res) => {
-  if (!req.body.date) {
-    return res.status(400).send({ message: 'Missing date details!' });
-  }
-  // GET START AND END DATE 
-  const date = new Date(req.body.date);
-  var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-  var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-  // Return all data using find()
-  SpartStg
-    .find({
-      actionDate: {
-        $gte: firstDay,
-        $lt: lastDay,
-      }
-    })
-    .then((data) => {
-      if (data) {
-        res.send(data);
-      }
-    })
-    // Catching error when accessing the database
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send({ message: 'Error when accessing the database!' });
-    });
+  supporter.findAllByDate(SpartStg, req, res);
 };
 
 // Update a SpartStg identified by the SpartStg's Id ==============================
@@ -91,7 +67,6 @@ exports.delete = (req, res) => {
 exports.findAll = (req, res) => {
   supporter.findAllData(SpartStg, req, res);
 };
-
 
 // Find a single SpartStg with the SpartStg's id ====================================
 // that returns one that belongs to the current logged-in user only

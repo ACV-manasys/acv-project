@@ -106,10 +106,40 @@ async function displayNote(note) {
   };
 }
 
+// Retrieve and return all sparts/conv from the database by month =================================
+async function findAllByDate(controller, req, res) {
+  if (!req.body.date) {
+    return res.status(400).send({ message: 'Missing date details!' });
+  }
+  // GET START AND END DATE 
+  const date = new Date(req.body.date);
+  var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+  var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  // Return all data using find()
+  controller
+    .find({
+      actionDate: {
+        $gte: firstDay,
+        $lt: lastDay,
+      }
+    })
+    .then((data) => {
+      if (data) {
+        res.send(data);
+      }
+    })
+    // Catching error when accessing the database
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send({ message: 'Error when accessing the database!' });
+    });
+}
+
 module.exports = {
   updateData,
   deleteData,
   findAllData,
   findData,
   displayNote,
+  findAllByDate,
 };

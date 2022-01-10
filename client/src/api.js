@@ -218,6 +218,32 @@ export function deleteSpartStg(id) {
   return instance.delete(endpoint, config).then((res) => res.data);
 }
 
+// CONVEYOR // STORAGE ===============================================
+
+export function getallConvStgByDate(date) {
+  let endpoint = '/convStg/findByDate';
+
+  return instance.post(endpoint, date, config).then((res) => res.data);
+}
+
+export function createConvStg(convStg) {
+  let endpoint = '/convStg';
+
+  return instance.post(endpoint, convStg, config).then((res) => res.data);
+}
+
+export function updateConvStg(convStg) {
+  let endpoint = '/convStg/' + convStg._id;
+
+  return instance.put(endpoint, convStg, config).then((res) => res.data);
+}
+
+export function deleteConvStg(id) {
+  let endpoint = '/convStg/' + id;
+
+  return instance.delete(endpoint, config).then((res) => res.data);
+}
+
 // NOTES ===============================================================
 
 export function createNote(note) {

@@ -10,6 +10,7 @@ const convRoute = require('./routes/conveyorRouter');
 const spartRoute = require('./routes/spartRouter');
 // STORAGE
 const spartStgRoute = require('./routes/spartStgRouter');
+const convStgRoute = require('./routes/convStgRouter');
 
 // HISTORY LOGS
 const logRoute = require('./routes/logRouter');
@@ -45,6 +46,7 @@ app.use(logRoute);
 app.use(noteRoute);
 app.use(engrRoute);
 app.use(spartStgRoute);
+app.use(convStgRoute);
 
 // Basic route
 let server = app.listen(port, function () {

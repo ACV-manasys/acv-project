@@ -1,21 +1,62 @@
-import React, { } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
+  Grid,
+  TextField,
 } from '@mui/material';
 
-//import StandardTable from '../../components/StandardTable';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+
 import CustomTabs from '../../components/CustomTabs';
 import storageRoutes from './components/routes';
+import StandardTable from '../../components/StandardTable';
+import View from './components/view';
 
-import { } from '../../api';
+import {
+  getallConvStgByDate,
+  createConvStg,
+  updateConvStg,
+  deleteConvStg,
+} from '../../api';
+import * as dayjs from 'dayjs';
+
+//TABLE HEADS =====
+const headerCellsForm = [
+  { id: 'machineName', label: 'Name', required: true, type: 'text', default: true, },
+  { id: 'width', label: 'Width', required: true, type: 'number', default: true, },
+  { id: 'height', label: 'Height', required: true, type: 'number', default: true, },
+  { id: 'quantity', label: 'Periodical Quantity', required: true, type: 'number', default: true, },
+  { id: 'impQuantity', label: 'Import Quantity', required: true, type: 'number' },
+  { id: 'expQuantity', label: 'Export Quantity', required: true, type: 'number' },
+];
+
+const headerCells = [
+  { id: 'machineName', label: 'Name', type: 'text' },
+  { id: 'width', label: 'Width', type: 'number' },
+  { id: 'height', label: 'Height', type: 'number' },
+  { id: 'quantity', label: 'Periodical Quantity', type: 'number' },
+  { id: 'impQuantity', label: 'Import Quantity', type: 'number' },
+  { id: 'expQuantity', label: 'Export Quantity', type: 'number' },
+  { id: 'finalExistence', label: 'Final Quantity', type: 'number' },
+];
+
 
 function Conveyor() {
-  /*
+  const [convs, setConvs] = useState([]);
+  const [chosenDate, setChosenDate] = useState(dayjs());
+
   useEffect(() => {
-    getAllAccounts().then((data) => {
-      setAccounts(data);
-    })
-  }, [accounts]);*/
+    if (chosenDate !== undefined) {
+      //console.log(chosenDate.toISOString());
+      getallConvStgByDate({
+        date: chosenDate.toISOString(),
+      }).then((data) => {
+        setConvs(data);
+      });
+    }
+  }, [chosenDate]);
 
   return (
     <Box >
@@ -31,7 +72,29 @@ function Conveyor() {
           mt: '20px',
         }}
       >
+        <View tableHeaders={headerCellsForm} actionFunc={createConvStg}
+          itemType='conveyor' storageType='storage' functionType='Add' />
+        <Grid container justifyContent="center">
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              views={['year', 'month']}
+              label="Choose time"
+              value={chosenDate}
+              onChange={(newValue) => {
+                setChosenDate(newValue);
+              }}
+              renderInput={(params) => <TextField {...params} helperText={null} />}
+            />
+          </LocalizationProvider>
+        </Grid>
 
+        {/* TABLE CONTENT */}
+        <Box >
+          <StandardTable
+            headCells={headerCells} data={convs}
+            deleteFunction={deleteConvStg} updateFunction={updateConvStg}
+            type='spart' storageType='storage' />
+        </Box>
       </Box>
     </Box>
   );

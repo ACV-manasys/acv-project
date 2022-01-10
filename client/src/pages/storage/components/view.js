@@ -18,7 +18,7 @@ import DatePicker from '@mui/lab/DatePicker';
 
 import StandardInput from '../../../components/StandardInput';
 
-import { createLog, getallSpart } from '../../../api';
+import { createLog, getallSpart, getallConveyor } from '../../../api';
 
 const childTitleStyle = {
   color: "#555555",
@@ -34,9 +34,19 @@ function View({ tableHeaders, actionFunc, itemType, storageType, functionType })
   const [actionDate, setActionDate] = useState();
 
   useEffect(() => {
-    getallSpart().then((spartData) => {
-      setInventory(spartData);
-    });
+    switch (itemType) {
+      case 'conveyor':
+        getallConveyor().then((convData) => {
+          setInventory(convData);
+        });
+        break;
+      default:
+        getallSpart().then((spartData) => {
+          setInventory(spartData);
+        });
+        break;
+    }
+
     switch (functionType) {
       case 'Add':
         setActionDate(new Date());
@@ -44,7 +54,7 @@ function View({ tableHeaders, actionFunc, itemType, storageType, functionType })
       default:
         break;
     }
-  }, [functionType]);
+  }, [functionType, itemType]);
 
   const handleClose = () => {
     setChosen();
@@ -184,7 +194,10 @@ function View({ tableHeaders, actionFunc, itemType, storageType, functionType })
             disablePortal
             id="itemId"
             options={inventory}
-            getOptionLabel={(option) => option.vieName + ', ' + option.specification}
+            getOptionLabel={
+              itemType === 'conveyor' ?
+                ((option) => option.machineName + ', ' + option.width + ' x ' + option.height) :
+                ((option) => option.vieName + ', ' + option.specification)}
             isOptionEqualToValue={(option, value) => option._id === value._id}
             sx={{ width: 300, mt: '10px' }}
             renderInput={(params) => <TextField {...params} label="Choose spare part" />}

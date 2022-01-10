@@ -14,7 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 import Edit from '../pages/storage/components/editItem';
-import View from '../pages/storage/components/view';
+//import View from '../pages/storage/components/view';
 
 import { createLog } from '../api';
 
