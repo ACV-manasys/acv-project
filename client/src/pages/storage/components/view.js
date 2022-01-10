@@ -96,14 +96,14 @@ function View({ tableHeaders, actionFunc, itemType, storageType, functionType })
 
     // Others
     setOpen(false);
-    //window.location.reload();
+    window.location.reload();
   };
 
   const handleSelect = (newVal) => {
     setChosen(newVal);
     let newItem = newVal;
     newItem.itemId = newVal._id;
-    delete newItem._id;
+    //delete newItem._id;
     setItem(newItem);
     //setItem((prev) => ({ ...prev, 'itemId': newVal._id }));
   }

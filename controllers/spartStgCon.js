@@ -10,19 +10,19 @@ exports.create = async (req, res) => {
     return res.status(400).send({ message: 'Missing spart s details!' });
   }
 
-  if (!req.body.actionDate) {
-    return res.status(400).send({ message: 'Missing date details!' });
-  }
+  const impQ = parseInt(req.body.impQuantity) || 0;
+  const expQ = parseInt(req.body.expQuantity) || 0;
+  const quan = parseInt(req.body.quantity) || 0;
 
   const spart = new SpartStg({
     itemId: req.body.itemId,
     vieName: req.body.vieName,
     specification: req.body.specification,
-    impQuantity: req.body.impQuantity || 0,
-    expQuantity: req.body.expQuantity || 0,
-    quantity: req.body.quantity || 0, // PERIODICAL QUANTITY
-    finalExistence: req.body.quantity + req.body.impQuantity - req.body.expQuantity,
-    actionDate: req.body.actionDate,
+    impQuantity: impQ,
+    expQuantity: expQ,
+    quantity: quan, // PERIODICAL QUANTITY
+    finalExistence: quan + impQ - expQ,
+    actionDate: req.body.actionDate || new Date(),
   });
   // Save this SpartStg to database
   spart
