@@ -123,7 +123,7 @@ function AccountsDisplay() {
                             popupState.close();
                           }}
                           variant='contained'
-                          sx={{ right: '15px', bottom: '10px' }}>
+                          sx={{ right: '15px', bottom: '10px', borderRadius: '20px', }}>
                           Yes
                         </Button>
                       </Grid>

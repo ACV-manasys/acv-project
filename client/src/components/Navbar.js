@@ -111,7 +111,7 @@ function Navbar({ active }) {
               >
                 <Typography sx={{ p: 2 }}>Do you want to log-out?</Typography>
                 <Grid container justifyContent="flex-end">
-                  <Button variant='contained' onClick={goToLogOut} sx={{ mr: '15px', mb: '10px' }}>
+                  <Button variant='contained' onClick={goToLogOut} sx={{ mr: '15px', mb: '10px', borderRadius: '20px', }}>
                     Yes
                   </Button>
                 </Grid>

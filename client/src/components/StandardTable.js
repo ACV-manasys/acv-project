@@ -14,6 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 import Edit from '../pages/storage/components/editItem';
+import View from '../pages/storage/components/view';
 
 import { createLog } from '../api';
 
@@ -23,20 +24,16 @@ function StandardTable({ headCells, data, style, deleteFunction, updateFunction,
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedRow, setSelectedRow] = useState({});
 
-  const getDataOnRow = (col, dataElemment) => {
-    switch (col) {
-      case "_id":
-        return null;
-      case "__v":
-        return null;
-      default:
-        return (
-          <TableCell key={col} align="center">
-            {typeof dataElemment === 'number'
-              ? (formatData(col, dataElemment)) : dataElemment}
-          </TableCell>
-        )
-    }
+  const getDataOnRow = (datarow) => {
+
+    let returnRow = headCells.map((col) => {
+      return (<TableCell key={col.label} align="center">
+        {typeof col.type === 'number'
+          ? (formatData(col, datarow[col.id])) : datarow[col.id]}
+      </TableCell>)
+    });
+
+    return returnRow;
   }
 
   const handleOpen = (row) => {
@@ -118,9 +115,7 @@ function StandardTable({ headCells, data, style, deleteFunction, updateFunction,
               </TableHead>
               <TableBody>
                 <TableRow key={selectedRow._id}>
-                  {Object.keys(selectedRow).map((element) => (
-                    getDataOnRow(element, selectedRow[element])
-                  ))}
+                  {getDataOnRow(selectedRow)}
                 </TableRow>
               </TableBody>
             </Table>
@@ -164,13 +159,17 @@ function StandardTable({ headCells, data, style, deleteFunction, updateFunction,
               <TableBody>
                 {data.map((row) => (
                   <TableRow key={row._id}>
-                    {Object.keys(row).map((element) => (
-                      getDataOnRow(element, row[element],)
-                    ))}
+                    {getDataOnRow(row)}
                     <TableCell key="edit" align="center" >
-                      <IconButton onClick={() => handleOpenEditTab(row)}>
-                        <EditIcon />
-                      </IconButton>
+                      {storageType === 'inventory' ? (
+                        <IconButton onClick={() => handleOpenEditTab(row)}>
+                          <EditIcon />
+                        </IconButton>
+                      ) : (
+                        <IconButton disabled>
+                          <EditIcon />
+                        </IconButton>
+                      )}
                     </TableCell>
                     <TableCell key="delete" align="center">
                       <IconButton onClick={() => handleOpen(row)}>

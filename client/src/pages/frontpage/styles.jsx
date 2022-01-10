@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbarButton: {
     marginRight: 12,
+    borderRadius: '20px',
   },
   footerSectionBox: {
     padding: 10,

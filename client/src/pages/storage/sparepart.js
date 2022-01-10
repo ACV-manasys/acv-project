@@ -15,17 +15,25 @@ import storageRoutes from './components/routes';
 import StandardTable from '../../components/StandardTable';
 import View from './components/view';
 
-import { getallSpartStgByDate, deleteSpartStg, updateSpartStg } from '../../api';
+import { getallSpartStgByDate, deleteSpartStg, updateSpartStg, createSpartStg } from '../../api';
 import * as dayjs from 'dayjs';
 
 //TABLE HEADS =====
-const headerCells = [
-  { id: 'vieName', label: 'Name', required: true, type: 'text' },
-  { id: 'spec', label: 'Spec', required: true, type: 'text' },
-  { id: 'periodicalExistence', label: 'Periodical Quantity', required: true, type: 'number' },
+const headerCellsForm = [
+  { id: 'vieName', label: 'Name', required: true, type: 'text', default: true, },
+  { id: 'specification', label: 'Spec', required: true, type: 'text', default: true, },
+  { id: 'quantity', label: 'Periodical Quantity', required: true, default: true, },
   { id: 'impQuantity', label: 'Import Quantity', required: true, type: 'number' },
   { id: 'expQuantity', label: 'Export Quantity', required: true, type: 'number' },
-  { id: 'finalExistence', label: 'Final Quantity', required: true, type: 'number' },
+];
+
+const headerCells = [
+  { id: 'vieName', label: 'Name', type: 'text' },
+  { id: 'specification', label: 'Spec', type: 'text' },
+  { id: 'quantity', label: 'Periodical Quantity', },
+  { id: 'impQuantity', label: 'Import Quantity', type: 'number' },
+  { id: 'expQuantity', label: 'Export Quantity', type: 'number' },
+  { id: 'finalExistence', label: 'Final Quantity', type: 'number' },
 ];
 
 function Sparepart() {
@@ -57,7 +65,7 @@ function Sparepart() {
           mt: '10px',
         }}
       >
-        <View tableHeaders={headerCells} createFunc={headerCells}
+        <View tableHeaders={headerCellsForm} actionFunc={createSpartStg}
           itemType='spart' storageType='storage' functionType='Add' />
         <Grid container justifyContent="center">
           <LocalizationProvider dateAdapter={AdapterDateFns}>

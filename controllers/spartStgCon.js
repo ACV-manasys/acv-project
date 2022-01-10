@@ -6,22 +6,22 @@ const supporter = require('./supporter');
 // Create a new SpartStg ===================================================
 exports.create = async (req, res) => {
 
-  if (!req.body.spartId || !req.body.vieName || !req.body.spec) {
+  if (!req.body.itemId || !req.body.vieName || !req.body.specification) {
     return res.status(400).send({ message: 'Missing spart s details!' });
   }
 
-  if (!req.body.month || !req.body.year) {
+  if (!req.body.actionDate) {
     return res.status(400).send({ message: 'Missing date details!' });
   }
 
   const spart = new SpartStg({
-    spartId: req.body.spartId,
+    itemId: req.body.itemId,
     vieName: req.body.vieName,
-    spec: req.body.spec,
+    specification: req.body.specification,
     impQuantity: req.body.impQuantity || 0,
     expQuantity: req.body.expQuantity || 0,
-    periodicalExistence: req.body.periodicalExistence || 0,
-    finalExistence: req.body.finalExistence || 0,
+    quantity: req.body.quantity || 0, // PERIODICAL QUANTITY
+    finalExistence: req.body.quantity + req.body.impQuantity - req.body.expQuantity,
     actionDate: req.body.actionDate,
   });
   // Save this SpartStg to database
@@ -29,9 +29,9 @@ exports.create = async (req, res) => {
     .save()
     .then((data) => {
       // DO UPDATE TO INVENTORY
-      Spart.findOne({ _id: data.spartId }).then(async (found) => {
+      Spart.findOne({ _id: data.itemId }).then(async (found) => {
         if (found) {
-          found.quantity = found.quantity + data.impQuantity - expQuantity;
+          found.quantity = found.quantity + data.impQuantity - data.expQuantity;
           await found.save();
         }
       });

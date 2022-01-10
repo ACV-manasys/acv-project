@@ -212,6 +212,7 @@ function View({ type, rawNote }) {
               mr: '15px', mb: '10px',
               bgcolor: colorBoard.darkGrey,
               color: colorBoard.palletebg,
+              borderRadius: '20px',
             }}>
             Done
           </Button>

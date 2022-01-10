@@ -164,8 +164,8 @@ function Form({ type, rawData, iconCol }) {
           </FormControl>
         </DialogContent>
         <DialogActions sx={{ mb: '8px', mr: '10px' }}>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit} variant='contained'>Save</Button>
+          <Button onClick={handleClose} sx={{ borderRadius: '20px', }}>Cancel</Button>
+          <Button onClick={handleSubmit} variant='contained' sx={{ borderRadius: '20px', }}>Save</Button>
         </DialogActions>
       </Dialog>
     </Box>

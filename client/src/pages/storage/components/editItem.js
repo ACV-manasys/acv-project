@@ -106,7 +106,7 @@ function EditTab({ open, setOpen, tableHeaders, updateFunction, rawitem, itemTyp
               setTabContent(element)
             ))
           }
-          <Button sx={{ mt: '15px', mb: '30px', width: '150px' }} variant="contained" onClick={handleUpdate}>Update</Button>
+          <Button sx={{ mt: '15px', mb: '30px', width: '150px', borderRadius: '20px' }} variant="contained" onClick={handleUpdate}>Update</Button>
         </Box>
       }
     </Dialog>

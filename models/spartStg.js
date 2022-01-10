@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const SpartStgSchema = new mongoose.Schema(
   {
-    spartId: { //Id of the spart from inventory
+    itemId: { //Id of the spart from inventory
       type: String,
       required: true,
     },
@@ -10,7 +10,7 @@ const SpartStgSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    spec: {
+    specification: {
       type: String,
       required: true,
     },
@@ -22,7 +22,7 @@ const SpartStgSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    periodicalExistence: {
+    quantity: { // periodical quantity
       type: Number,
       required: true,
     },

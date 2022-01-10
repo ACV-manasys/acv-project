@@ -119,7 +119,7 @@ function New({ tableHeaders, createFunc, itemType, storageType }) {
               setTabContent(element)
             ))
           }
-          <Button sx={{ mb: '20px', mt: '20px', width: '150px' }} variant="contained" onClick={handleAdd}>Add</Button>
+          <Button sx={{ mb: '20px', mt: '20px', width: '150px', borderRadius: '20px', }} variant="contained" onClick={handleAdd}>Add</Button>
         </Box>
       </Dialog>
     </div>
