@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Grid,
-  TextField,
-} from '@mui/material';
-
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DatePicker from '@mui/lab/DatePicker';
+import { Box } from '@mui/material';
 
 import CustomTabs from '../../components/CustomTabs';
 import storageRoutes from './components/routes';
 import StandardTable from '../../components/StandardTable';
 import View from './components/view';
+import ChooseDate from '../../components/ChooseDate';
 
 import { getallSpartStgByDate, deleteSpartStg, updateSpartStg, createSpartStg } from '../../api';
 import * as dayjs from 'dayjs';
@@ -66,19 +59,7 @@ function Sparepart() {
       >
         <View tableHeaders={headerCellsForm} actionFunc={createSpartStg}
           itemType='spart' storageType='storage' functionType='Add' />
-        <Grid container justifyContent="center">
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              views={['year', 'month']}
-              label="Choose time"
-              value={chosenDate}
-              onChange={(newValue) => {
-                setChosenDate(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} helperText={null} />}
-            />
-          </LocalizationProvider>
-        </Grid>
+        <ChooseDate chosenDate={chosenDate} setChosenDate={setChosenDate} />
 
         {/* TABLE CONTENT */}
         <Box >
