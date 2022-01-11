@@ -74,7 +74,7 @@ passport.use(
           newUser.username = username;
           newUser.password = newUser.hashPassword(password);
           newUser.email = req.body.email.toLowerCase();
-          newUser.activated = true;
+          newUser.activated = false;
 
           newUser.save();
           return done(null, newUser);

@@ -1,7 +1,8 @@
 const axios = require('axios');
+const baseURL = (process.env.NODE_ENV === 'production' ? 'https://acv-manage-system.herokuapp.com' : 'http://localhost:5000');
 
 const instance = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: baseURL,
   headers: {
     Authorization: 'Bearer ' + localStorage.getItem('token-myapp'),
   },

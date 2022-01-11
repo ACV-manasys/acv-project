@@ -53,14 +53,9 @@ function Frontpage() {
   function styleLine(title, content) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center">
-        <Stack spacing={1} direction="row">
-          <Typography variant="button" align="center" sx={{ fontSize: '22px', fontWeight: 500, color: 'black' }}>
-            {title}
-          </Typography>
-          <Typography variant="button" align="center" sx={{ fontSize: '20px', fontWeight: 450, color: 'black' }}>
-            {content}
-          </Typography>
-        </Stack>
+        <Typography variant="button" align="center" sx={{ fontSize: '22px', fontWeight: 500, color: 'black' }}>
+          {title} {content}
+        </Typography>
       </Box>
     )
   }
@@ -149,7 +144,7 @@ function Frontpage() {
 
 
       {/* About us section */}
-      <Box sx={{ gap: 2, mr: "20px", ml: "20px", mt: "20px", mb: "20px" }}>
+      <Box sx={{ gap: 2, mt: "20px", mb: "20px" }}>
         <Typography
           variant="h4"
           align="center"
