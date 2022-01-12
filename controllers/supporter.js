@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const mongoose = require('mongoose');
 
 // Update a data identified by the data's Id =====================================
 function updateData(controller, req, res) {
@@ -135,6 +136,51 @@ async function findAllByDate(controller, req, res) {
     });
 }
 
+// Delete storage item and re-update inventory item
+async function deleteInStorage(controller, inventory, req, res) {
+  const id = req.params.id;
+
+  await controller.findById(id).then(async (data) => {
+    if (!data) {
+      // If no id found -> return error message
+      return res
+        .status(404)
+        .send({ message: 'No data found to be deleted!' });
+    }
+
+    let itemId = mongoose.Types.ObjectId(data.itemId);
+    //console.log(itemId);
+
+    // Search in inventory
+    await inventory.findById(itemId).then(async (found) => {
+      //console.log(found);
+      if (found) {
+        found.quantity = found.quantity - data.impQuantity + data.expQuantity;
+        //console.log(found);
+
+        await found.save();
+      }
+    });
+  })
+    // Catching error when accessing the database
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send({ message: 'Error accessing the database!' });
+    });
+
+  controller
+    .findByIdAndDelete(id)
+    .then(() => {
+      // Else, the data should be deleted successfully
+      res.status(200).send({ message: 'Data is deleted successfully!' });
+    })
+    // Catching error when accessing the database
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send({ message: 'Error accessing the database!' });
+    });
+}
+
 module.exports = {
   updateData,
   deleteData,
@@ -142,4 +188,5 @@ module.exports = {
   findData,
   displayNote,
   findAllByDate,
+  deleteInStorage,
 };

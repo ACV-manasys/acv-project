@@ -14,9 +14,22 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 580,
     mb: '5px',
   },
-  placeHolder: {
+  titleInputBlack: {
+    color: colorBoard.darkGrey,
+    fontSize: '20px',
+    fontWeight: 580,
+    mb: '5px',
+  },
+  placeHolderWhite: {
     "& input::placeholder": {
       color: colorBoard.textCol,
+      fontStyle: 'italic'
+    },
+    width: '518px',
+  },
+  placeHolderBlack: {
+    "& input::placeholder": {
+      color: colorBoard.darkGrey,
       fontStyle: 'italic'
     },
     width: '518px',
@@ -34,9 +47,15 @@ const textFieldStyle = {
 
 const menuGrid = {
   noteTags: ['Import', 'Export', 'Conveyor belts', 'Spare parts', 'Dept'],
+  unittags: [
+    'January', 'Febuary', 'March',
+    'April', 'May', 'June',
+    'July', 'August', 'September',
+    'October', 'November', 'December'
+  ],
 }
 
-export default function MakeAutoComplete({ label, name, value, setValue, type, placeholder }) {
+export default function MakeAutoComplete({ label, name, value, setValue, type, placeholder, textColBlack }) {
   const [data, setData] = useState([]);
   const [menu, setMenu] = useState([]);
 
@@ -59,6 +78,9 @@ export default function MakeAutoComplete({ label, name, value, setValue, type, p
           setData(dataList);
           //console.log(dataList);
         });
+        break;
+      case 'dept':
+        setMenu(menuGrid.unittags);
         break;
       // NOTE TAGS
       default:
@@ -94,7 +116,7 @@ export default function MakeAutoComplete({ label, name, value, setValue, type, p
 
   return (
     <FormControl margin="dense" variant="filled" sx={{ mt: '10px' }}>
-      <Typography className={classes.titleInput}>
+      <Typography className={textColBlack ? classes.titleInputBlack : classes.titleInput}>
         • {label}
       </Typography>
       <Stack spacing={3} sx={{ width: 300 }}>
@@ -121,7 +143,7 @@ export default function MakeAutoComplete({ label, name, value, setValue, type, p
                   {...params}
                   placeholder={placeholder}
                   color="lightText"
-                  classes={{ root: classes.placeHolder }}
+                  classes={{ root: classes.placeHolderWhite }}
                   sx={textFieldStyle} />}
               onChange={(e, newVal) => handleChange(newVal)}
             />
@@ -146,8 +168,8 @@ export default function MakeAutoComplete({ label, name, value, setValue, type, p
                 <TextField
                   {...params}
                   placeholder={placeholder}
-                  color="lightText"
-                  classes={{ root: classes.placeHolder }}
+                  color={textColBlack ? "darkgrey" : "lightText"}
+                  classes={{ root: textColBlack ? classes.placeHolderBlack : classes.placeHolderWhite }}
                   sx={textFieldStyle} />}
               onChange={(e, newVal) => handleChange(newVal)}
             />

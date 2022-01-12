@@ -21,12 +21,12 @@ import {
 
 //TABLE HEADS =====
 const spartHeadCells = [
-  { id: 'partNo', label: 'Part No', required: true, type: 'text' },
-  { id: 'commodity', label: 'Commodity', required: true, type: 'text' },
-  { id: 'specification', label: 'Specification', required: true, type: 'text' },
-  { id: 'vieName', label: 'Vietnamese', required: false, type: 'text' },
+  { id: 'partNo', label: 'Part No', required: false, type: 'text' },
+  { id: 'commodity', label: 'Commodity', required: false, type: 'text' },
+  { id: 'specification', label: 'Specification', required: false, type: 'text' },
+  { id: 'vieName', label: 'Vietnamese', required: true, type: 'text' },
   { id: 'price', label: 'price ($)', required: false, type: 'money', moneySign: '$' },
-  { id: 'quantity', label: 'Quantity', required: true, type: 'number' },
+  { id: 'quantity', label: 'Quantity', required: false, type: 'number' },
 ];
 
 const convHeadCells = [

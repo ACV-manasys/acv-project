@@ -14,7 +14,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 import Edit from '../pages/storage/components/editItem';
-//import View from '../pages/storage/components/view';
 
 import { createLog } from '../api';
 
@@ -28,8 +27,8 @@ function StandardTable({ headCells, data, style, deleteFunction, updateFunction,
 
     let returnRow = headCells.map((col) => {
       return (<TableCell key={col.label} align="center">
-        {typeof col.type === 'number'
-          ? (formatData(col, datarow[col.id])) : datarow[col.id]}
+        {typeof col.type === 'number' || col.type === 'money'
+          ? (formatData(col.type, datarow[col.id])) : datarow[col.id]}
       </TableCell>)
     });
 
@@ -75,11 +74,12 @@ function StandardTable({ headCells, data, style, deleteFunction, updateFunction,
     window.location.reload();
   }
 
-  const formatData = (col, dataElemment) => {
-    switch (col) {
-      case "costIn":
-      case "priceOut":
-      case "price":
+  const formatData = (type, dataElemment) => {
+    if (!dataElemment) {
+      return;
+    }
+    switch (type) {
+      case "money":
         return dataElemment.toLocaleString('en-US', {
           minimumFractionDigits: 2,
         });

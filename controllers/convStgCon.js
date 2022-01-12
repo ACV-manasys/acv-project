@@ -60,7 +60,7 @@ exports.update = (req, res) => {
 
 // Delete a ConvStg with the specified ConvStg's Id ==============================
 exports.delete = (req, res) => {
-  supporter.deleteData(ConvStg, req, res);
+  supporter.deleteInStorage(ConvStg, Conveyor, req, res);
 };
 
 

@@ -8,10 +8,10 @@ exports.create = async (req, res) => {
 
   const conveyor = new Conveyor({
     machineName: req.body.machineName,
-    width: req.body.width,
-    height: req.body.height,
-    costIn: req.body.costIn,
-    priceOut: req.body.priceOut,
+    width: req.body.width || 0,
+    height: req.body.height || 0,
+    costIn: req.body.costIn || 0,
+    priceOut: req.body.priceOut || 0,
     quantity: req.body.quantity || 0,
   });
   // Save this conveyor to database

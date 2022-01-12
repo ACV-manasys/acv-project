@@ -59,7 +59,7 @@ exports.update = (req, res) => {
 
 // Delete a SpartStg with the specified SpartStg's Id ==============================
 exports.delete = (req, res) => {
-  supporter.deleteData(SpartStg, req, res);
+  supporter.deleteInStorage(SpartStg, Spart, req, res);
 };
 
 

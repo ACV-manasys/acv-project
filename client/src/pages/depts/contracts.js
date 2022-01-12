@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { styled, } from '@mui/material/styles';
 import {
   Box,
   Button,
@@ -13,15 +12,19 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 
 import Navbar from '../../components/Navbar';
-import ChooseDate from '../../components/ChooseDate';
+//import ChooseDate from '../../components/ChooseDate';
+import MakeAutoComplete from '../../components/autocomplete';
 
-import * as dayjs from 'dayjs';
+//import * as dayjs from 'dayjs';
 import { DropzoneArea } from 'material-ui-dropzone';
 
 function Contracts() {
   const [open, setOpen] = useState(false);
-  const [chosenDate, setChosenDate] = useState(dayjs());
+  //const [chosenDate, setChosenDate] = useState(dayjs());
   const [file, setFile] = useState();
+  const [dept, setDept] = useState({
+    unit: [],
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -72,14 +75,20 @@ function Contracts() {
             <DropzoneArea
               Icon={AttachFileIcon}
               filesLimit={1}
-              dropzoneProps={{ sx: { backgroundColor: '#EEEEEE' } }}
               onChange={(file) => handleChange(file)}
+              dropzoneProps={{ sx: { backgroundColor: '#EEEEEE' } }}
               showPreviews={true}
               showPreviewsInDropzone={false}
               useChipsForPreview
               previewChipProps={{ sx: { minWidth: 180, maxWidth: 250 } }}
               previewText="Selected:"
               acceptedFiles={['.xlsx']} />
+            {/* ADD UNIT TITLES */}
+            <MakeAutoComplete
+              label='Lable Units' name='unit' textColBlack={true}
+              value={dept.unit} setValue={setDept}
+              type='dept' placeholder='Name dept columns as ...'
+            />
           </DialogContent>
           <DialogActions sx={{ mr: '20px', mb: '15px' }}>
             <Button onClick={handleClose}>Cancel</Button>
@@ -89,8 +98,9 @@ function Contracts() {
           </DialogActions>
         </Dialog>
 
-        {/* CHOOSING DATE BUTTON */}
+        {/* CHOOSING DATE BUTTON 
         <ChooseDate chosenDate={chosenDate} setChosenDate={setChosenDate} />
+        */}
       </Box>
     </Box>
   );

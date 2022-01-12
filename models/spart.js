@@ -4,15 +4,15 @@ const SpartSchema = new mongoose.Schema(
   {
     partNo: {
       type: String,
-      required: true,
+      required: false,
     },
     commodity: {
       type: String,
-      required: true,
+      required: false,
     },
     specification: {
       type: String,
-      required: true,
+      required: false,
     },
     vieName: {
       type: String,
