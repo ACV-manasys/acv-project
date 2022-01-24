@@ -61,7 +61,7 @@ function View({ type, rawNote }) {
         break;
     }
     setOpen(false);
-    window.location.reload();
+    window.location.reload(true);
   };
 
   const updateImportance = () => {

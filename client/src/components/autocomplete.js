@@ -41,10 +41,6 @@ const chipStyle = {
   fontWeight: 550,
 }
 
-const textFieldStyle = {
-  input: { color: colorBoard.textCol },
-}
-
 const menuGrid = {
   noteTags: ['Import', 'Export', 'Conveyor belts', 'Spare parts', 'Dept'],
   unittags: [
@@ -141,10 +137,11 @@ export default function MakeAutoComplete({ label, name, value, setValue, type, p
               renderInput={(params) =>
                 <TextField
                   {...params}
+                  fullWidth
                   placeholder={placeholder}
                   color="lightText"
                   classes={{ root: classes.placeHolderWhite }}
-                  sx={textFieldStyle} />}
+                  sx={{ input: { color: colorBoard.textCol } }} />}
               onChange={(e, newVal) => handleChange(newVal)}
             />
           ) : (
@@ -170,7 +167,7 @@ export default function MakeAutoComplete({ label, name, value, setValue, type, p
                   placeholder={placeholder}
                   color={textColBlack ? "darkgrey" : "lightText"}
                   classes={{ root: textColBlack ? classes.placeHolderBlack : classes.placeHolderWhite }}
-                  sx={textFieldStyle} />}
+                  sx={{ input: { color: colorBoard.textCol } }} />}
               onChange={(e, newVal) => handleChange(newVal)}
             />
           )}
