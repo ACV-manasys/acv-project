@@ -39,6 +39,10 @@ const ConvStgSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    note: {
+      type: String,
+      required: false,
+    }
   }
 );
 

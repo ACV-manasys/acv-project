@@ -24,6 +24,7 @@ exports.create = async (req, res) => {
     quantity: quan, // PERIODICAL QUANTITY
     finalExistence: quan + impQ - expQ,
     actionDate: req.body.actionDate || new Date(),
+    note: req.body.note || '',
   });
   // Save this ConvStg to database
   conv

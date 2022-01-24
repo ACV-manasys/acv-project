@@ -11,7 +11,7 @@ import { getallSpartStgByDate, deleteSpartStg, updateSpartStg, createSpartStg } 
 import * as dayjs from 'dayjs';
 
 //TABLE HEADS =====
-const headerCellsForm = [
+const headerCells = [
   { id: 'vieName', label: 'Name', required: true, type: 'text', default: true, },
   { id: 'specification', label: 'Spec', required: true, type: 'text', default: true, },
   { id: 'quantity', label: 'Periodical Quantity', required: true, type: 'number', default: true, },
@@ -19,6 +19,7 @@ const headerCellsForm = [
   { id: 'expQuantity', label: 'Export Quantity', required: true, type: 'number' },
 ];
 
+/*
 const headerCells = [
   { id: 'vieName', label: 'Name', type: 'text' },
   { id: 'specification', label: 'Spec', type: 'text' },
@@ -27,6 +28,7 @@ const headerCells = [
   { id: 'expQuantity', label: 'Export Quantity', type: 'number' },
   { id: 'finalExistence', label: 'Final Quantity', type: 'number' },
 ];
+*/
 
 function Sparepart() {
   const [sparts, setSparts] = useState([]);
@@ -57,7 +59,7 @@ function Sparepart() {
           mt: '10px',
         }}
       >
-        <View tableHeaders={headerCellsForm} actionFunc={createSpartStg}
+        <View tableHeaders={headerCells} actionFunc={createSpartStg}
           itemType='spart' storageType='storage' functionType='Add' />
         <ChooseDate chosenDate={chosenDate} setChosenDate={setChosenDate} />
 
