@@ -50,7 +50,7 @@ function Layout({ type, noteList }) {
 
   const handleDelete = (id) => {
     deleteNote(id);
-    window.location.reload(true);
+    //window.location.reload(true);
   }
 
   const showVisible = (names) => {

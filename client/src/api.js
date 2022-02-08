@@ -276,7 +276,7 @@ export function updateNote(note) {
 
   let setReqBody = note;
   delete setReqBody._id;
-  console.log(setReqBody);
+  //console.log(setReqBody);
   return instance.put(endpoint, setReqBody, config).then((res) => res.data);
 }
 

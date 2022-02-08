@@ -18,7 +18,7 @@ function Note({ type }) {
       setNotes(data);
       setLoading(false);
     });
-  }, []);
+  }, [notes]);
 
   return (
     <Box >

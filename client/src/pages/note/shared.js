@@ -19,7 +19,7 @@ function Shared() {
       setNotes(data);
       setLoading(false);
     });
-  }, []);
+  }, [notes]);
 
   return (
     <Box >
