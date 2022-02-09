@@ -96,7 +96,6 @@ function View({ tableHeaders, actionFunc, itemType, storageType, functionType })
 
     // Others
     setOpen(false);
-    window.location.reload();
   };
 
   const handleSelect = (newVal) => {

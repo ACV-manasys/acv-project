@@ -53,7 +53,7 @@ function Conveyor() {
         setConvs(data);
       });
     }
-  }, [chosenDate]);
+  }, [chosenDate, convs]);
 
   return (
     <Box >

@@ -43,7 +43,7 @@ function Sparepart() {
         setSparts(data);
       });
     }
-  }, [chosenDate]);
+  }, [chosenDate, sparts]);
 
   return (
     <Box >

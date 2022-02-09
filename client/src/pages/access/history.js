@@ -38,17 +38,23 @@ const dateTimeStyle = {
 function HistoryLog() {
 
   const [log, setLog] = useState([]);
+  const [filtered, setFiltered] = useState([]);
   const [open, setOpen] = useState(false); // DIALOG CONTROL FOR FILTER
-  const [field, setField] = useState(false);
+  const [field, setField] = useState(false); // FILTER BOX
   const [isLoading, setLoading] = useState(true);
 
 
   useEffect(() => {
     getallLogs().then((data) => {
       setLog(data);
+      setFiltered(data);
       setLoading(false);
     })
   }, []);
+
+  useEffect(() => {
+    // Refresh when filtered list changes
+  }, [filtered]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -66,8 +72,27 @@ function HistoryLog() {
   };
 
   const filterLog = () => {
-    // do something
+    var actList;
+    // changes filtered
+    switch (field) {
+      case 'Add in inventory/storage':
+        actList = log.filter(act => act.code === 0);
+        break;
+      case 'Remove from inventory/storage':
+        actList = log.filter(act => act.code === 1);
+        break;
+      case 'Edit':
+        actList = log.filter(act => act.code === 4);
+        break;
+      case 'Access Management':
+        actList = log.filter(act => act.code === 5 || act.code === 6);
+        break;
+      default:
+        actList = log;
+        break;
+    }
 
+    setFiltered(actList);
     setOpen(false);
   };
 
@@ -75,15 +100,15 @@ function HistoryLog() {
     switch (activityCode) {
       // INVENTORY ACTIVITIES
       case 0:
-        return (<AddCircleIcon />); //ADD NEW SPART/CONV IN INVENTORY
+        return (<AddCircleIcon />); //ADD NEW SPART/CONV IN INVENTORY/STORAGE
       case 1:
-        return (<RemoveCircleIcon />); //DELETE SPART/CONV FROM INVENTORY
+        return (<RemoveCircleIcon />); //DELETE SPART/CONV FROM INVENTORY/STORAGE
 
-      // // SPART/CONV STORAGE ACTIVITIES
+      // // SPART/CONV STORAGE ACTIVITIES - DISCRETE !!! NEED TO CHANGE
       case 2:
-        return (<FileDownloadIcon />); //IMPORT SPART/CONV INTO STORAGE
+        return (<FileDownloadIcon />); //
       case 3:
-        return (<FileUploadIcon />); //EXPORT SPART/CONV FROM STORAGE
+        return (<FileUploadIcon />); //
       case 4:
         return (<EditIcon />); //EDIT
 
@@ -94,7 +119,7 @@ function HistoryLog() {
         return (<ToggleOffIcon />); //DEACTIVATE AN ACCOUNT
 
       default:
-        return (<DescriptionIcon />); //IMPORT CONVEYOR IN STORAGE
+        return (<DescriptionIcon />); //
     }
   }
 
@@ -166,7 +191,7 @@ function HistoryLog() {
       >
         <List sx={{ width: '100%', minWidth: 450 }}>
           {isLoading ? (<Loading />) : null}
-          {log.map((i) => (
+          {filtered.map((i) => (
             <ListItem key={i._id}>
               <ListItemAvatar>
                 <Avatar>
@@ -191,9 +216,8 @@ function HistoryLog() {
 }
 
 const logFields = [
-  'Add/Remove in inventory',
-  'Import',
-  'Export',
+  'Add in inventory/storage',
+  'Remove from inventory/storage',
   'Edit',
   'Access Management',
 ];

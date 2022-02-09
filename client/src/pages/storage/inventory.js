@@ -69,7 +69,7 @@ function Inventory() {
     getallConveyor().then((convData) => {
       setConvs(convData);
     });
-  }, []);
+  }, [sparts, convs]);
 
   return (
     <Box >

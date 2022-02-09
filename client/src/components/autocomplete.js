@@ -137,11 +137,10 @@ export default function MakeAutoComplete({ label, name, value, setValue, type, p
               renderInput={(params) =>
                 <TextField
                   {...params}
-                  fullWidth
                   placeholder={placeholder}
                   color="lightText"
                   classes={{ root: classes.placeHolderWhite }}
-                  sx={{ input: { color: colorBoard.textCol } }} />}
+                  sx={{ width: '100%', input: { color: colorBoard.textCol } }} />}
               onChange={(e, newVal) => handleChange(newVal)}
             />
           ) : (
@@ -167,7 +166,7 @@ export default function MakeAutoComplete({ label, name, value, setValue, type, p
                   placeholder={placeholder}
                   color={textColBlack ? "darkgrey" : "lightText"}
                   classes={{ root: textColBlack ? classes.placeHolderBlack : classes.placeHolderWhite }}
-                  sx={{ input: { color: colorBoard.textCol } }} />}
+                  sx={{ width: '100%', input: { color: colorBoard.textCol } }} />}
               onChange={(e, newVal) => handleChange(newVal)}
             />
           )}

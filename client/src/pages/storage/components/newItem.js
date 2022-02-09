@@ -52,7 +52,6 @@ function New({ tableHeaders, createFunc, itemType, storageType }) {
 
     // Others
     setOpen(false);
-    window.location.reload();
   };
 
   const setTabContent = (element) => {

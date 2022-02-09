@@ -71,7 +71,6 @@ function StandardTable({ headCells, data, style, deleteFunction, updateFunction,
     // Update Log
     createLog(recordLog);
     setOpen(false);
-    window.location.reload();
   }
 
   const formatData = (type, dataElemment) => {

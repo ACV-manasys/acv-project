@@ -48,7 +48,6 @@ function EditTab({ open, setOpen, tableHeaders, updateFunction, rawitem, itemTyp
     // Update Log
     createLog(recordLog);
     setOpen(false);
-    window.location.reload();
   };
 
   const setTabContent = (element) => {
