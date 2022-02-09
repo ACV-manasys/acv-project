@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from '@mui/material';
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import AddIcon from '@mui/icons-material/Add';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 
 import Navbar from '../../components/Navbar';
@@ -58,7 +58,7 @@ function Contracts() {
       >
 
         {/* FIELD TO IMPORT XLSX FILE */}
-        <Button sx={{ mb: '30px' }} variant="contained" onClick={handleClickOpen} endIcon={<ArrowDropDownIcon />}>
+        <Button sx={{ mb: '30px' }} variant="contained" onClick={handleClickOpen} endIcon={<AddIcon />}>
           Import excel file
         </Button>
         <Dialog

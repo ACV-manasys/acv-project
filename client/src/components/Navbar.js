@@ -33,32 +33,32 @@ function Navbar({ active }) {
   const titles = [
     {
       text: 'Home',
-      content: '🍀 WELCOME BACK, ' + userData.name + ' 🍀',
+      content: 'WELCOME BACK, ' + userData.name,
       helmetTitle: 'myACV | Home',
     },
     {
       text: 'Storage',
-      content: '🍀 MANAGE STORAGE 🍀',
+      content: 'MANAGE STORAGE',
       helmetTitle: 'myACV | Storage',
     },
     {
       text: 'Contracts',
-      content: '🍀 MANAGE DEBTS 🍀',
+      content: 'MANAGE DEBTS',
       helmetTitle: 'myACV | Depts',
     },
     {
       text: 'Note',
-      content: '🍀 NOTES 🍀',
+      content: 'NOTES',
       helmetTitle: 'myACV | Notes',
     },
     {
       text: 'Access',
-      content: '🍀 MANAGE ACCESS 🍀',
+      content: 'MANAGE ACCESS',
       helmetTitle: 'myACV | Access',
     },
     {
       text: 'Settings',
-      content: '🍀 SETTINGS 🍀',
+      content: 'SETTINGS',
       helmetTitle: 'myACV | Settings',
     },
   ];

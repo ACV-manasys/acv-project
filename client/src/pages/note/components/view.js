@@ -22,9 +22,6 @@ import colorBoard from './colorBoard';
 import MakeAutoComplete from '../../../components/autocomplete';
 
 const useStyles = makeStyles(theme => ({
-  contentInput: {
-    color: colorBoard.textCol,
-  },
   titleInput: {
     color: colorBoard.textCol,
     fontSize: '20px',
@@ -106,7 +103,8 @@ function View({ type, rawNote }) {
         setTitle('VIEW');
         break;
     }
-  }, [rawNote, type]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Box
@@ -160,7 +158,7 @@ function View({ type, rawNote }) {
                 color="lightText"
                 defaultValue={note.title}
                 sx={{ width: '100%' }}
-                InputProps={{ className: classes.titleInput, }}
+                InputProps={{ style: { color: colorBoard.textCol, fontSize: '20px', fontWeight: 580, } }}
                 onChange={(e) => {
                   setNote((prev) => ({ ...prev, title: e.target.value }));
                 }}
@@ -175,9 +173,7 @@ function View({ type, rawNote }) {
                 rows={4}
                 fullWidth
                 defaultValue={note.content}
-                InputProps={{
-                  className: classes.contentInput,
-                }}
+                InputProps={{ style: { color: colorBoard.textCol } }}
                 onChange={(e) => {
                   setNote((prev) => ({ ...prev, content: e.target.value }));
                 }}
